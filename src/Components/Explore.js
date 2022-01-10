@@ -136,13 +136,24 @@ const Explore = () => {
 					let marker = markers[id];
 					if (!marker) {
 						const el = createDonutChart(props);
+
+						const popup = new mapboxgl.Popup({
+							offset: 25,
+						}).setText(
+							'Construction on the Washington Monument began in 1848.'
+						);
+
 						marker = markers[id] = new mapboxgl.Marker({
 							element: el,
-						}).setLngLat(coords);
+						})
+							.setLngLat(coords)
+							.setPopup(popup);
+
 						marker.getElement().addEventListener('click', () => {
 							alert('Click Me');
 						});
 					}
+
 					newMarkers[id] = marker;
 
 					if (!markersOnScreen[id]) {
