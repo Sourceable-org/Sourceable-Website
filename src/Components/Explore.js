@@ -89,6 +89,7 @@ const Explore = () => {
 					'circle-radius': 12,
 				},
 			});
+
 			map.current.addLayer({
 				id: 'earthquake_label',
 				type: 'symbol',
@@ -138,14 +139,22 @@ const Explore = () => {
 						marker = markers[id] = new mapboxgl.Marker({
 							element: el,
 						}).setLngLat(coords);
+						marker.getElement().addEventListener('click', () => {
+							alert('Click Me');
+						});
 					}
 					newMarkers[id] = marker;
 
-					if (!markersOnScreen[id]) marker.addTo(map.current);
+					if (!markersOnScreen[id]) {
+						marker.addTo(map.current);
+					}
 				}
+
 				// for every marker we've added previously, remove those that are no longer visible
 				for (const id in markersOnScreen) {
-					if (!newMarkers[id]) markersOnScreen[id].remove();
+					if (!newMarkers[id]) {
+						markersOnScreen[id].remove();
+					}
 				}
 				markersOnScreen = newMarkers;
 			}
@@ -222,7 +231,7 @@ ${total.toLocaleString()}
 				r + r0 * y0
 			}" fill="${color}" />`;
 		}
-	});
+	}, []);
 
 	return (
 		<div>
