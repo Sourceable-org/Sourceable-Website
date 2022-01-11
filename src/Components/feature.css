@@ -1,0 +1,144 @@
+.containerFeature{
+    max-width: 100%;
+    position: relative;
+}
+
+.feature-box{
+    width: 100%;
+    height: 150vh;
+    background-color:black ;
+    /* border: 1px solid red; */
+}
+
+.feature-box > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: auto;
+    padding: 8vmax 0;
+}
+.feature-box .box-item{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 2vmax;
+    margin: 0 2vmin;
+    width: 33%;
+    height: 60%;
+    transition: all 0.5s;
+}
+
+.feature-box .box-item:hover{
+    transform: translateY(-1vmax);
+    border: 1px solid rgb(228, 223, 223);
+    border-radius: 5px;
+}
+
+.feature-box .box-item > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.feature-box .box-item > div>svg{
+    margin-right: 1vmax;
+}
+.feature-box .box-item > div>h5{
+   font-family: "Roboto";
+}
+.feature-box .box-item > p{
+    font-family:fantasy;
+    margin-top: 2.6vmax;
+    margin-bottom: 0;
+}
+
+.above{
+    height: 100vh;
+    /* the below three line makes divs(.feature-box and .above) ovelapping */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    margin-top: 60vh;
+    background: white;
+    border-radius: 50% 50% 0% 0%/100% 100% 0% 0%;
+    /* border: 2px solid red; */
+    width: 100%;
+}
+
+.above>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    /* border: 1px solid green; */
+}
+
+.above>div .first{
+    /* background-color: tomato; */
+   padding-top: 15vh;
+}
+.above>div .first >div{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.above>div .first >div>img{
+    width: 8vw;
+}
+.above>div .first >div>h1{
+   font-family: "Roboto";
+}
+
+
+.above>div .second{
+    /* background-color: turquoise; */
+    display: flex;
+}
+
+
+.above>div .second > .left{
+    width: 50%;
+    /* background-color: violet; */
+}
+
+.above>div .second > .right{
+    width: 50%;
+    /* background-color: rgb(130, 189, 238); */
+}
+
+.box-item-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: normal;
+    padding: 9%;
+    /* background-color: rgb(199, 28, 28); */
+}
+.box-item-right>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.box-item-right>div>h5{
+    margin: 1vmax 0;
+    font-family: "Roboto";
+}
+
+.box-item-right>p{
+    font-family: cursive;
+    color: rgba(0, 0, 0, 0.637);
+}
+
+.extra{
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+}

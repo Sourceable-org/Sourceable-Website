@@ -4,7 +4,7 @@ const City = () => {
     return (
         <div className='cityPage'>
             <h1>Your world is
-                safer with Citizen.
+                safer with Sourcable.
             </h1>
         </div>
     )

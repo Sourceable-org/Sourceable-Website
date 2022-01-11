@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500&display=swap');
+.testimonialSection{
+    background: #C02425;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F0CB35, #C02425);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F0CB35, #C02425); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    height: 70vh;
+    max-width: 100%;
+    margin-bottom: 2vmax;
+   
+    color: white;
+  
+}
+
+.testimonialSection p {
+    font-family: 'Baloo Bhaijaan 2', cursive;
+}
+
+  .testimonialSection {
+    align-items: center;
+    display: grid;
+    height: 50vh;
+    font-family: system-ui;
+    justify-content: center;
+  }
+  .carousel__list {
+    align-items: center;
+    display: grid;
+    grid-row-gap: 1.25rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    max-width: 40rem;
+    overflow: hidden;
+    padding: 1rem 2rem;
+    list-style-type: none;
+  }
+  .carousel__item {
+    grid-column: 1;
+    grid-row: 1;
+    line-height: 1.2;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .carousel__item.active {
+    transform: translateX(0);
+  }
+  .carousel__item.left {
+    transform: translateX(-110%);
+  }
+  .carousel__item.right {
+    transform: translateX(110%);
+  }
+  .carousel__indicator {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+    grid-row: 2;
+    justify-self: center;
+  }
+  .carousel__dot {
+    background-color: white;
+    border-radius: 50%;
+    border: 0.0625rem solid #696a6b;
+    display: block;
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+  .carousel__dot.active {
+    background-color: #696a6b;
+  }
+  .carousel__citation {
+    display: block;
+    font-size: 0.875rem;
+    font-style: normal;
+    margin-bottom: 1.25rem;
+  }
+  .carousel__name {
+    display: block;
+    font-style: normal;
+    font-weight: 600;
+  }
+  .carousel__quote {
+    font-style: italic;
+    line-height: 1.5;
+  }
+  

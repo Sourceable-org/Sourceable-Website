@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500&display=swap');
+.main-div{
+    position: relative;
+}
+.moreFeaturePage{
+    background: url('../images/more.jpg');
+    max-width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+   
+   
+}
+
+.make-curve{
+    border-radius: 50% 50% 0 0/ 100% 100% 0 0;
+}
+
+.info-box{
+    width: 100%;
+    background: rgba(0, 0, 0, 0.819);
+    height: 70vh;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    margin-top: 90vh;
+}
+/* 
+.top-shadow{
+    filter: blur(8px);
+} */
+
+
+.info-box >div{
+    max-width: 100%;
+    z-index: 22;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.box-item-info-box{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2vmax;
+    color: white;
+    padding: 1vmax;
+    /* border: 1px solid red; */
+}
+.box-item-info-box > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box-item-info-box > div > svg{
+    margin-right: 1vmax;
+  }
+  
+.box-item-info-box > div > h5{
+  font-family: "Roboto";
+  font-size: 2vmax;
+}
+
+
+.box-item-info-box > p{
+    margin-top: 1vmax;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+    padding: 0 4.1vmax;
+    color: rgb(196, 192, 192);
+    font-size: 1.3vmax;
+}
+
+.help{
+    background-color: white;
+    width: 100%;
+    height: 60vh;
+}
