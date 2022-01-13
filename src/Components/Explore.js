@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import earthquake_json_data from './Data.js';
+import MediaCard from './MediaCard.js';
 
 mapboxgl.accessToken =
 	'pk.eyJ1IjoiYWZhYW4wMDciLCJhIjoiY2t5NXBxZmduMG81ZjJ4b25mbjd2aW8yOSJ9.yxrkp9nmvfPFHq1aXPEIeQ';
@@ -11,6 +12,7 @@ const Explore = () => {
 	const [lng, setLng] = useState(-70.9);
 	const [lat, setLat] = useState(42.35);
 	const [zoom, setZoom] = useState(9);
+	const [showCard, setShowCard] = useState(true);
 
 	useEffect(() => {
 		if (map.current) return; // initialize map only once
@@ -136,18 +138,9 @@ const Explore = () => {
 					let marker = markers[id];
 					if (!marker) {
 						const el = createDonutChart(props);
-
-						const popup = new mapboxgl.Popup({
-							offset: 25,
-						}).setText(
-							'Construction on the Washington Monument began in 1848.'
-						);
-
 						marker = markers[id] = new mapboxgl.Marker({
 							element: el,
-						})
-							.setLngLat(coords)
-							.setPopup(popup);
+						}).setLngLat(coords);
 
 						marker.getElement().addEventListener('click', () => {
 							alert('Click Me');
@@ -244,11 +237,20 @@ ${total.toLocaleString()}
 		}
 	}, []);
 
+	const displayCard = () => {
+		if (showCard === true) {
+			return <MediaCard />;
+		}
+
+		return null;
+	};
+
 	return (
 		<div>
 			Explore
 			<div>
 				<div ref={mapContainer} className='map-container' />
+				{displayCard()}
 			</div>
 		</div>
 	);
