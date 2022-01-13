@@ -10,10 +10,10 @@ mapboxgl.accessToken =
 const Explore = () => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
+	const [showCard, setShowCard] = useState(false);
 	const [lng, setLng] = useState(-70.9);
 	const [lat, setLat] = useState(42.35);
 	const [zoom, setZoom] = useState(9);
-	const [showCard, setShowCard] = useState(false);
 
 	useEffect(() => {
 		if (map.current) return; // initialize map only once
@@ -144,9 +144,7 @@ const Explore = () => {
 						}).setLngLat(coords);
 
 						marker.getElement().addEventListener('click', () => {
-							alert('Before');
 							setShowCard(!showCard);
-							alert('After');
 						});
 					}
 
@@ -244,7 +242,7 @@ ${total.toLocaleString()}
 		if (showCard === true) {
 			return (
 				<div className='mgl-map-overlay'>
-					<MediaCard />
+					<MediaCard setShowCard={setShowCard} />
 				</div>
 			);
 		}

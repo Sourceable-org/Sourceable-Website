@@ -5,12 +5,19 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const MediaCard = () => {
+const MediaCard = ({ setShowCard }) => {
 	const VIDEO_URL =
 		'https://cerosetenta.uniandes.edu.co/especiales/violencia-policial/videos/_0610.mp4';
 
+	const closeCard = () => {
+		setShowCard(false);
+	};
+
 	return (
-		<Card sx={{ maxWidth: 500, maxHeight: 500 }}>
+		<Card variant='outlined' sx={{ maxWidth: 500, maxHeight: 500 }}>
+			<Button size='small' onClick={closeCard}>
+				Close
+			</Button>
 			<CardMedia
 				component='video'
 				src={VIDEO_URL}
