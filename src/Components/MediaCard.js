@@ -11,7 +11,12 @@ const MediaCard = () => {
 
 	return (
 		<Card sx={{ maxWidth: 500, maxHeight: 500 }}>
-			<CardMedia component='video' src={VIDEO_URL} controls />
+			<CardMedia
+				component='video'
+				src={VIDEO_URL}
+				controls
+				autoPlay={true}
+			/>
 			<CardContent>
 				<Typography gutterBottom variant='h5' component='div'>
 					Lizard
