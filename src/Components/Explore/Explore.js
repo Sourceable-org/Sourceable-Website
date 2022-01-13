@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import React, { useEffect, useRef, useState } from 'react';
+import NewsList from '../NewsList/NewsList.js';
 import earthquake_json_data from './Data.js';
-import MediaCard from '../MediaCard/MediaCard.js';
 import './Explore.css';
 
 mapboxgl.accessToken =
@@ -10,22 +10,10 @@ mapboxgl.accessToken =
 const Explore = () => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
-	const [showCard, setShowCard] = useState(false);
-	const [lng, setLng] = useState(-70.9);
-	const [lat, setLat] = useState(42.35);
-	const [zoom, setZoom] = useState(9);
+	const [newsListData, setNewsListData] = useState([]);
 
 	useEffect(() => {
 		if (map.current) return; // initialize map only once
-
-		map.current = new mapboxgl.Map({
-			container: mapContainer.current,
-			zoom: 0.3,
-			center: [0, 20],
-			style: 'mapbox://styles/mapbox/streets-v11',
-		});
-
-		map.current.addControl(new mapboxgl.NavigationControl());
 
 		// filters for classifying earthquakes into five categories based on magnitude
 		const mag1 = ['<', ['get', 'mag'], 2];
@@ -48,6 +36,15 @@ const Explore = () => {
 
 		// colors to use for each categories
 		const colors = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
+
+		map.current = new mapboxgl.Map({
+			container: mapContainer.current,
+			zoom: 0.3,
+			center: [0, 20],
+			style: 'mapbox://styles/mapbox/streets-v11',
+		});
+
+		map.current.addControl(new mapboxgl.NavigationControl());
 
 		map.current.on('load', () => {
 			// add a clustered GeoJSON source for a sample set of earthquakes
@@ -124,7 +121,7 @@ const Explore = () => {
 			const markers = {};
 			let markersOnScreen = {};
 
-			function updateMarkers() {
+			const updateMarkers = () => {
 				const newMarkers = {};
 				const features = map.current.querySourceFeatures('earthquakes');
 
@@ -132,9 +129,42 @@ const Explore = () => {
 				// and add it to the map if it's not there already
 				for (const feature of features) {
 					const coords = feature.geometry.coordinates;
+
+					// get the properties of the cluster
 					const props = feature.properties;
+
 					if (!props.cluster) continue;
+
+					// get the cluster id of current cluster
 					const id = props.cluster_id;
+
+					// get the number of points of the current cluster
+					const pointCount = props.point_count;
+
+					// stores the data of file of all the points in a given cluster
+					let cluster_points_file_data;
+					// fetch the data of all points in the current cluster
+					console.log(
+						map.current
+							.getSource('earthquakes')
+							.getClusterLeaves(
+								id,
+								pointCount,
+								0,
+								(error, cluster_features) => {
+									// Print cluster leaves in the console
+									cluster_points_file_data =
+										cluster_features.map(
+											(cluster_point) => {
+												return {
+													file: cluster_point
+														.properties.file,
+												};
+											}
+										);
+								}
+							)
+					);
 
 					let marker = markers[id];
 					if (!marker) {
@@ -144,10 +174,10 @@ const Explore = () => {
 						}).setLngLat(coords);
 
 						marker.getElement().addEventListener('click', () => {
-							setShowCard(!showCard);
+							setNewsListData(cluster_points_file_data);
+							// alert(cluster_points_file_data.length);
 						});
 					}
-
 					newMarkers[id] = marker;
 
 					if (!markersOnScreen[id]) {
@@ -162,7 +192,7 @@ const Explore = () => {
 					}
 				}
 				markersOnScreen = newMarkers;
-			}
+			};
 
 			// after the GeoJSON data is loaded, update markers on the screen on every frame
 			map.current.on('render', () => {
@@ -171,8 +201,28 @@ const Explore = () => {
 			});
 		});
 
+		const donutSegment = (start, end, r, r0, color) => {
+			if (end - start === 1) end -= 0.00001;
+			const a0 = 2 * Math.PI * (start - 0.25);
+			const a1 = 2 * Math.PI * (end - 0.25);
+			const x0 = Math.cos(a0),
+				y0 = Math.sin(a0);
+			const x1 = Math.cos(a1),
+				y1 = Math.sin(a1);
+			const largeArc = end - start > 0.5 ? 1 : 0;
+
+			// draw an SVG path
+			return `<path d="M ${r + r0 * x0} ${r + r0 * y0} L ${r + r * x0} ${
+				r + r * y0
+			} A ${r} ${r} 0 ${largeArc} 1 ${r + r * x1} ${r + r * y1} L ${
+				r + r0 * x1
+			} ${r + r0 * y1} A ${r0} ${r0} 0 ${largeArc} 0 ${r + r0 * x0} ${
+				r + r0 * y0
+			}" fill="${color}" />`;
+		};
+
 		// code for creating an SVG donut chart from feature properties
-		function createDonutChart(props) {
+		const createDonutChart = (props) => {
 			const offsets = [];
 			const counts = [
 				props.mag1,
@@ -215,39 +265,20 @@ ${total.toLocaleString()}
 			const el = document.createElement('div');
 			el.innerHTML = html;
 			return el.firstChild;
-		}
+		};
+	}, [newsListData]);
 
-		function donutSegment(start, end, r, r0, color) {
-			if (end - start === 1) end -= 0.00001;
-			const a0 = 2 * Math.PI * (start - 0.25);
-			const a1 = 2 * Math.PI * (end - 0.25);
-			const x0 = Math.cos(a0),
-				y0 = Math.sin(a0);
-			const x1 = Math.cos(a1),
-				y1 = Math.sin(a1);
-			const largeArc = end - start > 0.5 ? 1 : 0;
-
-			// draw an SVG path
-			return `<path d="M ${r + r0 * x0} ${r + r0 * y0} L ${r + r * x0} ${
-				r + r * y0
-			} A ${r} ${r} 0 ${largeArc} 1 ${r + r * x1} ${r + r * y1} L ${
-				r + r0 * x1
-			} ${r + r0 * y1} A ${r0} ${r0} 0 ${largeArc} 0 ${r + r0 * x0} ${
-				r + r0 * y0
-			}" fill="${color}" />`;
-		}
-	}, [showCard]);
-
-	const displayCard = () => {
-		if (showCard === true) {
+	const displayList = () => {
+		if (newsListData.length > 0) {
 			return (
 				<div className='mgl-map-overlay'>
-					<MediaCard setShowCard={setShowCard} />
+					<NewsList
+						newsListData={newsListData}
+						setNewsListData={setNewsListData}
+					/>
 				</div>
 			);
 		}
-
-		return null;
 	};
 
 	return (
@@ -255,7 +286,7 @@ ${total.toLocaleString()}
 			Explore
 			<div>
 				<div ref={mapContainer} className='map-container' />
-				{displayCard()}
+				{displayList()}
 			</div>
 		</div>
 	);
