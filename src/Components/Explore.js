@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import earthquake_json_data from './Data.js';
 import MediaCard from './MediaCard.js';
+import './Explore.css';
 
 mapboxgl.accessToken =
 	'pk.eyJ1IjoiYWZhYW4wMDciLCJhIjoiY2t5NXBxZmduMG81ZjJ4b25mbjd2aW8yOSJ9.yxrkp9nmvfPFHq1aXPEIeQ';
@@ -12,7 +13,7 @@ const Explore = () => {
 	const [lng, setLng] = useState(-70.9);
 	const [lat, setLat] = useState(42.35);
 	const [zoom, setZoom] = useState(9);
-	const [showCard, setShowCard] = useState(true);
+	const [showCard, setShowCard] = useState(false);
 
 	useEffect(() => {
 		if (map.current) return; // initialize map only once
@@ -143,7 +144,9 @@ const Explore = () => {
 						}).setLngLat(coords);
 
 						marker.getElement().addEventListener('click', () => {
-							alert('Click Me');
+							alert('Before');
+							setShowCard(!showCard);
+							alert('After');
 						});
 					}
 
@@ -235,11 +238,15 @@ ${total.toLocaleString()}
 				r + r0 * y0
 			}" fill="${color}" />`;
 		}
-	}, []);
+	}, [showCard]);
 
 	const displayCard = () => {
 		if (showCard === true) {
-			return <MediaCard />;
+			return (
+				<div className='mgl-map-overlay'>
+					<MediaCard />
+				</div>
+			);
 		}
 
 		return null;
