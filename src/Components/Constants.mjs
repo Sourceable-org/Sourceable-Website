@@ -3746,4 +3746,4 @@ const earthquake_json_data = {
 	],
 };
 
-export default earthquake_json_data;
+export { earthquake_json_data };

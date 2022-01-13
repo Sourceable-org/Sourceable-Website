@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import MediaCard from './MediaCard';
 
 const About = () => {
-    return (
-        <div>
-            About
-        </div>
-    )
-}
+	return (
+		<div>
+			About Us
+			<MediaCard />
+		</div>
+	);
+};
 
-export default About
+export default About;
