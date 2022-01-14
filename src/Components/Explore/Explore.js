@@ -12,8 +12,10 @@ const Explore = () => {
 	const map = useRef(null);
 	const [newsListData, setNewsListData] = useState([]);
 
+	const MAP_ZOOM_LEVEL = 8;
+
 	useEffect(() => {
-		if (map.current) return; // initialize map only once
+		// if (map.current) return; // initialize map only once
 
 		// filters for classifying earthquakes into five categories based on magnitude
 		const mag1 = ['<', ['get', 'mag'], 2];
@@ -39,8 +41,8 @@ const Explore = () => {
 
 		map.current = new mapboxgl.Map({
 			container: mapContainer.current,
-			zoom: 0.3,
-			center: [0, 20],
+			zoom: MAP_ZOOM_LEVEL,
+			center: [38.32337521791281, 35.352800788805794],
 			style: 'mapbox://styles/mapbox/streets-v11',
 		});
 
@@ -283,11 +285,8 @@ ${total.toLocaleString()}
 
 	return (
 		<div>
-			Explore
-			<div>
-				<div ref={mapContainer} className='map-container' />
-				{displayList()}
-			</div>
+			<div ref={mapContainer} className='map-container' />
+			{displayList()}
 		</div>
 	);
 };
