@@ -1,0 +1,20 @@
+.navstyle a{
+    color: grey;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navOnHover{
+    padding: 10px;
+    color: grey;
+}
+.navOnHover:hover{
+    border: 1px solid gray;
+    color: white;
+    border-radius: 3px;
+}
+
+.navstyle a:link, a:visited {
+    color: grey;
+    text-decoration: none;
+}

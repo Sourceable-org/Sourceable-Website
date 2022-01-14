@@ -4,6 +4,8 @@ import './Banner.css'
 
 import APPSTORE from '../images/app store.png'
 import PLAYSTORE from '../images/play store.png'
+import Vid from '../video/video 1.mp4'
+
 const Banner = () => {
     return (
         <div className='homePage'>
@@ -18,7 +20,11 @@ const Banner = () => {
                     </div>
                 </div>
                 <div className="part1-right">
-
+                    {/* react-video-js-player */}
+                    <video  style={{ width:"100%",height:"100%" ,position:"relative",top: "10%"  }}  autoplay="" loop muted>
+                        <source src={Vid} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>

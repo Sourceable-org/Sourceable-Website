@@ -1,0 +1,81 @@
+.contact-container {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    /* border: 1px solid black; */
+   
+    position: fixed;
+    height: 100vh;
+    left: 0%;
+}
+
+.contact-container::before {
+    content: '';
+    background: url('../images/contact-bg.jpg') no-repeat center center/cover;
+    position: absolute;
+    opacity: 1;
+    /* Using top 0px is not working for me --> ig its not requruired because body is not imidiate parent */
+    /* top: 0px; */
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.contact-container h2 {
+    font-size: xx-large;
+    padding-top: 12px;
+    color: blanchedalmond;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form .name,
+.email,
+.textarea-contact {
+    width: 76%;
+}
+
+form .name-input,
+.email-input,
+.textarea-input {
+    width: 80%;
+    padding: 5px 5px;
+    font-size: 20px;
+    margin: 7px;
+}
+
+.btn-contact {
+    border: none;
+    padding: 13px;
+    width: 50%;
+    font-size: 20px;
+    font-family: 'Roboto';
+    background-color: white;
+    color: gray;
+}
+
+.btn-contact:hover {
+    color: black;
+    background-color: white;
+    border: none;
+    transition: all 0.4s ease-in-out;
+}
+
+
+/* Responsive */
+@media only screen and (max-width:600px) {
+
+    .contact-container {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        /* border: 1px solid black; */
+    }
+ 
+}

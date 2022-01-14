@@ -8,6 +8,9 @@ import Header from './Components/Header.js';
 import Home from './Components/Home.js';
 import Explore from './Components/Explore/Explore.js';
 import About from './Components/About.js';
+import Footer from './Components/Footer.js';
+import Contact from './Components/Contact.js';
+import JoinUs from './Components/JoinUs.js';
 
 function App() {
 	return (
@@ -17,7 +20,10 @@ function App() {
 				<Route path='/' element={<Home />}></Route>
 				<Route path='/explore' element={<Explore />}></Route>
 				<Route path='/about' element={<About />}></Route>
+				<Route path='/contact' element={<Contact />}></Route>
+				<Route path='/join' element={<JoinUs />}></Route>
 			</Routes>
+			<Footer />
 		</BrowserRouter>
 	);
 }

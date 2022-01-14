@@ -20,7 +20,7 @@ const MediaCard = () => {
 					Lizard
 				</Typography>
 				<Typography variant='body2' color='text.secondary'>
-					Lizards are a widespread group of squamate reptiles, with
+					Lizards are a widespread group of reptiles, with
 				</Typography>
 			</CardContent>
 		</Card>

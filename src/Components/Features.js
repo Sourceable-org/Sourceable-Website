@@ -11,7 +11,7 @@ import Live from '../images/Live.gif'
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import BoltIcon from '@mui/icons-material/Bolt';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-
+import Vid from '../video/Video 2.mp4'
 const Features = () => {
 
 
@@ -65,7 +65,10 @@ const Features = () => {
                     </div>
                     <div className="second">
                         <div className="left">
-
+                        <video  style={{ width:"90%",height:"70%"}}  autoplay="" loop muted>
+                        <source src={Vid} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
                         </div>
                         <div className="right">
                             <div>

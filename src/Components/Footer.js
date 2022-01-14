@@ -19,7 +19,7 @@ const Footer = () => {
                 </div>
           </div>
           <div className="footer2">
-            Copyright © 2022 teamSecurity.com
+            Copyright © 2022 teamSourceable.com
           </div>
         </div>
     )
