@@ -2,25 +2,21 @@ import React, { Fragment, useRef, useState, useEffect } from "react";
 
 //Components
 
-import Banner from "./Banner";
-import LifeSave from "./LifeSave";
-import City from "./City";
-import Features from "./Features";
-import Line from "./Line";
-import Testimonial from "./Testimonial.js";
-import MoreFeature from "./MoreFeature";
-const Home = () => {
-  return (
-    <Fragment>
-      <Banner />
-      <LifeSave />
-      <City />
-      <Features />
-      <Line />
-      <Testimonial />
-      <MoreFeature />
-    </Fragment>
-  );
-};
+import Banner from './Banner'
 
-export default Home;
+import Features from './Features'
+
+import Testimonial from './Testimonial.js'
+import AboutUs from './AboutUs.js'
+const Home = () => {
+    return (
+        <Fragment>
+            <Banner />
+            <Features />
+            <Testimonial />
+            <AboutUs/> 
+        </Fragment>
+    )
+}
+
+export default Home

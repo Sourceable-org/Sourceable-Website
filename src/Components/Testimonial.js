@@ -9,7 +9,7 @@ const Testimonial = () => {
         // This variable prevents race condition
         let current = 1;
         const cycleReviews = () => {
-            if (current === 5) {
+            if (current === 2) {
                 current = 1;
             } else {
                 current += 1;
@@ -26,44 +26,23 @@ const Testimonial = () => {
 
     const reviews = [
         {
-            name: "Jonathan D.",
-            citation: "Sale Closed in 2019",
             quote:
-                "Door.com has been great. I feel like I got to work with a specialist at each point in the process. Everyone was very professional and very helpful. Plus, I'm amazed at the flat-fee for the sale! Great way to save at closing. Door.com has been great. I feel like I got to work with a specialist at each point in the process. Everyone was very professional and very helpful. Plus, I'm amazed at the flat-fee for the sale! Great way to save at closing."
+                "The lack of easily accessible internet facilities was the biggest challenge that I faced in the war zone, and I also wished that there were an application through which one can take pictures and authenticate the location one is reporting from. Such an app should be readily available to journalists, be easy to use in multiple languages and be affordable or free. This app should not necessarily require a very expensive smartphone."
         },
         {
-            name: "Peter C.",
-            citation: "Sale Closed in 2019",
             quote:
-                "I have bought and sold ten homes. This has been the most rewarding experience of them all. True professionalism and insight as well as great customer service makes me a believer in the Door.com business model."
-        },
-        {
-            name: "Paulette H.",
-            citation: "Sale Closed in 2019",
-            quote:
-                "The entire experience from onboarding to the sale of our home has been professional, expedited quickly, and I saved close to $14,000 in commissions. I will absolutely be using Door.com for the sale of my next property."
-        },
-        {
-            name: "Ryan W.",
-            citation: "Sale Closed in 2019",
-            quote:
-                "Service was excellent EVERY step of the process! No way to tell that Door.com provided a flat rate service by the way that they treated us and handled every step of the transactions."
-        },
-        {
-            name: "Kevin R.",
-            citation: "Sale Closed in 2019",
-            quote:
-                "Everyone we worked with was very responsive, professional and easy to work with. A great experience all around. I work in this industry too so my expectations are high. Great work by all."
+                "The challenges in the war zone are not easy, because you have to shoot and send photos and videos as soon as possible. You cannot film raids or bombings and send them after two days or more. The journalist’s work also requires speed in sending news and materials to the department. Since internet facilities are not readily available, there should be some means to send stories and photographs online through some other (satellite?) system. There should be some system for a verified journalist to send information to a trusted recipient by bypassing the government-regulated internet lines, which - n any case - may have been blocked. This app should have the same level of security as an online bank account. This means a VERIFIED user (such as myself), verified recipients of my information, and strong safeguards so that if I am captured by the enemy there should be some automatic means to deactivate the account to prevent it being misused.."
         }
+
     ];
 
 
     return (
-        <div className='testimonialSection top'>
+        <div className='testimonialSection'>
             <ul className="carousel__list">
                 {
                     reviews.map((review, index) => {
-                        const { citation, name, quote } = review;
+                        const { quote } = review;
                         const count = index + 1;
                         return (
                             <li
@@ -75,10 +54,6 @@ const Testimonial = () => {
                                 key={count}
                             >
                                 <blockquote className="carousel__quote">
-                                    <cite>
-                                        <span className="carousel__name">{name}</span>
-                                        <span className="carousel__citation">{citation}</span>
-                                    </cite>
                                     <p>"{quote}"</p>
                                 </blockquote>
                             </li>
@@ -91,15 +66,6 @@ const Testimonial = () => {
                     />
                     <span
                         className={`carousel__dot${activeSlide === 2 ? " active" : ""}`}
-                    />
-                    <span
-                        className={`carousel__dot${activeSlide === 3 ? " active" : ""}`}
-                    />
-                    <span
-                        className={`carousel__dot${activeSlide === 4 ? " active" : ""}`}
-                    />
-                    <span
-                        className={`carousel__dot${activeSlide === 5 ? " active" : ""}`}
                     />
                 </li>
             </ul>
