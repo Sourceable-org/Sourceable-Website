@@ -1,71 +1,13 @@
 .containerFeature{
     max-width: 100%;
-    position: relative;
+    background: #003973;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E5E5BE, #003973);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E5E5BE, #003973); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: white;
 }
 
-.feature-box{
-    width: 100%;
-    height: 150vh;
-    background-color:black ;
-    /* border: 1px solid red; */
-}
 
-.feature-box > div{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 90%;
-    margin: auto;
-    padding: 8vmax 0;
-}
-.feature-box .box-item{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: white;
-    padding: 2vmax;
-    margin: 0 2vmin;
-    width: 33%;
-    height: 60%;
-    transition: all 0.5s;
-}
-
-.feature-box .box-item:hover{
-    transform: translateY(-1vmax);
-    border: 1px solid rgb(228, 223, 223);
-    border-radius: 5px;
-}
-
-.feature-box .box-item > div{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.feature-box .box-item > div>svg{
-    margin-right: 1vmax;
-}
-.feature-box .box-item > div>h5{
-   font-family: "Roboto";
-}
-.feature-box .box-item > p{
-    font-family:fantasy;
-    margin-top: 2.6vmax;
-    margin-bottom: 0;
-}
-
-.above{
-    height: 100vh;
-    /* the below three line makes divs(.feature-box and .above) ovelapping */
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 9;
-    margin-top: 60vh;
-    background: white;
-    border-radius: 50% 50% 0% 0%/100% 100% 0% 0%;
-    /* border: 2px solid red; */
-    width: 100%;
-}
 
 .above>div{
     display: flex;
@@ -94,6 +36,7 @@
 }
 .above>div .first >div>h1{
    font-family: "Roboto";
+   padding: 1rem 0;
 }
 
 
@@ -105,7 +48,9 @@
 
 .above>div .second > .left{
     width: 50%;
-    /* background-color: violet; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .above>div .second > .right{
@@ -134,11 +79,25 @@
 
 .box-item-right>p{
     font-family: cursive;
-    color: rgba(0, 0, 0, 0.637);
+    color: wheat;
+
 }
 
-.extra{
-    width: 100%;
-    height: 100vh;
-    background-color: white;
+
+@media screen and (max-width: 600px) {
+
+    .above>div .second{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .above>div .second > .right{
+        width: 100%;
+        
+    }
+    .above>div .second > .left{
+        width: 100%;
+    }
+    
 }

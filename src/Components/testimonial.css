@@ -1,25 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500&display=swap');
 .testimonialSection{
-    background: #C02425;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #F0CB35, #C02425);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #F0CB35, #C02425); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
-    height: 70vh;
+  background: #667db6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+background: #0f0c29;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     max-width: 100%;
-    margin-bottom: 2vmax;
-   
     color: white;
   
 }
 
 .testimonialSection p {
-    font-family: 'Baloo Bhaijaan 2', cursive;
+    font-family: cursive;
+    margin-bottom: 0%;
 }
 
   .testimonialSection {
     align-items: center;
     display: grid;
-    height: 50vh;
     font-family: system-ui;
     justify-content: center;
   }
@@ -68,17 +69,7 @@
   .carousel__dot.active {
     background-color: #696a6b;
   }
-  .carousel__citation {
-    display: block;
-    font-size: 0.875rem;
-    font-style: normal;
-    margin-bottom: 1.25rem;
-  }
-  .carousel__name {
-    display: block;
-    font-style: normal;
-    font-weight: 600;
-  }
+  
   .carousel__quote {
     font-style: italic;
     line-height: 1.5;

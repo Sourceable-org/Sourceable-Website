@@ -1,6 +1,7 @@
 
 .homePage{
-    background: url('../images/home_back.jpg');
+    /* background: url('../images/home_back.jpg'); */
+    background: url('../images/banner_bg.jpg');
     max-width: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -30,6 +31,9 @@
     font-size: large;
     font-family: "Roboto";
     margin-bottom: 3vmax;
+    color: black;
+
+    
 }
 .first > .part1-left>b{
     letter-spacing: 2px;
@@ -52,4 +56,31 @@
     /* border: 1px solid rgb(0, 255, 76); */
     width: 40%;
     height: 100vh;
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+
+    .homePage{
+        height: auto;
+       
+    }
+
+    .first{
+       flex-direction: column;
+    }
+
+    .first > .part1-left{
+        width: 100%;
+        height: auto;
+    }
+
+    .first > .part1-right{
+        width: 80%;
+        margin: auto;
+        height: auto;
+    }
+
 }
