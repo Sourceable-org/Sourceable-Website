@@ -12,10 +12,10 @@ const Explore = () => {
 	const map = useRef(null);
 	const [newsListData, setNewsListData] = useState([]);
 
-	const MAP_ZOOM_LEVEL = 8;
+	const INITIAL_MAP_ZOOM_LEVEL = 9;
 
 	useEffect(() => {
-		// if (map.current) return; // initialize map only once
+		if (map.current) return; // initialize map only once
 
 		// filters for classifying earthquakes into five categories based on magnitude
 		const mag1 = ['<', ['get', 'mag'], 2];
@@ -41,7 +41,7 @@ const Explore = () => {
 
 		map.current = new mapboxgl.Map({
 			container: mapContainer.current,
-			zoom: MAP_ZOOM_LEVEL,
+			zoom: INITIAL_MAP_ZOOM_LEVEL,
 			center: [38.32337521791281, 35.352800788805794],
 			style: 'mapbox://styles/mapbox/streets-v11',
 		});
@@ -146,15 +146,16 @@ const Explore = () => {
 					// stores the data of file of all the points in a given cluster
 					let cluster_points_file_data;
 					// fetch the data of all points in the current cluster
-					console.log(
-						map.current
-							.getSource('earthquakes')
-							.getClusterLeaves(
-								id,
-								pointCount,
-								0,
-								(error, cluster_features) => {
-									// Print cluster leaves in the console
+					map.current
+						.getSource('earthquakes')
+						.getClusterLeaves(
+							id,
+							pointCount,
+							0,
+							(error, cluster_features) => {
+								// Print cluster leaves in the console
+
+								if (!error) {
 									cluster_points_file_data =
 										cluster_features.map(
 											(cluster_point) => {
@@ -165,8 +166,8 @@ const Explore = () => {
 											}
 										);
 								}
-							)
-					);
+							}
+						);
 
 					let marker = markers[id];
 					if (!marker) {
@@ -177,7 +178,20 @@ const Explore = () => {
 
 						marker.getElement().addEventListener('click', () => {
 							setNewsListData(cluster_points_file_data);
-							// alert(cluster_points_file_data.length);
+
+							map.current
+								.getSource('earthquakes')
+								.getClusterExpansionZoom(id, (error, zoom) => {
+									if (!error) {
+										// alert(zoom);
+										// alert(JSON.stringify(feature));
+										map.current.easeTo({
+											center: feature.geometry
+												.coordinates,
+											zoom,
+										});
+									}
+								});
 						});
 					}
 					newMarkers[id] = marker;

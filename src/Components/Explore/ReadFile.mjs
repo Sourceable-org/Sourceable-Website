@@ -22,7 +22,6 @@ const random_data = [
 	}
 ]
 
-
 for (let i = 0; i < earthquake_json_data['features'].length; i++) {
 	const random_index = Math.floor(Math.random() * 100) % 4;
 	earthquake_json_data['features'][i]['properties']['file'] = random_data[random_index]

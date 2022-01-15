@@ -3,7 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import AddCommentRoundedIcon from '@mui/icons-material/AddCommentRounded';
+import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -31,21 +31,15 @@ const MediaCard = () => {
 
 	return (
 		<Card variant='outlined' sx={{ maxWidth: 500, maxHeight: 500 }}>
-			<CardMedia
-				component='video'
-				src={VIDEO_URL}
-				controls
-				autoPlay={true}
-			/>
+			<CardMedia component='video' src={VIDEO_URL} controls />
 			<CardContent>
-				<Typography
-					gutterBottom
-					variant='h5'
-					component='div'
-					multiline={true}>
+				<Typography gutterBottom variant='h5' component='div'>
 					Event Title
 				</Typography>
-				<Typography variant='body2' color='text.secondary'>
+				<Typography
+					variant='body2'
+					color='text.secondary'
+					multiline={true}>
 					Event Description
 				</Typography>
 				<br />
@@ -58,7 +52,7 @@ const MediaCard = () => {
 						className={classes.textfield}
 					/>
 					<IconButton className={classes.comment_button}>
-						<AddCommentRoundedIcon />
+						<SendIcon />
 					</IconButton>
 				</div>
 			</CardContent>

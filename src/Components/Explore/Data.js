@@ -15,7 +15,7 @@ const earthquake_json_data = {
 			},
 			geometry: {
 				type: 'Point',
-				coordinates: [-151.5129, 63.1016, 0],
+				coordinates: [72.8777, 19.076, 10],
 			},
 		},
 		{
