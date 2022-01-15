@@ -3,6 +3,8 @@ import List from '@mui/material/List';
 import MediaCard from '../MediaCard/MediaCard.js';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { IconButton } from '@mui/material';
+import ListItem from '@mui/material/ListItem';
+// import { FixedSizeList as List } from 'react-window';
 
 const NewsList = ({ newsListData, setNewsListData }) => {
 	const closeList = () => {
@@ -30,12 +32,10 @@ const NewsList = ({ newsListData, setNewsListData }) => {
 						</div>
 					</div>
 				</ListSubheader>
-				{newsListData.map((sectionId, index) => (
-					<li key={index}>
-						<ul>
-							<MediaCard />
-						</ul>
-					</li>
+				{newsListData.map((element, index) => (
+					<ListItem key={index}>
+						<MediaCard />
+					</ListItem>
 				))}
 			</List>
 		</>

@@ -4,8 +4,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
-import { IconButton } from '@mui/material';
-import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@mui/material/IconButton';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
 	comment_section: {
