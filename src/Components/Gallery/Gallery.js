@@ -1,11 +1,11 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
-import LifeSave from "../LifeSave/LifeSave";
 import NotificationImg from "../../images/notification.jpeg";
 import "../Gallery/Gallery.css";
+import LifeSave from "../LifeSave/LifeSave";
 
-import Modal from "react-modal";
 const Gallery = () => {
   const [handleModal, setHandleModal] = useState(false);
   const auth = getAuth();
