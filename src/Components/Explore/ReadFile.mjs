@@ -1,3 +1,6 @@
+// this file has a script to modify the object properties for the Data.js file
+// Used for development purpose only
+
 import {incidents_json_data}  from './Constants.mjs';
 
 import fs from 'fs';
@@ -24,9 +27,6 @@ const random_data = [
 
 for (let i = 0; i < incidents_json_data['features'].length; i++) {
 	const random_index = Math.floor(Math.random() * 100) % 4;
-	const incident_type = Math.round(incidents_json_data['features'][i]['properties']['mag']);
-	delete incidents_json_data['features'][i]['properties']['mag'];
-	incidents_json_data['features'][i]['properties']['incident_type'] = incident_type;
 	incidents_json_data['features'][i]['properties']['file'] = random_data[random_index]
 }
 

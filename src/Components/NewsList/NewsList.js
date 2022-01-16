@@ -5,7 +5,10 @@ import { FixedSizeList } from 'react-window';
 import MediaCard from '../MediaCard/MediaCard.js';
 
 const NewsList = ({ newsListData, setNewsListData }) => {
+	// function that is executed for all rows of the lists
 	const renderRow = ({ index, style }) => {
+		// index is the current row number
+		// style is for inline styling of the row elements of the list
 		return (
 			<ListItem key={index} style={style} component='div'>
 				<MediaCard />
@@ -13,7 +16,9 @@ const NewsList = ({ newsListData, setNewsListData }) => {
 		);
 	};
 
+	// function to close the list
 	const closeList = () => {
+		// sets the newsListData array to empty
 		setNewsListData([]);
 	};
 

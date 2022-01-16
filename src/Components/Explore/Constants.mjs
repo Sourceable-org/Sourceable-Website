@@ -1,3 +1,6 @@
+// Has same data as present in the Data.js file
+// Used for development purpose only
+
 const incidents_json_data = {
 	
 	features: [

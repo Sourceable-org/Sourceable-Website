@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
+// styles for the MediaCard Component
 const useStyles = makeStyles(() => ({
 	comment_section: {
 		marginTop: 5,
@@ -27,6 +28,7 @@ const MediaCard = () => {
 	const VIDEO_URL =
 		'https://cerosetenta.uniandes.edu.co/especiales/violencia-policial/videos/_0610.mp4';
 
+	// get the classes
 	const classes = useStyles();
 
 	return (
