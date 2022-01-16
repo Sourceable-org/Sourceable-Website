@@ -11,6 +11,8 @@ import About from './Components/About.js';
 import Footer from './Components/Footer.js';
 import Contact from './Components/Contact.js';
 import JoinUs from './Components/JoinUs.js';
+import Gallery from './Components/Gallery.js';
+
 
 function App() {
 	return (
@@ -22,6 +24,8 @@ function App() {
 				<Route path='/about' element={<About />}></Route>
 				<Route path='/contact' element={<Contact />}></Route>
 				<Route path='/join' element={<JoinUs />}></Route>
+				<Route path='/mygallery' element={<Gallery />}></Route>
+
 			</Routes>
 			<Footer />
 		</BrowserRouter>
