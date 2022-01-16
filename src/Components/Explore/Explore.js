@@ -155,10 +155,43 @@ const Explore = () => {
 			const markers = {};
 			let markersOnScreen = {};
 
+			const updateMarkerForSinglePoint = () => {
+				// get all the non clustered points from the map
+				const features = map.current.queryRenderedFeatures({
+					layers: ['incident_circle'],
+				});
+
+				// iterate all the features
+				for (const feature of features) {
+					// fetch the coordinates of the current feature
+					const coords = feature.geometry.coordinates;
+
+					// fetch the properties of the element
+					const props = feature.properties;
+
+					// create a normal div element
+					const el = document.createElement('div');
+					el.className = 'marker';
+
+					// create a marker instance and set is's coordinates as fetched from above
+					let marker = new mapboxgl.Marker({ element: el }).setLngLat(
+						coords
+					);
+
+					// attach click listener to the marker
+					marker.getElement().addEventListener('click', () => {
+						// set the newsListData equal to cluster_points_file_data array
+						setNewsListData([{ file: JSON.parse(props.file) }]);
+					});
+
+					marker.addTo(map.current);
+				}
+			};
+
 			const updateMarkers = () => {
 				const newMarkers = {};
 
-				// get all the clusters and non-clusters from the map
+				// get all the clusters from the map
 				const features = map.current.querySourceFeatures('incidents');
 
 				// iterate all the features
@@ -266,6 +299,7 @@ const Explore = () => {
 			map.current.on('render', () => {
 				if (!map.current.isSourceLoaded('incidents')) return;
 				updateMarkers();
+				updateMarkerForSinglePoint();
 			});
 		});
 
