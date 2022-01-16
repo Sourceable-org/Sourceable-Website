@@ -2,7 +2,7 @@ import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './Firebase/Firebase';
+import '../Firebase/Firebase';
 import './Header.css';
 
 const Header = () => {
