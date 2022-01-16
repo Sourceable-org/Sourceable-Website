@@ -16,11 +16,11 @@ const random_data = [
 		type: 'photo'
 	},
 	{
-		url: 'https://drive.google.com/file/d/1c-5al6HbqXZqbmZCkuEhFdJG66cbN-gH/view?usp=sharing',
+		url: 'https://firebasestorage.googleapis.com/v0/b/sourcable-34a9c.appspot.com/o/Videos%2FDozens%20Killed%20After%20Bomb%20Blast%20Outside%20Kabul%20High%20School%20_%20NBC%20News(480P).mp4?alt=media&token=ca960abd-860f-4680-8dec-28832c170738',
 		type: 'video'
 	},
 	{
-		url: 'https://drive.google.com/file/d/1MXLC6biiWp5bV38rgu5fx-jd1fOxrXlK/view?usp=sharing',
+		url: 'https://firebasestorage.googleapis.com/v0/b/sourcable-34a9c.appspot.com/o/Videos%2FAfghanistan%20attack_%20Kabul%20airport%20suicide%20bombs%20kill%20dozens(480P).mp4?alt=media&token=d5208ea4-15d4-4738-9ebe-ac79886355d2',
 		type: 'video'
 	}
 ]
