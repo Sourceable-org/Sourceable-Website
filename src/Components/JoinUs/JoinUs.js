@@ -54,7 +54,7 @@ const JoinUs = () => {
 
 	const Login = async (e) => {
 		e.preventDefault();
-		alert(password);
+		// alert(password);
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				// Signed in
