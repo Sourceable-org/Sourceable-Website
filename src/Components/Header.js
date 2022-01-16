@@ -53,12 +53,8 @@ const Header = () => {
 								className='navOnHover'>
 								Explore
 							</Nav.Link>
-							<Nav.Link
-								as={Link}
-								to='/about'
-								className='navOnHover'>
-								About
-							</Nav.Link>
+
+							
 						</Nav>
 						<Nav.Link
 							as={Link}
@@ -91,7 +87,14 @@ const Header = () => {
 								className='navOnHover'>
 								Join Us
 							</Nav.Link>
+	
 						)}
+						<Nav.Link
+								 as={Link}
+								 to="/mygallery" 
+								 className='navOnHover' >
+									My Gallery
+								</Nav.Link>
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>

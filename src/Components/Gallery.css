@@ -1,0 +1,12 @@
+.notification{
+    position:fixed;
+    top: 10%;
+    right: 2%;
+  }
+
+  .notification >img{
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    z-index: 29;
+  }
