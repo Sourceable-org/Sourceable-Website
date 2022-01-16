@@ -9,7 +9,7 @@ const Contact = () => {
                 <div class="email"> <input type="email" name="" id="" placeholder="Enter your email-id"
                     class="email-input font2" /></div>
                 <div class="textarea-contact">
-                    <textarea name="" id="" cols="20" rows="10" class="textarea-input font2"
+                    <textarea name="" id="" cols="10" rows="7" class="textarea-input font2"
                         placeholder="Enter your concern in detail.."></textarea>
                 </div>
                 <button type="submit" class="btn-contact">Submit</button>

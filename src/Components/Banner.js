@@ -5,14 +5,15 @@ import './Banner.css'
 import APPSTORE from '../images/app store.png'
 import PLAYSTORE from '../images/play store.png'
 import Vid from '../video/video 1.mp4'
+import Source_logo from '../images/sourceable__logo.png';
 
 const Banner = () => {
     return (
         <div className='homePage'>
             <div className='first'>
                 <div className="part1-left">
-                    <h1>Where people protect each other.</h1>
-                    <p>Connect and live more safely. Citizen is a personal safety network that empowers you to protect yourself and the people and places you care about. Download for access to real-time 911 alerts, instant help from crisis responders, and safety tracking for friends and families.</p>
+                    <img src={Source_logo} alt="Logo not loaded" />
+                    <p>Empowering, supporting, and connecting citizen journalists to share and protect their stories.</p>
                     <b> DOWNLOAD SECURITY</b>
                     <div>
                         <img src={APPSTORE} alt="APP STORE" />

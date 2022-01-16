@@ -26,13 +26,15 @@
     color: white;
    
 }
-.content h1{
-    font-family: "Roboto";
+.content h5{
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
 .content b{
     letter-spacing: 2px;
     margin-top: 1vmax;
    color: white;
+   font-family: 'Poppins', sans-serif;
 }
 .content>div{
     display: flex;
@@ -52,9 +54,16 @@
     border-top: 1px solid grey;
     text-align: center;
     color: white;
-    font-family: "Roboto";
+    font-family: 'Raleway', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
 }
+
+@media screen and (max-width: 600px) {
+    .content{
+        width: 80%;
+       
+    }
+  }

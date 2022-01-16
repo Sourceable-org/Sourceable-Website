@@ -49,6 +49,8 @@ form .name-input,
     padding: 5px 5px;
     font-size: 20px;
     margin: 7px;
+    border-radius: 11px;
+    border: none;
 }
 
 .btn-contact {
@@ -59,13 +61,15 @@ form .name-input,
     font-family: 'Roboto';
     background-color: white;
     color: gray;
+    border-radius: 11px;
 }
 
 .btn-contact:hover {
-    color: black;
+    color: white;
     background-color: white;
     border: none;
     transition: all 0.4s ease-in-out;
+    background-color: #3976ef;
 }
 
 

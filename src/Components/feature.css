@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 .containerFeature{
     max-width: 100%;
     background: #003973;  /* fallback for old browsers */
@@ -35,7 +37,7 @@
     width: 8vw;
 }
 .above>div .first >div>h1{
-   font-family: "Roboto";
+    font-family: 'Poppins', sans-serif;
    padding: 1rem 0;
 }
 
@@ -74,17 +76,60 @@
 }
 .box-item-right>div>h5{
     margin: 1vmax 0;
-    font-family: "Roboto";
+    font-family: 'Poppins', sans-serif;
+    text-align: left;
 }
 
 .box-item-right>p{
-    font-family: cursive;
-    color: wheat;
+    font-family: 'Raleway', sans-serif;
+   color:black;
 
 }
 
+.extra .extra_1 > h1{
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.extra .extra_1 > p{
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    padding: 1vmax 4rem;
+    font-weight: 700;
+}
+
+
+.extra .extra_2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+}
+
+.extra .extra_2 > div{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+.extra .extra_2 img{
+    width:33%;
+}
+.extra .extra_2 img:last-child{
+    width:20%;
+}
 
 @media screen and (max-width: 600px) {
+    .containerFeature{
+        max-width: 100%;
+        background: #003973;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #a1a191, #003973);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left,#cec4c4,#a7a7a8, #3976ef); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+        color: white;
+    }
+    
 
     .above>div .second{
         display: flex;
@@ -98,6 +143,21 @@
     }
     .above>div .second > .left{
         width: 100%;
+    } 
+    .extra .extra_1 > p{
+        font-family: 'Raleway', sans-serif;
+        color: black;
+        padding: 1vmax 0rem;
+        font-weight: 700;
+    } 
+}
+
+
+
+
+
+@media screen and (min-width: 1040px) {
+    #lasth5{
+       transform: translateX(-17px);
     }
-    
 }

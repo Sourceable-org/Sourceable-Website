@@ -26,13 +26,19 @@
     font-size: 4vmax;
     margin-bottom: 2vmax;
 }
+
+.first > .part1-left>img{
+
+    transform:translateX(-25px)
+}
 .first > .part1-left>p{
 
-    font-size: large;
+    font-size: xx-large;
     font-family: "Roboto";
     margin-bottom: 3vmax;
     color: black;
-
+    font-weight: bold;
+    color: white;
     
 }
 .first > .part1-left>b{
@@ -63,6 +69,10 @@
 
 @media screen and (max-width: 600px) {
 
+    
+    .first > .part1-left>img{
+        width:100%;
+    }
     .homePage{
         height: auto;
        

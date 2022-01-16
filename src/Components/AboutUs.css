@@ -1,3 +1,4 @@
+
 .aboutuspage{
     background: #536976;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
@@ -18,6 +19,7 @@
     padding-left: 4rem;
     width: 38%;
     /* border: 1px solid red; */
+    font-family: 'Poppins', sans-serif;
 }
 
 #forBorder{
@@ -35,13 +37,14 @@
    
     padding: 2rem 4rem;
     font-size: 1.2rem;
-    font-family: 'Roboto';
+    font-family: 'Raleway', sans-serif;
     margin-bottom: 0%;
 }
 
 .aboutuspage >div>div>h3{
     text-align: center;
-    /* color: darkblue; */
+    font-family: 'Poppins', sans-serif;
+
 }
 
 .aboutuspage >div:last-child{
@@ -61,7 +64,7 @@
     .aboutuspage >div>div>p{
         padding: 2rem 0rem;
         font-size: 1.2rem;
-        font-family: 'Roboto';
+        font-family: 'Raleway', sans-serif;
         margin-bottom: 0%;
     }
 

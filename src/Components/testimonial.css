@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 .testimonialSection{
   background: #667db6;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
@@ -14,8 +14,10 @@ background: linear-gradient(to right, #3976ef,#a7a7a8, #ffffff); /* W3C, IE 10+/
 }
 
 .testimonialSection p {
-    font-family: cursive;
-    margin-bottom: 0%;
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 0%;
+  color: black;
+  font-weight: 800;
 }
 
   .testimonialSection {

@@ -16,31 +16,33 @@ const Gallery = () => {
                     style={
                         {
                             overlay: {
-                                background: 'blue',
-                                paddingTop:'4rem ',
-                                width:'60%',
-                                height:'60vh',
-                                margin:'4rem auto'
-                            
+
+                                paddingTop: '4rem ',
+                                width: '40%',
+                                height: '60vh',
+                                marginTop: '4rem',
+                                right: '5%',
+                                marginLeft:'60%'
                             },
                             content: {
-                                color: 'black'
+                                color: 'white',
+                                backgroundColor:'#a7a7a8'
                             }
                         }
                     }
                 >
-                    <div>
-                        Lena Arkawi replied to your comment : 
+                    <div className="noty_div" >
+                        Lena Arkawi replied to your comment :
                     </div>
-                    <div>
+                    <div className="noty_div">
                         Parv Joshi replied to your comment
                     </div>
-                    <div>
+                    <div className="noty_div">
                         Siddhanth Kumar posted an update
                     </div>
-                   
 
-                    <button onClick={(e) => setHandleModal(false)}>
+
+                    <button onClick={(e) => setHandleModal(false)} className='closeBtn'>
                         Close
                     </button>
                 </Modal>
