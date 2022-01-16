@@ -1,11 +1,11 @@
+import makeStyles from '@material-ui/styles/makeStyles';
+import SendIcon from '@mui/icons-material/Send';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
-import makeStyles from '@material-ui/styles/makeStyles';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles(() => ({
 	comment_section: {
@@ -48,7 +48,6 @@ const MediaCard = () => {
 						label='Comment'
 						variant='outlined'
 						placeholder='Comment Here'
-						multiline={true}
 						className={classes.textfield}
 					/>
 					<IconButton className={classes.comment_button}>

@@ -1,10 +1,10 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import React, { useEffect, useRef, useState } from 'react';
-import NewsList from '../NewsList/NewsList.js';
-import earthquake_json_data from './Data.js';
-import './Explore.css';
-import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import NewsList from '../NewsList/NewsList.js';
+import incidents_json_data from './Data.js';
+import './Explore.css';
 
 mapboxgl.accessToken =
 	'pk.eyJ1IjoiYWZhYW4wMDciLCJhIjoiY2t5NXBxZmduMG81ZjJ4b25mbjd2aW8yOSJ9.yxrkp9nmvfPFHq1aXPEIeQ';
@@ -39,23 +39,23 @@ const Explore = () => {
 		if (map.current) return; // initialize map only once
 
 		// filters for classifying earthquakes into five categories based on magnitude
-		const mag1 = ['<', ['get', 'mag'], 2];
-		const mag2 = [
+		const incident_type_1 = ['<', ['get', 'incident_type'], 2];
+		const incident_type_2 = [
 			'all',
-			['>=', ['get', 'mag'], 2],
-			['<', ['get', 'mag'], 3],
+			['>=', ['get', 'incident_type'], 2],
+			['<', ['get', 'incident_type'], 3],
 		];
-		const mag3 = [
+		const incident_type_3 = [
 			'all',
-			['>=', ['get', 'mag'], 3],
-			['<', ['get', 'mag'], 4],
+			['>=', ['get', 'incident_type'], 3],
+			['<', ['get', 'incident_type'], 4],
 		];
-		const mag4 = [
+		const incident_type_4 = [
 			'all',
-			['>=', ['get', 'mag'], 4],
-			['<', ['get', 'mag'], 5],
+			['>=', ['get', 'incident_type'], 4],
+			['<', ['get', 'incident_type'], 5],
 		];
-		const mag5 = ['>=', ['get', 'mag'], 5];
+		const incident_type_5 = ['>=', ['get', 'incident_type'], 5];
 
 		// colors to use for each categories
 		const colors = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
@@ -71,10 +71,9 @@ const Explore = () => {
 
 		map.current.on('load', () => {
 			// add a clustered GeoJSON source for a sample set of earthquakes
-			map.current.addSource('earthquakes', {
+			map.current.addSource('incidents', {
 				type: 'geojson',
-				// data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
-				data: earthquake_json_data,
+				data: incidents_json_data,
 				cluster: true,
 
 				// cluster radius is the distance upto which points are grouped together
@@ -82,61 +81,33 @@ const Explore = () => {
 				clusterRadius: 80,
 				clusterProperties: {
 					// keep separate counts for each magnitude category in a cluster
-					mag1: ['+', ['case', mag1, 1, 0]],
-					mag2: ['+', ['case', mag2, 1, 0]],
-					mag3: ['+', ['case', mag3, 1, 0]],
-					mag4: ['+', ['case', mag4, 1, 0]],
-					mag5: ['+', ['case', mag5, 1, 0]],
+					incident_type_1: ['+', ['case', incident_type_1, 1, 0]],
+					incident_type_2: ['+', ['case', incident_type_2, 1, 0]],
+					incident_type_3: ['+', ['case', incident_type_3, 1, 0]],
+					incident_type_4: ['+', ['case', incident_type_4, 1, 0]],
+					incident_type_5: ['+', ['case', incident_type_5, 1, 0]],
 				},
 			});
 			// circle and symbol layers for rendering individual earthquakes (un clustered points)
 			map.current.addLayer({
-				id: 'earthquake_circle',
+				id: 'incident_circle',
 				type: 'circle',
-				source: 'earthquakes',
+				source: 'incidents',
 				filter: ['!=', 'cluster', true],
 				paint: {
 					'circle-color': [
 						'case',
-						mag1,
+						incident_type_1,
 						colors[0],
-						mag2,
+						incident_type_2,
 						colors[1],
-						mag3,
+						incident_type_3,
 						colors[2],
-						mag4,
+						incident_type_4,
 						colors[3],
 						colors[4],
 					],
-					'circle-opacity': 0.6,
 					'circle-radius': 12,
-				},
-			});
-
-			map.current.addLayer({
-				id: 'earthquake_label',
-				type: 'symbol',
-				source: 'earthquakes',
-				filter: ['!=', 'cluster', true],
-				layout: {
-					'text-field': [
-						'number-format',
-						['get', 'mag'],
-						{ 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
-					],
-					'text-font': [
-						'Open Sans Semibold',
-						'Arial Unicode MS Bold',
-					],
-					'text-size': 12,
-				},
-				paint: {
-					'text-color': [
-						'case',
-						['<', ['get', 'mag'], 3],
-						'black',
-						'white',
-					],
 				},
 			});
 
@@ -146,7 +117,7 @@ const Explore = () => {
 
 			const updateMarkers = () => {
 				const newMarkers = {};
-				const features = map.current.querySourceFeatures('earthquakes');
+				const features = map.current.querySourceFeatures('incidents');
 
 				// for every cluster on the screen, create an HTML marker for it (if we didn't yet),
 				// and add it to the map if it's not there already
@@ -169,7 +140,7 @@ const Explore = () => {
 
 					// fetch the data of all points in the current cluster
 					map.current
-						.getSource('earthquakes')
+						.getSource('incidents')
 						.getClusterLeaves(
 							id,
 							pointCount,
@@ -200,7 +171,7 @@ const Explore = () => {
 							setNewsListData(cluster_points_file_data);
 
 							map.current
-								.getSource('earthquakes')
+								.getSource('incidents')
 								.getClusterExpansionZoom(id, (error, zoom) => {
 									if (!error) {
 										map.current.easeTo({
@@ -230,7 +201,7 @@ const Explore = () => {
 
 			// after the GeoJSON data is loaded, update markers on the screen on every frame
 			map.current.on('render', () => {
-				if (!map.current.isSourceLoaded('earthquakes')) return;
+				if (!map.current.isSourceLoaded('incidents')) return;
 				updateMarkers();
 			});
 		});
@@ -259,11 +230,11 @@ const Explore = () => {
 		const createDonutChart = (props) => {
 			const offsets = [];
 			const counts = [
-				props.mag1,
-				props.mag2,
-				props.mag3,
-				props.mag4,
-				props.mag5,
+				props.incident_type_1,
+				props.incident_type_2,
+				props.incident_type_3,
+				props.incident_type_4,
+				props.incident_type_5,
 			];
 			let total = 0;
 			for (const count of counts) {
@@ -289,10 +260,11 @@ const Explore = () => {
 					colors[i]
 				);
 			}
+
 			html += `<circle cx="${r}" cy="${r}" r="${r0}" fill="white" />
 <text dominant-baseline="central" transform="translate(${r}, ${r})">
 ${total.toLocaleString()}
-</text>
+</text>map
 </svg>
 </div>`;
 

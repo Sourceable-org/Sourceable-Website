@@ -1,10 +1,8 @@
-import { ListItemText, ListSubheader } from '@mui/material';
-import MediaCard from '../MediaCard/MediaCard.js';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { IconButton } from '@mui/material';
+import { IconButton, ListSubheader } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import { FixedSizeList } from 'react-window';
-import { display } from '@mui/system';
+import MediaCard from '../MediaCard/MediaCard.js';
 
 const NewsList = ({ newsListData, setNewsListData }) => {
 	const renderRow = ({ index, style }) => {
@@ -15,8 +13,17 @@ const NewsList = ({ newsListData, setNewsListData }) => {
 		);
 	};
 
+	const closeList = () => {
+		setNewsListData([]);
+	};
+
 	return (
 		<>
+			<ListSubheader component='div' style={{ marginLeft: '4%' }}>
+				<IconButton onClick={closeList}>
+					<CancelIcon />
+				</IconButton>
+			</ListSubheader>
 			<FixedSizeList
 				height={400}
 				width={400}
