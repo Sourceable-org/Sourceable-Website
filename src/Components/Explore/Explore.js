@@ -197,12 +197,7 @@ const Explore = () => {
 						}).setLngLat(coords);
 
 						marker.getElement().addEventListener('click', () => {
-							var start = window.performance.now();
-
 							setNewsListData(cluster_points_file_data);
-
-							var end = window.performance.now();
-							console.log(`Execution time: ${end - start} ms`);
 
 							map.current
 								.getSource('earthquakes')

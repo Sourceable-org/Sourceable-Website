@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
 		marginBottom: 50,
 	},
 	textfield: {
-		width: 300,
+		width: 270,
 		float: 'left',
 		height: 'auto',
 	},

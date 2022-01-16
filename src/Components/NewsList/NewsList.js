@@ -1,43 +1,29 @@
-import { ListSubheader } from '@mui/material';
-import List from '@mui/material/List';
+import { ListItemText, ListSubheader } from '@mui/material';
 import MediaCard from '../MediaCard/MediaCard.js';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { IconButton } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
-// import { FixedSizeList as List } from 'react-window';
+import { FixedSizeList } from 'react-window';
+import { display } from '@mui/system';
 
 const NewsList = ({ newsListData, setNewsListData }) => {
-	const closeList = () => {
-		setNewsListData([]);
+	const renderRow = ({ index, style }) => {
+		return (
+			<ListItem key={index} style={style} component='div'>
+				<MediaCard />
+			</ListItem>
+		);
 	};
 
 	return (
 		<>
-			<List
-				sx={{
-					width: '100%',
-					maxWidth: 400,
-					bgcolor: 'background.paper',
-					position: 'relative',
-					overflow: 'auto',
-					maxHeight: 500,
-					'& ul': { padding: 0 },
-				}}>
-				<ListSubheader>
-					<div>
-						<div>
-							<IconButton onClick={closeList}>
-								<CancelIcon />
-							</IconButton>
-						</div>
-					</div>
-				</ListSubheader>
-				{newsListData.map((element, index) => (
-					<ListItem key={index}>
-						<MediaCard />
-					</ListItem>
-				))}
-			</List>
+			<FixedSizeList
+				height={400}
+				width={400}
+				itemSize={375}
+				itemCount={newsListData.length}>
+				{renderRow}
+			</FixedSizeList>
 		</>
 	);
 };
