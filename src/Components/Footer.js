@@ -10,7 +10,7 @@ const Footer = () => {
         <div className='footerPage'>
           <div className="footer1">
                 <div className="content">
-                    <h1>PROTECT YOUR WORLD.</h1>
+                    <h2>EMPOWERING, SUPPORTING, AND CONNECTING CITIZEN JOURNALISTS TO SHARE AND PROTECT THEIR STORIES.</h2>
                     <b>DOWNLOAD FOR FREE</b>
                     <div>
                         <img src={APPSTORE} alt="APP" />

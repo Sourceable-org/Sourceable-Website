@@ -11,7 +11,8 @@
 
 .contact-container::before {
     content: '';
-    background: url('../images/contact-bg.jpg') no-repeat center center/cover;
+   /* background: url('../images/contact-bg.jpg') no-repeat center center/cover;*/
+   background: linear-gradient(to right, #a7a7a8, #3976ef);
     position: absolute;
     opacity: 1;
     /* Using top 0px is not working for me --> ig its not requruired because body is not imidiate parent */
