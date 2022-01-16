@@ -10,7 +10,7 @@
     height: 100vh;
 }
 
-.lifeSave > h6{
+.lifeSave > h4{
     text-transform: uppercase;
     letter-spacing: 2px;
     color: rgba(0, 0, 0, 0.752);

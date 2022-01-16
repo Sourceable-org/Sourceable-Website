@@ -16,31 +16,29 @@ const Gallery = () => {
                     style={
                         {
                             overlay: {
-                                background: 'grey',
-                                paddingTop:'4rem',
-                                width:'80%',
-                                height:'70vh',
+                                background: 'blue',
+                                paddingTop:'4rem ',
+                                width:'60%',
+                                height:'60vh',
                                 margin:'4rem auto'
                             
                             },
                             content: {
-                                color: 'orangered'
+                                color: 'black'
                             }
                         }
                     }
                 >
                     <div>
-                        comement 1
+                        Lena Arkawi replied to your comment : 
                     </div>
                     <div>
-                        comement 2
+                        Parv Joshi replied to your comment
                     </div>
                     <div>
-                        comement 3
+                        Siddhanth Kumar posted an update
                     </div>
-                    <div>
-                        comement 4
-                    </div>
+                   
 
                     <button onClick={(e) => setHandleModal(false)}>
                         Close

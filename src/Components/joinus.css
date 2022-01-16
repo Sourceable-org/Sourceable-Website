@@ -32,7 +32,7 @@
 
 .login_signup_toggler> p{
     color: rgba(0, 0, 0, 0.655);
-    font: 300 1vmax "Roboto";
+    font: 300 1vmax "Raleway";
     transition: all 0.6s;
     cursor: pointer;
     display: grid;
@@ -43,13 +43,13 @@
 }
 
 .login_signup_toggler p:hover{
-    color: orangered;
+    color: #3976ef;
 
 }
 
 
 .loginSignUpBox > div> button{
-    background-color: orangered;
+    background-color: #3976ef;
     height: 3px;
     width: 50%;
     border: none;
@@ -110,9 +110,9 @@
 
 .loginBtn,.signUpBtn{
     border: none;
-    background-color: rgba(255, 68, 0, 0.74);
+    background-color: #3976ef;
     color: white;
-    font: 300 0.9vmax "Roboto";
+    font: 300 0.9vmax "Raleway";
     width: 100%;
     padding: 0.8vmax;
     cursor: pointer;
@@ -144,7 +144,7 @@
 }
 
 .loginBtn:hover,.signUpBtn:hover{
-    background-color: orangered;
+    background-color: #3976ef;
 }
 
 
