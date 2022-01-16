@@ -1,4 +1,7 @@
-import {earthquake_json_data}  from './Constants.mjs';
+// this file has a script to modify the object properties for the Data.js file
+// Used for development purpose only
+
+import {incidents_json_data}  from './Constants.mjs';
 
 import fs from 'fs';
 import util from 'util';
@@ -22,11 +25,11 @@ const random_data = [
 	}
 ]
 
-for (let i = 0; i < earthquake_json_data['features'].length; i++) {
+for (let i = 0; i < incidents_json_data['features'].length; i++) {
 	const random_index = Math.floor(Math.random() * 100) % 4;
-	earthquake_json_data['features'][i]['properties']['file'] = random_data[random_index]
+	incidents_json_data['features'][i]['properties']['file'] = random_data[random_index]
 }
 
-fs.writeFileSync('Data.js', util.inspect(earthquake_json_data, {showHidden: true, depth: 4, maxArrayLength: 10000}), 'utf-8')
+fs.writeFileSync('Data.js', util.inspect(incidents_json_data, {showHidden: true, depth: 4, maxArrayLength: 10000}), 'utf-8')
 
-console.log(util.inspect(earthquake_json_data, {showHidden: true, depth: 4, maxArrayLength: 10000}))
+console.log(util.inspect(incidents_json_data, {showHidden: true, depth: 4, maxArrayLength: 10000}))
