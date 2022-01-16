@@ -24,16 +24,20 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const MediaCard = () => {
-	const VIDEO_URL =
-		'https://cerosetenta.uniandes.edu.co/especiales/violencia-policial/videos/_0610.mp4';
-
+const MediaCard = ({ newsData }) => {
 	// get the classes
 	const classes = useStyles();
 
+	const fileURL = newsData['file']['url'];
+	const fileType = newsData['file']['type'];
+
 	return (
-		<Card variant='outlined' sx={{ maxWidth: 500, maxHeight: 500 }}>
-			<CardMedia component='video' src={VIDEO_URL} controls />
+		<Card variant='outlined' sx={{ maxWidth: 400, maxHeight: 400 }}>
+			{fileType === 'video' ? (
+				<CardMedia component='video' src={fileURL} controls />
+			) : (
+				<CardMedia component='img' image={fileURL} />
+			)}
 			<CardContent>
 				<Typography gutterBottom variant='h5' component='div'>
 					Event Title

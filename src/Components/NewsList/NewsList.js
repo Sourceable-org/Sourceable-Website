@@ -11,7 +11,7 @@ const NewsList = ({ newsListData, setNewsListData }) => {
 		// style is for inline styling of the row elements of the list
 		return (
 			<ListItem key={index} style={style} component='div'>
-				<MediaCard />
+				<MediaCard newsData={newsListData[index]} />
 			</ListItem>
 		);
 	};

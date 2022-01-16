@@ -19,7 +19,7 @@ const Explore = () => {
 	const [newsListData, setNewsListData] = useState([]);
 
 	// Initial zoom value of the map when it is rendered
-	const INITIAL_MAP_ZOOM_LEVEL = 9;
+	const INITIAL_MAP_ZOOM_LEVEL = 7;
 
 	const auth = getAuth();
 	const navigate = useNavigate();
