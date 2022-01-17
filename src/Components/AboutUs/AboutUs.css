@@ -1,9 +1,9 @@
 
 .aboutuspage{
-    background: #536976;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+    background: #536976;
+    background: -webkit-linear-gradient(90deg,#292e49,#536976);
     background-color: #a7a7a8;
-    color: white;
+    color: #fff;
 }
 
 .aboutuspage >div{

@@ -8,7 +8,7 @@ const Testimonial = () => {
 		// This variable prevents race condition
 		let current = 1;
 		const cycleReviews = () => {
-			if (current === 2) {
+			if (current === 5) {
 				current = 1;
 			} else {
 				current += 1;
@@ -18,17 +18,28 @@ const Testimonial = () => {
 		// intervalId identified so it can be canceled on unmount
 		const intervalId = setInterval(() => {
 			cycleReviews();
-		}, 10000);
+		}, 4000);
 		// Removes interval on unmount
 		return () => clearInterval(intervalId);
 	}, []);
 
 	const reviews = [
 		{
-			quote: 'The lack of easily accessible internet facilities was the biggest challenge that I faced in the war zone, and I also wished that there were an application through which one can take pictures and authenticate the location one is reporting from. Such an app should be readily available to journalists, be easy to use in multiple languages and be affordable or free. This app should not necessarily require a very expensive smartphone.',
+			quote: 'I wished that there was an application through which one can take pictures and authenticate the location one is reporting from. Such an app should be readily available to journalists, be easy to use in multiple languages and be affordable or free. This app should not necessarily require a very expensive smartphone.  - Citizen Journalist.',
 		},
 		{
-			quote: 'The challenges in the war zone are not easy, because you have to shoot and send photos and videos as soon as possible. You cannot film raids or bombings and send them after two days or more. The journalist’s work also requires speed in sending news and materials to the department. Since internet facilities are not readily available, there should be some means to send stories and photographs online through some other (satellite?) system. There should be some system for a verified journalist to send information to a trusted recipient by bypassing the government-regulated internet lines, which - n any case - may have been blocked. This app should have the same level of security as an online bank account. This means a VERIFIED user (such as myself), verified recipients of my information, and strong safeguards so that if I am captured by the enemy there should be some automatic means to deactivate the account to prevent it being misused..',
+			quote: 'Because of an eye disease, I can only see 5% out of my righteye. I consider the camera to be my second eye. Despite this disease, and despite the difficulties of reporting from a war zone, I continue to convey the facts to the world through pictures and posts on social media.”    - Citizen Journalist',
+		},
+
+		{
+			quote: 'I wanted to report on the enormous human rights violations in my country and to make sure the world is aware of the terrible atrocities inflicted by the regime on the innocent population. - Citizen Journalist.',
+		},
+		{
+			quote: 'I can see this type of platform being very useful and saving a ton of time, especially for journalists who do not have access or the resources to conduct an open-source investigation. - Investigative Journalists 	',
+		},
+
+		{
+			quote: 'Verifying a photo or video can take our team anywhere from a few minutes to up to 6 months.” Investigative Journalists	',
 		},
 	];
 
@@ -63,6 +74,22 @@ const Testimonial = () => {
 							activeSlide === 2 ? ' active' : ''
 						}`}
 					/>
+					<span
+						className={`carousel__dot${
+							activeSlide === 3 ? ' active' : ''
+						}`}
+					/>
+					<span
+						className={`carousel__dot${
+							activeSlide === 4 ? ' active' : ''
+						}`}
+					/>
+					<span
+						className={`carousel__dot${
+							activeSlide === 5 ? ' active' : ''
+						}`}
+					/>
+
 				</li>
 			</ul>
 			{/* <p>Active Slide = {activeSlide}</p> */}

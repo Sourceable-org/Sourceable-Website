@@ -24,9 +24,7 @@
 	margin-bottom: 2vmax;
 }
 
-.first > .part1-left > img {
-	transform: translateX(-25px);
-}
+
 .first > .part1-left > p {
 	font-size: xx-large;
 	font-family: 'Roboto';
@@ -54,7 +52,7 @@
 .first > .part1-right {
 	/* border: 1px solid rgb(0, 255, 76); */
 	width: 40%;
-	height: 100vh;
+	height: 80vh;
 }
 
 @media screen and (max-width: 600px) {

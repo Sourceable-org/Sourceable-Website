@@ -54,7 +54,7 @@ const Gallery = () => {
             },
           }}
         >
-          <div className="noty_div">Lena Arkawi replied to your comment :</div>
+          <div className="noty_div">Lena Arkawi replied to your comment </div>
           <div className="noty_div">Parv Joshi replied to your comment</div>
           <div className="noty_div">Siddhanth Kumar posted an update</div>
 

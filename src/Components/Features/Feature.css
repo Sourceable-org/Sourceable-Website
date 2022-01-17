@@ -7,6 +7,8 @@
     background: linear-gradient(to right,#ffffff,#a7a7a8, #3976ef); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     color: white;
+
+    
 }
 
 
@@ -89,6 +91,7 @@
 .extra .extra_1 > h1{
     text-align: center;
     font-family: 'Poppins', sans-serif;
+    padding-top: 20px;
 }
 
 .extra .extra_1 > p{
