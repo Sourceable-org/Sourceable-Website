@@ -3,8 +3,8 @@ import './Banner.css';
 
 import APPSTORE from '../../images/app store.png';
 import PLAYSTORE from '../../images/play store.png';
-import Vid from '../../video/original_banner_11.mp4';
-import Source_logo from '../../images/logo_sourceable.JPG';
+import Vid from '../../video/sourceable-video_final.mp4';
+import Source_logo from '../../images/image_logo_small_bcgless.png';
 
 const Banner = () => {
 	return (
