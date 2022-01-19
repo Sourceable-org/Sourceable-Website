@@ -12,7 +12,7 @@ import Vid from '../../video/Video 2.mp4';
 
 import Sup0 from '../../images/sup_1.png';
 import Sup2 from '../../images/sup_4.png';
-import Sup3 from '../../images/sup_3.png';
+/*import Sup3 from '../../images/sup_3.png';*/
 import Sup4 from '../../images/sup_2.png';
 
 const Features = () => {
@@ -58,7 +58,6 @@ const Features = () => {
 							<h1>Our Partners and Supporters</h1>
 							<div>
 								<img src={Sup2} alt='Sup2 not loaded' />
-								<img src={Sup3} alt='Sup3 not loaded' />
 								<img src={Sup4} alt='Sup4 not loaded' />
 								<img src={Sup0} alt='Sup1 not loaded' />
 							</div>
