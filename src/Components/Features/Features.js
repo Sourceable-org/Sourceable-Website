@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
-import './Feature.css';
-
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-
-import Live from '../../images/Live-unscreen.gif';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import BoltIcon from '@mui/icons-material/Bolt';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import Vid from '../../video/Video 2.mp4';
-
+import React, { useEffect } from 'react';
 import Sup0 from '../../images/sup_1.png';
-import Sup2 from '../../images/sup_4.png';
 /*import Sup3 from '../../images/sup_3.png';*/
 import Sup4 from '../../images/sup_2.png';
+import Sup2 from '../../images/sup_4.png';
+import './Feature.css';
 
 const Features = () => {
 	useEffect(() => {
