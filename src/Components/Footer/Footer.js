@@ -20,7 +20,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-			<div className='footer2'>Copyright © 2022 Sourceable.com</div>
+			<div className='footer2'>Copyright © 2022 Sourceable.info</div>
 		</div>
 	);
 };
