@@ -1,10 +1,10 @@
 const incidents_json_data = {
 	features: [
 		{
-			type: 'Feature',
+			// type: 'Feature',
 			properties: {
-				id: 'ak16994521',
-				time: 1507425650893,
+				// id: 'ak16994521',
+				// time: 1507425650893,
 				file: {
 					url: 'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fcom.ft.imagepublish.upp-prod-eu.s3.amazonaws.com%2F06d8c51c-59a9-11ea-abe5-8e03987b7b20?fit=scale-down&source=next&width=700',
 					type: 'photo',
@@ -12,7 +12,7 @@ const incidents_json_data = {
 				incident_type: 2,
 			},
 			geometry: {
-				type: 'Point',
+				// type: 'Point',
 				coordinates: [38.59153184056367, 35.82039444839637],
 			},
 		},

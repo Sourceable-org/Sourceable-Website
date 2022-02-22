@@ -1,19 +1,24 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import db from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
-import incidents_json_data from './Data.js';
 import './Explore.css';
 
 // Set the MapBox Access Token. This is present in your MapBox Account
 mapboxgl.accessToken =
 	'pk.eyJ1IjoiYWZhYW4wMDciLCJhIjoiY2t5NXBxZmduMG81ZjJ4b25mbjd2aW8yOSJ9.yxrkp9nmvfPFHq1aXPEIeQ';
 
+// In case of Mapbox coordinates are required in the form of [lng, lat]
 const Explore = () => {
 	// create a reference for the map
 	const mapContainer = useRef(null);
 	const map = useRef(null);
+
+	// state to store the data of incidents after fetching data from FireBase
+	const [incidents, setIncidentsData] = useState([]);
 
 	// state to store the data that needs to be shown when a marker is clicked
 	const [newsListData, setNewsListData] = useState([]);
@@ -23,6 +28,20 @@ const Explore = () => {
 
 	const auth = getAuth();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const getIncidentsDataFromFireStore = async (db) => {
+			const exploreDocumentRef = doc(db, 'Explore', 'Explore');
+
+			const exploreDocumentSnap = await getDoc(exploreDocumentRef);
+
+			const incidentsListData = exploreDocumentSnap.data()['Incidents'];
+
+			setIncidentsData(incidentsListData);
+		};
+
+		getIncidentsDataFromFireStore(db);
+	}, []);
 
 	useEffect(() => {
 		// when the auth status is changed
@@ -42,7 +61,10 @@ const Explore = () => {
 	}, [auth, navigate]);
 
 	useEffect(() => {
-		// initialize map only once
+		// no incidents are fetched then do nothing
+		if (incidents.length === 0) return;
+
+		// initialize the map only once
 		if (map.current) return;
 
 		// filters for classifying earthquakes into five categories based on the incident_type
@@ -77,7 +99,7 @@ const Explore = () => {
 		// colors to be used for each incident_type category
 		const colors = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
 
-		// create a Map instance and pass the intial parameters such as zoom, center and style
+		// create a Map instance and pass the initial parameters such as zoom, center and style
 		map.current = new mapboxgl.Map({
 			container: mapContainer.current,
 			zoom: INITIAL_MAP_ZOOM_LEVEL,
@@ -96,7 +118,7 @@ const Explore = () => {
 				type: 'geojson',
 
 				// we can also add a url of geoJSON source
-				data: incidents_json_data,
+				data: { features: incidents },
 
 				// cluster the given geoJSON data
 				cluster: true,
@@ -400,7 +422,7 @@ ${total.toLocaleString()}
 			/// return the element
 			return el.firstChild;
 		};
-	}, [newsListData]);
+	}, [newsListData, incidents]);
 
 	// function to display list that shows media and description
 	// it shows data of all the points present in the given cluster
