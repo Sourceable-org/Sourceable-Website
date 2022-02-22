@@ -1,6 +1,6 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDocs } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import db from '../Firebase/Firebase';
@@ -31,11 +31,18 @@ const Explore = () => {
 
 	useEffect(() => {
 		const getIncidentsDataFromFireStore = async (db) => {
-			const exploreDocumentRef = doc(db, 'Explore', 'Explore');
+			const querySnapshot = await getDocs(collection(db, 'Explore'));
 
-			const exploreDocumentSnap = await getDoc(exploreDocumentRef);
+			const incidentsListData = querySnapshot.docs.map((doc) => {
+				return doc.data();
+			});
 
-			const incidentsListData = exploreDocumentSnap.data()['Incidents'];
+			// querySnapshot.forEach((doc) => {
+			// 	// doc.data() is never undefined for query doc snapshots
+			// 	console.log(doc.id, ' => ', doc.data());
+			// });
+
+			// const incidentsListData = exploreDocumentSnap.data()['Incidents'];
 
 			setIncidentsData(incidentsListData);
 		};
