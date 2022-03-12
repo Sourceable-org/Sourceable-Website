@@ -1,0 +1,8 @@
+.card-bottom-style{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-bottom-style img{
+    cursor: pointer;
+}
