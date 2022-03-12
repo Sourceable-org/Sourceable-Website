@@ -1,6 +1,6 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, doc, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import db from '../Firebase/Firebase';
@@ -17,6 +17,9 @@ const Explore = () => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
 
+	// state to store the month index to show events of specific month only
+	const [monthIndex, setMonthIndex] = useState(2);
+
 	// state to store the data of incidents after fetching data from FireBase
 	const [incidents, setIncidentsData] = useState([]);
 
@@ -25,6 +28,21 @@ const Explore = () => {
 
 	// Initial zoom value of the map when it is rendered
 	const INITIAL_MAP_ZOOM_LEVEL = 7;
+
+	const months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	];
 
 	const auth = getAuth();
 	const navigate = useNavigate();
@@ -37,14 +55,17 @@ const Explore = () => {
 				return doc.data();
 			});
 
-			// querySnapshot.forEach((doc) => {
-			// 	// doc.data() is never undefined for query doc snapshots
-			// 	console.log(doc.id, ' => ', doc.data());
-			// });
+			const finalIncidentsListData = incidentsListData.map((incident) => {
+				incident.properties.month = incident.properties.created
+					.toDate()
+					.getMonth();
 
-			// const incidentsListData = exploreDocumentSnap.data()['Incidents'];
+				return incident;
+			});
 
-			setIncidentsData(incidentsListData);
+			console.log(finalIncidentsListData);
+
+			setIncidentsData(finalIncidentsListData);
 		};
 
 		getIncidentsDataFromFireStore(db);
@@ -117,6 +138,20 @@ const Explore = () => {
 		// add navigation controls in the map
 		map.current.addControl(new mapboxgl.NavigationControl());
 
+		const getMonthlyIncidents = (month) => {
+			const monthly_incidents = incidents.filter((incident) => {
+				return incident.properties.month === month;
+			});
+
+			return { features: monthly_incidents };
+		};
+
+		const filterDataPointsByMonth = (month) => {
+			map.current
+				.getSource('incidents')
+				.setData(getMonthlyIncidents(month));
+		};
+
 		// this function is executed after the map is loaded successfully
 		map.current.on('load', () => {
 			// add a clustered GeoJSON source of incidents
@@ -144,6 +179,8 @@ const Explore = () => {
 					incident_type_5: ['+', ['case', incident_type_5, 1, 0]],
 				},
 			});
+
+			filterDataPointsByMonth(monthIndex);
 
 			// show circles on the Map for points that are individual (non clustered points)
 			map.current.addLayer({
@@ -179,6 +216,14 @@ const Explore = () => {
 					'circle-radius': 12,
 				},
 			});
+
+			document
+				.getElementById('slider')
+				.addEventListener('input', (event) => {
+					const sliderMonthIndexInput = parseInt(event.target.value);
+					setMonthIndex(sliderMonthIndexInput);
+					filterDataPointsByMonth(sliderMonthIndexInput);
+				});
 
 			// objects for caching and keeping track of HTML marker objects (for performance)
 			const markers = {};
@@ -447,12 +492,29 @@ ${total.toLocaleString()}
 			);
 		}
 	};
-
 	// inside the return method display the map
 	// and show the newsList if user clicks on the cluster point
 	return (
 		<div>
 			<div ref={mapContainer} className='map-container' />
+			<div className='map-overlay top'>
+				<div className='map-overlay-inner'>
+					<h2>Incidents in Syria</h2>
+					<label id='month'></label>
+					<input
+						id='slider'
+						type='range'
+						min='0'
+						max='11'
+						step='1'
+						value={monthIndex}></input>
+				</div>
+				{/* <div className='map-overlay-inner'>
+					<div id='legend' className='legend'>
+						<div className='bar'>Incidents</div>
+					</div>
+				</div> */}
+			</div>
 			{displayList()}
 		</div>
 	);
