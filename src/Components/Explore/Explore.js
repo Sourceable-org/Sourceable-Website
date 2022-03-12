@@ -49,12 +49,15 @@ const Explore = () => {
 
 	useEffect(() => {
 		const getIncidentsDataFromFireStore = async (db) => {
+			// get all documents under the Explore Collection
 			const querySnapshot = await getDocs(collection(db, 'Explore'));
 
+			// iterate all the documents and fetch it's data
 			const incidentsListData = querySnapshot.docs.map((doc) => {
 				return doc.data();
 			});
 
+			// for each incident add month field in it's property
 			const finalIncidentsListData = incidentsListData.map((incident) => {
 				incident.properties.month = incident.properties.created
 					.toDate()
@@ -63,11 +66,11 @@ const Explore = () => {
 				return incident;
 			});
 
-			console.log(finalIncidentsListData);
-
+			// update the incidents set with the incidents data
 			setIncidentsData(finalIncidentsListData);
 		};
 
+		// call the function to fetch incidents data
 		getIncidentsDataFromFireStore(db);
 	}, []);
 
@@ -138,18 +141,26 @@ const Explore = () => {
 		// add navigation controls in the map
 		map.current.addControl(new mapboxgl.NavigationControl());
 
+		// function to get monthly incidents data
 		const getMonthlyIncidents = (month) => {
+			// filter incidents on the basis of month
 			const monthly_incidents = incidents.filter((incident) => {
 				return incident.properties.month === month;
 			});
 
+			// return the monthly incidents data
 			return { features: monthly_incidents };
 		};
 
+		// function to set the Data of Map on monthly incidents data
 		const filterDataPointsByMonth = (month) => {
+			// update the data of map with monthly specific incidents
 			map.current
 				.getSource('incidents')
 				.setData(getMonthlyIncidents(month));
+
+			// set newsListData to empty array when slider input is changed
+			setNewsListData([]);
 		};
 
 		// this function is executed after the map is loaded successfully
@@ -217,11 +228,17 @@ const Explore = () => {
 				},
 			});
 
+			// attach a input listener on the slider
 			document
 				.getElementById('slider')
 				.addEventListener('input', (event) => {
+					// fetch the month Index from slider input
 					const sliderMonthIndexInput = parseInt(event.target.value);
+
+					// update the month index
 					setMonthIndex(sliderMonthIndexInput);
+
+					// filter the data points based on month Index
 					filterDataPointsByMonth(sliderMonthIndexInput);
 				});
 
@@ -474,7 +491,7 @@ ${total.toLocaleString()}
 			/// return the element
 			return el.firstChild;
 		};
-	}, [newsListData, incidents]);
+	}, [newsListData, incidents, monthIndex]);
 
 	// function to display list that shows media and description
 	// it shows data of all the points present in the given cluster
@@ -508,12 +525,8 @@ ${total.toLocaleString()}
 						max='11'
 						step='1'
 						value={monthIndex}></input>
+					<h6> Current Selected Month: {months[monthIndex]} </h6>
 				</div>
-				{/* <div className='map-overlay-inner'>
-					<div id='legend' className='legend'>
-						<div className='bar'>Incidents</div>
-					</div>
-				</div> */}
 			</div>
 			{displayList()}
 		</div>
