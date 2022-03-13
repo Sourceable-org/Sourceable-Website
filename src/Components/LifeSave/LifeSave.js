@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react';
-import './LifeSave.css';
-
-import Camera from '../../images/Camera11.jpg';
-import Dog from '../../images/Dog1.jpg';
-import Driver from '../../images/Driver1.jpg';
-import Family from '../../images/Family1.jpg';
-import Girl from '../../images/Girl1.jpg';
-
-import 'aos/dist/aos.css';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Aos from 'aos';
+import 'aos/dist/aos.css';
+import React, { useEffect } from 'react';
+import MediaCard from '../MediaCard/MediaCard';
+// import './LifeSave.css';
 
 const LifeSave = () => {
 	useEffect(() => {
@@ -17,75 +13,60 @@ const LifeSave = () => {
 		});
 	}, []);
 
+	const singleIncident = () => {
+		const x = {
+			properties: {
+				file: {
+					type: 'photo',
+					url: 'https://www.aljazeera.com/wp-content/uploads/2022/03/2022-02-28T224932Z_2124976744_RC22TS9B30SD_RTRMADP_3_UKRAINE-CRISIS.jpg?quality=80&resize=1170%2C780',
+				},
+				verified: true,
+			},
+		};
+
+		return (
+			<MediaCard newsData={x} />
+
+			// <div class='Box'>
+			// 	<img
+			// 		src={Family}
+			// 		alt='Avatar'
+			// 		class='image'
+			// 		width={300}
+			// 		height={300}
+			// 	/>
+			// 	<div class='overlay'>
+			// 		<div class='text'>
+			// 			The Entire Building on Fire in Syria-Turkey
+			// 		</div>
+			// 	</div>
+			// </div>
+		);
+	};
+
+	const savedIncidents = () => {
+		return (
+			<Box>
+				<Grid container rowSpacing={5} columnSpacing={5} columns={20}>
+					{Array.from(Array(30).keys()).map(() => {
+						return (
+							<Grid item xs={15} md={10} xl={10} lg={6}>
+								{singleIncident()}
+							</Grid>
+						);
+					})}
+				</Grid>
+			</Box>
+		);
+	};
+
 	return (
 		<div className='lifeSave'>
 			<h4>Empowering. Supporting. Connecting.</h4>
 			<h1 data-aos='zoom-in-up'>
 				Trusted by citizen journalists, used by the world.
 			</h1>
-			{/* <div>
-                <div className="life">
-                    <img src={Camera} alt="Camera" />
-                    <p>Man Rescued from Chinatown Fire</p>
-                </div>
-                <div className="life">
-                    <img src={Dog} alt="Dog" />
-                    <p>Lost Dog Returned to Owner</p>
-                </div>
-                <div className="life">
-                    <img src={Girl} alt="Girl" />
-                    <p>Missing 10-Year-Old Girl Found</p>
-                </div>
-                <div className="life">
-                    <img src={Driver} alt="Driver" />
-                    <p>Uber Driver Saved from Shootout</p>
-                </div>
-                <div className="life">
-                    <img src={Family} alt="Family" />
-                    <p>The Entire Building on Fire</p>
-                </div>
-
-            </div> */}
-
-			{/* New */}
-			<div>
-				<div data-aos='fade-right' class='Box'>
-					<img src={Family} alt='Avatar' class='image' />
-					<div class='overlay'>
-						<div class='text'>
-							The Entire Building on Fire in Syria-Turkey
-						</div>
-					</div>
-				</div>
-				<div data-aos='zoom-in-up' class='Box'>
-					<img src={Dog} alt='Dog' class='image' />
-					<div class='overlay'>
-						<div class='text'>Casulties in Bab al-Hawa Border</div>
-					</div>
-				</div>
-				<div data-aos='fade-down-right' class='Box'>
-					<img src={Driver} alt='Driver Avatar' class='image' />
-					<div class='overlay'>
-						<div class='text'>
-							Journalist was Kidnapped at Bab al-Hawa Border
-						</div>
-					</div>
-				</div>
-				<div data-aos='fade-right' class='Box'>
-					<img src={Girl} alt='Girl Avatar' class='image' />
-					<div class='overlay'>
-						<div class='text'>Riots at Syria-Turkey Border</div>
-					</div>
-				</div>
-				<div data-aos='fade-up-left' class='Box'>
-					<img src={Camera} alt='Avatar' class='image' />
-					<div class='overlay'>
-						<div class='text'>
-							Disturbed people at Bab al-Hawa Borders
-						</div>
-					</div>
-				</div>
-			</div>
+			{savedIncidents()}
 		</div>
 	);
 };

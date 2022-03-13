@@ -4,9 +4,16 @@ import MailOutlineSharpIcon from '@mui/icons-material/MailOutlineSharp';
 import {
 	createUserWithEmailAndPassword,
 	getAuth,
+	signOut,
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	getFirestore,
+	setDoc,
+	getDoc,
+} from 'firebase/firestore';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Firebase/Firebase';
@@ -23,9 +30,10 @@ const JoinUs = () => {
 	const db = getFirestore();
 	const navigate = useNavigate();
 
+	const JOURNALIST_ACCOUNT_TYPE = 'web';
+
 	const createAccount = async (e) => {
 		e.preventDefault();
-		// alert(password);
 
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(async (userCredential) => {
@@ -35,10 +43,8 @@ const JoinUs = () => {
 				await setDoc(doc(db, 'Account', email), {
 					name: name,
 					email: email,
-					password: password,
+					account_type: JOURNALIST_ACCOUNT_TYPE,
 				});
-
-				// ...
 			})
 			.catch((error) => {
 				const errorCode = error.code;
@@ -52,22 +58,41 @@ const JoinUs = () => {
 		setName('');
 	};
 
+	const checkAccountValidity = async (user) => {
+		// get account document
+		const accountSnap = await getDoc(collection(db, 'Account', user.email));
+
+		if (accountSnap.exists()) {
+			if (
+				accountSnap.data()['account_type'] === JOURNALIST_ACCOUNT_TYPE
+			) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
 	const Login = async (e) => {
 		e.preventDefault();
-		// alert(password);
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				// Signed in
 				const user = userCredential.user;
-				console.log(user);
-				navigate('/');
+
+				if (!checkAccountValidity(user)) {
+					signOut(auth).then(() => {
+						alert('Mobile Users Not Allowed');
+					});
+				} else {
+					navigate('/');
+				}
 
 				// ...
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(error, errorCode, errorMessage);
 			});
 
 		setEmail('');

@@ -1,5 +1,6 @@
 import makeStyles from '@material-ui/styles/makeStyles';
 import SendIcon from '@mui/icons-material/Send';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,12 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import verifiedStatusImage from '../../images/verified.png';
-import notVerifiedStatusImage from '../../images/not_verified.png';
-import saveInsta from '../../images/save-instagram.png';
 import bookmark from '../../images/bookmark.png';
-
+import saveInsta from '../../images/save-instagram.png';
 import './MediaCard.css';
+
+
 
 // styles for the MediaCard Component
 const useStyles = makeStyles(() => ({
@@ -87,17 +87,9 @@ const MediaCard = ({ newsData }) => {
 						<h5>Event Title</h5>
 						<div>
 							{verifiedOrNot ? (
-								<img
-									src={verifiedStatusImage}
-									alt='Verification Status not loaded'
-									width={30}
-								/>
+								<VerifiedIcon style={{ color: '#3446eb' }} />
 							) : (
-								<img
-									src={notVerifiedStatusImage}
-									alt='Verification Status not loaded'
-									width={30}
-								/>
+								<VerifiedIcon style={{ color: '#e8c217' }} />
 							)}
 							&nbsp; &nbsp;
 							{withoutSave ? (

@@ -18,7 +18,7 @@ const Explore = () => {
 	const map = useRef(null);
 
 	// state to store the month index to show events of specific month only
-	const [monthIndex, setMonthIndex] = useState(4);
+	const [monthIndex, setMonthIndex] = useState(3);
 
 	// state to store the data of incidents after fetching data from FireBase
 	const [incidents, setIncidentsData] = useState([]);
