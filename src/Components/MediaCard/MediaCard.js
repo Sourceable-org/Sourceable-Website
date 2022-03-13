@@ -7,11 +7,12 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import verify from '../../images/verify.png'
-import saveInsta from '../../images/save-instagram.png'
-import bookmark from '../../images/bookmark.png'
+import verifiedStatusImage from '../../images/verified.png';
+import notVerifiedStatusImage from '../../images/not_verified.png';
+import saveInsta from '../../images/save-instagram.png';
+import bookmark from '../../images/bookmark.png';
 
-import './MediaCard.css'
+import './MediaCard.css';
 
 // styles for the MediaCard Component
 const useStyles = makeStyles(() => ({
@@ -38,30 +39,34 @@ const MediaCard = ({ newsData }) => {
 	// get the classes
 	const classes = useStyles();
 
-	const fileURL = newsData['file']['url'];
-	const fileType = newsData['file']['type'];
+	const fileURL = newsData.properties.file.url;
 
-	const [comment, setComment] = useState("");
+	const fileType = newsData.properties.file.type;
+
+	const verifiedOrNot = newsData.properties.verified;
+
+	const [comment, setComment] = useState('');
 
 	const [commentArray, setCommentArray] = useState([]);
 
 	const onChangeHandle = (e) => {
 		setComment(e.target.value);
-	}
+	};
 
 	const onSubmitHandle = (e) => {
 		e.preventDefault();
 		setCommentArray(commentArray.concat(comment));
-		setComment("");
-	}
+		setComment('');
+	};
 
-	const [withoutSave, setWithSave] =useState(true);
-	
-	const changeIcon=()=>{
-		setWithSave(!withoutSave)
-	}
+	const [withoutSave, setWithSave] = useState(true);
+
+	const changeIcon = () => {
+		setWithSave(!withoutSave);
+	};
+
 	return (
-		<div style={{ display: "flex", flexDirection: "column" }}>
+		<div style={{ display: 'flex', flexDirection: 'column' }}>
 			<Card variant='outlined' sx={{ maxWidth: 345 }}>
 				{fileType === 'video' ? (
 					<CardMedia
@@ -81,20 +86,39 @@ const MediaCard = ({ newsData }) => {
 					<div className='card-bottom-style'>
 						<h5>Event Title</h5>
 						<div>
-						<img src={verify} alt="Verify not loaded" width={30} />
-						&nbsp; &nbsp;
-						{
-
-							withoutSave?<img src={saveInsta} alt="Verify not loaded" width={30}  onClick={changeIcon}/>:<img src={bookmark} alt="Verify not loaded" width={30}  onClick={changeIcon}/>
-						   
-						}
+							{verifiedOrNot ? (
+								<img
+									src={verifiedStatusImage}
+									alt='Verification Status not loaded'
+									width={30}
+								/>
+							) : (
+								<img
+									src={notVerifiedStatusImage}
+									alt='Verification Status not loaded'
+									width={30}
+								/>
+							)}
+							&nbsp; &nbsp;
+							{withoutSave ? (
+								<img
+									src={saveInsta}
+									alt='Verify not loaded'
+									width={30}
+									onClick={changeIcon}
+								/>
+							) : (
+								<img
+									src={bookmark}
+									alt='Verify not loaded'
+									width={30}
+									onClick={changeIcon}
+								/>
+							)}
 						</div>
 					</div>
 
-					<Typography
-						variant='body2'
-						color='text.secondary'
-						multiline={true}>
+					<Typography variant='body2' color='text.secondary'>
 						Event Description
 					</Typography>
 
@@ -109,31 +133,27 @@ const MediaCard = ({ newsData }) => {
 							value={comment}
 							onChange={onChangeHandle}
 						/>
-						<IconButton className={classes.comment_button} onClick={onSubmitHandle}>
+						<IconButton
+							className={classes.comment_button}
+							onClick={onSubmitHandle}>
 							<SendIcon />
 						</IconButton>
-
-
 					</div>
-
 				</CardContent>
-
 			</Card>
 
-			{
-			commentArray.map((text,index)=>{
+			{commentArray.map((text, index) => {
 				return (
-					<div style={{backgroundColor:"white",padding:"5px 16px", borderRadius:"4px"}}>
+					<div
+						style={{
+							backgroundColor: 'white',
+							padding: '5px 16px',
+							borderRadius: '4px',
+						}}>
 						{text}
-						
 					</div>
-				)
-			})
-		}
-
-
-
-
+				);
+			})}
 		</div>
 	);
 };

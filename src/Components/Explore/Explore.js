@@ -18,7 +18,7 @@ const Explore = () => {
 	const map = useRef(null);
 
 	// state to store the month index to show events of specific month only
-	const [monthIndex, setMonthIndex] = useState(2);
+	const [monthIndex, setMonthIndex] = useState(4);
 
 	// state to store the data of incidents after fetching data from FireBase
 	const [incidents, setIncidentsData] = useState([]);
@@ -271,8 +271,12 @@ const Explore = () => {
 
 					// attach click listener to the marker
 					marker.getElement().addEventListener('click', () => {
-						// set the newsListData equal to cluster_points_file_data array
-						setNewsListData([{ file: JSON.parse(props.file) }]);
+						// set the newsListData equal to cluster_points_data array
+
+						props.file = JSON.parse(props.file);
+						props.created = JSON.parse(props.created);
+
+						setNewsListData([{ properties: props }]);
 					});
 
 					marker.addTo(map.current);
@@ -306,7 +310,7 @@ const Explore = () => {
 					const pointCount = props.point_count;
 
 					// stores the data of file of all the points in a given cluster
-					let cluster_points_file_data;
+					let cluster_points_data;
 
 					// fetch the data of all points in the current cluster
 					map.current
@@ -316,16 +320,15 @@ const Explore = () => {
 							pointCount,
 							0,
 							(error, cluster_features) => {
-								// if no error then store the data of all points in the cluster_points_file_data array
+								// if no error then store the data of all points in the cluster_points_data array
 								if (!error) {
-									cluster_points_file_data =
+									cluster_points_data =
 										// iterate through the cluster_features array
 										cluster_features.map(
-											// for each element in the array return it's file properties
 											(cluster_point) => {
 												return {
-													file: cluster_point
-														.properties.file,
+													properties:
+														cluster_point.properties,
 												};
 											}
 										);
@@ -348,8 +351,8 @@ const Explore = () => {
 
 						// attach click listener to the marker
 						marker.getElement().addEventListener('click', () => {
-							// set the newsListData equal to cluster_points_file_data array
-							setNewsListData(cluster_points_file_data);
+							// set the newsListData equal to cluster_points_data array
+							setNewsListData(cluster_points_data);
 
 							// Also zoom the map in such a way till the cluster gets split
 							// into smaller clusters
