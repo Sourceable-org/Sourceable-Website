@@ -3,16 +3,12 @@ import LockOpenSharpIcon from '@mui/icons-material/LockOpenSharp';
 import MailOutlineSharpIcon from '@mui/icons-material/MailOutlineSharp';
 import {
 	createUserWithEmailAndPassword,
-	getAuth,
-	signOut,
-	signInWithEmailAndPassword,
+	getAuth, signInWithEmailAndPassword, signOut
 } from 'firebase/auth';
 import {
 	collection,
-	doc,
-	getFirestore,
-	setDoc,
-	getDoc,
+	doc, getDoc, getFirestore,
+	setDoc
 } from 'firebase/firestore';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

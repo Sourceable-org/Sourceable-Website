@@ -24,24 +24,7 @@ const LifeSave = () => {
 			},
 		};
 
-		return (
-			<MediaCard newsData={x} />
-
-			// <div class='Box'>
-			// 	<img
-			// 		src={Family}
-			// 		alt='Avatar'
-			// 		class='image'
-			// 		width={300}
-			// 		height={300}
-			// 	/>
-			// 	<div class='overlay'>
-			// 		<div class='text'>
-			// 			The Entire Building on Fire in Syria-Turkey
-			// 		</div>
-			// 	</div>
-			// </div>
-		);
+		return <MediaCard newsData={x} />;
 	};
 
 	const savedIncidents = () => {

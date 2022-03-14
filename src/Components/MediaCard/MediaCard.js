@@ -1,4 +1,6 @@
 import makeStyles from '@material-ui/styles/makeStyles';
+import BookmarkBorderRounded from '@mui/icons-material/BookmarkBorderRounded';
+import BookmarkRounded from '@mui/icons-material/BookmarkRounded';
 import SendIcon from '@mui/icons-material/Send';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import Card from '@mui/material/Card';
@@ -7,12 +9,17 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import {
+	arrayRemove,
+	arrayUnion,
+	doc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 import { useState } from 'react';
-import bookmark from '../../images/bookmark.png';
-import saveInsta from '../../images/save-instagram.png';
+import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser.js';
+import db from '../Firebase/Firebase';
 import './MediaCard.css';
-
-
 
 // styles for the MediaCard Component
 const useStyles = makeStyles(() => ({
@@ -45,6 +52,8 @@ const MediaCard = ({ newsData }) => {
 
 	const verifiedOrNot = newsData.properties.verified;
 
+	const incidentId = newsData.properties.incident_id;
+
 	const [comment, setComment] = useState('');
 
 	const [commentArray, setCommentArray] = useState([]);
@@ -59,10 +68,56 @@ const MediaCard = ({ newsData }) => {
 		setComment('');
 	};
 
-	const [withoutSave, setWithSave] = useState(true);
+	const [bookmarkStatus, setBookmarkStatus] = useState(false);
 
-	const changeIcon = () => {
-		setWithSave(!withoutSave);
+	// function to add bookMark in FireBase
+	const addBookMarkOnFireBase = async (loggedInUserEmail) => {
+		// create a document under Bookmarks for a user if not present
+		// add the incident_id to the bookmarks list
+		await setDoc(
+			doc(db, 'BookMarks', loggedInUserEmail),
+			{
+				bookmarks: arrayUnion(incidentId),
+			},
+			{ merge: true }
+		);
+	};
+
+	const removeBookMarkFromFireBase = async (loggedInUserEmail) => {
+		// fetch a document under Bookmarks for a user if not present
+		// remove the incident_id to the bookmarks list
+
+		await updateDoc(doc(db, 'BookMarks', loggedInUserEmail), {
+			bookmarks: arrayRemove(incidentId),
+		});
+	};
+
+	const handleBookMarkIconButtonClick = () => {
+		// get current loggedIn user
+		const loggedInUser = getLoggedInUser();
+
+		// user is not loggedIn so do not do anything
+		if (loggedInUser === undefined) {
+			alert('User is not logged in');
+			return;
+		}
+
+		// fetch the email address of the loggedIn User
+		const loggedInUserEmail = loggedInUser.email;
+
+		// if the incident was previously not bookmarked
+		if (bookmarkStatus === false) {
+			// make a call on FireBase to add BookMark
+			addBookMarkOnFireBase(loggedInUserEmail);
+		}
+		// if the incident was previously bookmarked
+		else {
+			// make a call on FireBase to remove the BookMark
+			removeBookMarkFromFireBase(loggedInUserEmail);
+		}
+
+		// take the complement of the bookmarkStatus
+		setBookmarkStatus(!bookmarkStatus);
 	};
 
 	return (
@@ -92,19 +147,13 @@ const MediaCard = ({ newsData }) => {
 								<VerifiedIcon style={{ color: '#e8c217' }} />
 							)}
 							&nbsp; &nbsp;
-							{withoutSave ? (
-								<img
-									src={saveInsta}
-									alt='Verify not loaded'
-									width={30}
-									onClick={changeIcon}
+							{bookmarkStatus ? (
+								<BookmarkRounded
+									onClick={handleBookMarkIconButtonClick}
 								/>
 							) : (
-								<img
-									src={bookmark}
-									alt='Verify not loaded'
-									width={30}
-									onClick={changeIcon}
+								<BookmarkBorderRounded
+									onClick={handleBookMarkIconButtonClick}
 								/>
 							)}
 						</div>

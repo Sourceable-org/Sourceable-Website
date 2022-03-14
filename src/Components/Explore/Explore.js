@@ -1,11 +1,12 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDoc, getDocs } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import db from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
 import './Explore.css';
+import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser.js';
 
 // Set the MapBox Access Token. This is present in your MapBox Account
 mapboxgl.accessToken =
@@ -18,7 +19,7 @@ const Explore = () => {
 	const map = useRef(null);
 
 	// state to store the month index to show events of specific month only
-	const [monthIndex, setMonthIndex] = useState(3);
+	const [monthIndex, setMonthIndex] = useState(2);
 
 	// state to store the data of incidents after fetching data from FireBase
 	const [incidents, setIncidentsData] = useState([]);
@@ -29,6 +30,7 @@ const Explore = () => {
 	// Initial zoom value of the map when it is rendered
 	const INITIAL_MAP_ZOOM_LEVEL = 7;
 
+	// array to store the mapping of index with month name
 	const months = [
 		'January',
 		'February',
@@ -54,14 +56,20 @@ const Explore = () => {
 
 			// iterate all the documents and fetch it's data
 			const incidentsListData = querySnapshot.docs.map((doc) => {
-				return doc.data();
+				// fetch the data of the document
+				const data = doc.data();
+
+				// add the incident_id field with document id
+				data.properties.incident_id = doc.id;
+
+				return data;
 			});
 
 			// for each incident add month field in it's property
 			const finalIncidentsListData = incidentsListData.map((incident) => {
-				incident.properties.month = incident.properties.created
-					.toDate()
-					.getMonth();
+				const date = new Date(incident.properties.created);
+
+				incident.properties.month = date.getMonth();
 
 				return incident;
 			});
@@ -70,8 +78,25 @@ const Explore = () => {
 			setIncidentsData(finalIncidentsListData);
 		};
 
+		const getUserBookMarksData = async (db) => {
+			// get the current user
+			const user = auth.currentUser;
+
+			// get all documents under the Explore Collection
+			const userBookmarkDocument = await getDoc(
+				collection(db, 'BookMarks', user.email, 'bookmarks')
+			);
+
+			const userBookMarks = userBookmarkDocument.data();
+
+			alert(userBookMarks);
+		};
+
 		// call the function to fetch incidents data
 		getIncidentsDataFromFireStore(db);
+
+		// call the function to fetch incidents bookmarks data
+		// getUserBookMarksData(db);
 	}, []);
 
 	useEffect(() => {
@@ -274,7 +299,7 @@ const Explore = () => {
 						// set the newsListData equal to cluster_points_data array
 
 						props.file = JSON.parse(props.file);
-						props.created = JSON.parse(props.created);
+						// props.created = JSON.parse(props.created);
 
 						setNewsListData([{ properties: props }]);
 					});
@@ -519,7 +544,7 @@ ${total.toLocaleString()}
 			<div ref={mapContainer} className='map-container' />
 			<div className='map-overlay top'>
 				<div className='map-overlay-inner'>
-					<h2>Incidents in Syria</h2>
+					<h2>Incidents</h2>
 					<label id='month'></label>
 					<input
 						id='slider'
