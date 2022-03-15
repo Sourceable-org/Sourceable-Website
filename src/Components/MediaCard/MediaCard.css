@@ -6,3 +6,8 @@
 .card-bottom-style img{
     cursor: pointer;
 }
+
+.comment-style{
+    background-color: aqua;
+    padding: 3px 10px;
+}
