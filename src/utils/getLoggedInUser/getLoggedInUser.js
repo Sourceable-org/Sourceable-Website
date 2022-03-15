@@ -2,13 +2,14 @@ import { getAuth } from 'firebase/auth';
 
 const getLoggedInUser = () => {
 	const auth = getAuth();
+
 	const user = auth.currentUser;
 
-	// if the user is logged in currently then return the loggedIn user object
+	// if the user is logged in currently then return their email
 	if (user) {
-		return user;
+		return user.email;
 	}
-	// indicates that user is not logged in
+	// if not just return undefined
 	else {
 		return undefined;
 	}

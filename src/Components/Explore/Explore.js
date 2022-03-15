@@ -1,12 +1,11 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, getDoc, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import db from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
 import './Explore.css';
-import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser.js';
 
 // Set the MapBox Access Token. This is present in your MapBox Account
 mapboxgl.accessToken =
@@ -17,6 +16,12 @@ const Explore = () => {
 	// create a reference for the map
 	const mapContainer = useRef(null);
 	const map = useRef(null);
+
+	// state to store email address of the logged in user
+	const [userEmail, setUserEmail] = useState(undefined);
+
+	// store the book marks of the user in this state variable
+	const [userBookMarks, setUserBookMarks] = useState([]);
 
 	// state to store the month index to show events of specific month only
 	const [monthIndex, setMonthIndex] = useState(2);
@@ -78,26 +83,25 @@ const Explore = () => {
 			setIncidentsData(finalIncidentsListData);
 		};
 
-		const getUserBookMarksData = async (db) => {
-			// get the current user
-			const user = auth.currentUser;
-
-			// get all documents under the Explore Collection
-			const userBookmarkDocument = await getDoc(
-				collection(db, 'BookMarks', user.email, 'bookmarks')
-			);
-
-			const userBookMarks = userBookmarkDocument.data();
-
-			alert(userBookMarks);
-		};
-
 		// call the function to fetch incidents data
 		getIncidentsDataFromFireStore(db);
+	}, []);
+
+	useEffect(() => {
+		const getUserBookMarksData = async (db) => {
+			if (userEmail === undefined) return;
+
+			const userBookmarkDocumentRef = doc(db, 'BookMarks', userEmail);
+
+			const data = await getDoc(userBookmarkDocumentRef);
+
+			const userBookMarks = data.data()['bookmarks'];
+			setUserBookMarks(userBookMarks);
+		};
 
 		// call the function to fetch incidents bookmarks data
-		// getUserBookMarksData(db);
-	}, []);
+		getUserBookMarksData(db);
+	}, [userEmail]);
 
 	useEffect(() => {
 		// when the auth status is changed
@@ -106,7 +110,7 @@ const Explore = () => {
 			if (user) {
 				// User is signed in, see docs for a list of available properties
 				// https://firebase.google.com/docs/reference/js/firebase.User
-				const uid = user.uid;
+				setUserEmail(user.email);
 			}
 			// user is not logged in
 			else {
@@ -532,11 +536,16 @@ ${total.toLocaleString()}
 					<NewsList
 						newsListData={newsListData}
 						setNewsListData={setNewsListData}
+						userBookMarks={userBookMarks}
+						setUserBookMarks={setUserBookMarks}
 					/>
 				</div>
 			);
 		}
 	};
+
+	console.count('Rendered');
+
 	// inside the return method display the map
 	// and show the newsList if user clicks on the cluster point
 	return (
@@ -544,7 +553,7 @@ ${total.toLocaleString()}
 			<div ref={mapContainer} className='map-container' />
 			<div className='map-overlay top'>
 				<div className='map-overlay-inner'>
-					<h2>Incidents</h2>
+					<h2>Incidents in Syria</h2>
 					<label id='month'></label>
 					<input
 						id='slider'

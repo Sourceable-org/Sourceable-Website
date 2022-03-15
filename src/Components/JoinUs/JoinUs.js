@@ -3,13 +3,11 @@ import LockOpenSharpIcon from '@mui/icons-material/LockOpenSharp';
 import MailOutlineSharpIcon from '@mui/icons-material/MailOutlineSharp';
 import {
 	createUserWithEmailAndPassword,
-	getAuth, signInWithEmailAndPassword, signOut
+	getAuth,
+	signInWithEmailAndPassword,
+	signOut
 } from 'firebase/auth';
-import {
-	collection,
-	doc, getDoc, getFirestore,
-	setDoc
-} from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Firebase/Firebase';
@@ -22,6 +20,7 @@ const JoinUs = () => {
 	const [email, setEmail] = useState();
 	const [name, setName] = useState();
 	const [password, setPassword] = useState();
+
 	const auth = getAuth();
 	const db = getFirestore();
 	const navigate = useNavigate();
@@ -56,7 +55,7 @@ const JoinUs = () => {
 
 	const checkAccountValidity = async (user) => {
 		// get account document
-		const accountSnap = await getDoc(collection(db, 'Account', user.email));
+		const accountSnap = await getDoc(doc(db, 'Account', user.email));
 
 		if (accountSnap.exists()) {
 			if (

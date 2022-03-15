@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import NotificationImg from '../../images/notification.jpeg';
 import '../Gallery/Gallery.css';
 import LifeSave from '../LifeSave/LifeSave';
-
 const Gallery = () => {
 	const [handleModal, setHandleModal] = useState(false);
 	const auth = getAuth();

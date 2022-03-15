@@ -16,8 +16,8 @@ import {
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
-import { useState } from 'react';
-import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser.js';
+import { useEffect, useState } from 'react';
+import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser';
 import db from '../Firebase/Firebase';
 import './MediaCard.css';
 
@@ -42,7 +42,10 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const MediaCard = ({ newsData }) => {
+const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
+	// get the email address
+	const [userEmail, setUserEmail] = useState(undefined);
+
 	// get the classes
 	const classes = useStyles();
 
@@ -68,52 +71,57 @@ const MediaCard = ({ newsData }) => {
 		setComment('');
 	};
 
-	const [bookmarkStatus, setBookmarkStatus] = useState(false);
+	const [bookmarkStatus, setBookmarkStatus] = useState(
+		userBookMarks.includes(incidentId)
+	);
+
+	useEffect(() => {
+		const user = getLoggedInUser();
+		setUserEmail(user);
+	}, []);
 
 	// function to add bookMark in FireBase
-	const addBookMarkOnFireBase = async (loggedInUserEmail) => {
+	const addBookMarkOnFireBase = async () => {
 		// create a document under Bookmarks for a user if not present
 		// add the incident_id to the bookmarks list
 		await setDoc(
-			doc(db, 'BookMarks', loggedInUserEmail),
+			doc(db, 'BookMarks', userEmail),
 			{
 				bookmarks: arrayUnion(incidentId),
 			},
 			{ merge: true }
 		);
+
+		// setUserBookMarks([...userBookMarks, incidentId]);
 	};
 
-	const removeBookMarkFromFireBase = async (loggedInUserEmail) => {
+	const removeBookMarkFromFireBase = async () => {
 		// fetch a document under Bookmarks for a user if not present
 		// remove the incident_id to the bookmarks list
 
-		await updateDoc(doc(db, 'BookMarks', loggedInUserEmail), {
+		await updateDoc(doc(db, 'BookMarks', userEmail), {
 			bookmarks: arrayRemove(incidentId),
 		});
+
+		// setUserBookMarks(userBookMarks.filter((y) => y !== incidentId));
 	};
 
 	const handleBookMarkIconButtonClick = () => {
-		// get current loggedIn user
-		const loggedInUser = getLoggedInUser();
-
 		// user is not loggedIn so do not do anything
-		if (loggedInUser === undefined) {
-			alert('User is not logged in');
+		if (userEmail === undefined) {
+			// alert('User is not logged in');
 			return;
 		}
-
-		// fetch the email address of the loggedIn User
-		const loggedInUserEmail = loggedInUser.email;
 
 		// if the incident was previously not bookmarked
 		if (bookmarkStatus === false) {
 			// make a call on FireBase to add BookMark
-			addBookMarkOnFireBase(loggedInUserEmail);
+			addBookMarkOnFireBase();
 		}
 		// if the incident was previously bookmarked
 		else {
 			// make a call on FireBase to remove the BookMark
-			removeBookMarkFromFireBase(loggedInUserEmail);
+			removeBookMarkFromFireBase();
 		}
 
 		// take the complement of the bookmarkStatus
