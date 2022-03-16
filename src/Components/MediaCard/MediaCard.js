@@ -213,19 +213,6 @@ export default MediaCard;
 */
 //----------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import makeStyles from '@material-ui/styles/makeStyles';
 import BookmarkBorderRounded from '@mui/icons-material/BookmarkBorderRounded';
 import BookmarkRounded from '@mui/icons-material/BookmarkRounded';
@@ -244,9 +231,11 @@ import {
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser';
-import db from '../Firebase/Firebase';
+// import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser';
+
+import { db } from '../Firebase/Firebase';
 import './MediaCard.css';
 
 // styles for the MediaCard Component
@@ -304,8 +293,17 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 	);
 
 	useEffect(() => {
-		const user = getLoggedInUser();
-		setUserEmail(user);
+		// const user = getLoggedInUser();
+
+		const auth = getAuth();
+
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				setUserEmail(user.email);
+			} else {
+				setUserEmail(undefined);
+			}
+		});
 	}, []);
 
 	// function to add bookMark in FireBase
@@ -418,26 +416,18 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 					</div>
 				</CardContent>
 
-			<div className='comment-display'>	
-					{
-						commentArray.map((comm, index) => {
-							return (
-								<div className='comment-style'>
-								{
-									comm
-								}
-								<hr/>
-								</div>
-							)
-						})
-					}
-			</div>
+				<div className='comment-display'>
+					{commentArray.map((comm, index) => {
+						return (
+							<div className='comment-style'>
+								{comm}
+								<hr />
+							</div>
+						);
+					})}
+				</div>
 			</Card>
-
-
 		</>
-
-
 	);
 };
 

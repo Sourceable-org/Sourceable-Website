@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import db from '../Firebase/Firebase';
+import { db } from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
 import './Explore.css';
 

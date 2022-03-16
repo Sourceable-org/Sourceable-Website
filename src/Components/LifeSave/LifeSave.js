@@ -2,10 +2,12 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser';
-import db from '../Firebase/Firebase';
+// import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser';
+// import getLoggedInUser from '../Firebase/Firebase.js';
+import { db } from '../Firebase/Firebase';
 import MediaCard from '../MediaCard/MediaCard';
 const LifeSave = () => {
 	// state to store the data of incidents after fetching data from FireBase
@@ -26,9 +28,17 @@ const LifeSave = () => {
 	}, []);
 
 	useEffect(() => {
-		const user = getLoggedInUser();
-		alert(user);
-		setUserEmail(user);
+		// const user = getLoggedInUser();
+
+		const auth = getAuth();
+
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				setUserEmail(user.email);
+			} else {
+				setUserEmail(undefined);
+			}
+		});
 	}, []);
 
 	useEffect(() => {
