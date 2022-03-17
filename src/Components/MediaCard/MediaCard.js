@@ -218,23 +218,23 @@ import BookmarkBorderRounded from '@mui/icons-material/BookmarkBorderRounded';
 import BookmarkRounded from '@mui/icons-material/BookmarkRounded';
 import SendIcon from '@mui/icons-material/Send';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
 	arrayRemove,
 	arrayUnion,
 	doc,
+	getDoc,
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-// import getLoggedInUser from '../../utils/getLoggedInUser/getLoggedInUser';
-
 import { db } from '../Firebase/Firebase';
 import './MediaCard.css';
 
@@ -282,10 +282,28 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		setComment(e.target.value);
 	};
 
-	const onSubmitHandle = (e) => {
+	const onCommentSubmitHandle = (e) => {
 		e.preventDefault();
-		setCommentArray(commentArray.concat(comment));
+
+		if (comment === '') {
+			alert('Comment cannot be empty');
+			return;
+		}
+
+		addCommentOnFireBase(comment);
+
+		setCommentArray([...commentArray, comment]);
 		setComment('');
+	};
+
+	const addCommentOnFireBase = async (commentValue) => {
+		await setDoc(
+			doc(db, 'Comments', incidentId),
+			{
+				comments: arrayUnion(commentValue),
+			},
+			{ merge: true }
+		);
 	};
 
 	const [bookmarkStatus, setBookmarkStatus] = useState(
@@ -354,6 +372,21 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		setBookmarkStatus(!bookmarkStatus);
 	};
 
+	// function to load comments for this specific incident
+	const loadCommentsFromFireBase = async () => {
+		const commentsDoc = await getDoc(doc(db, 'Comments', incidentId));
+
+		if (!commentsDoc.exists()) {
+			return;
+		}
+
+		// fetch the comments field from the doc
+		const commentsFromFirebase = commentsDoc.data()['comments'];
+
+		// update the comments array
+		setCommentArray(commentsFromFirebase);
+	};
+
 	return (
 		<>
 			<Card variant='outlined' sx={{ maxWidth: 345 }}>
@@ -391,6 +424,11 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 								/>
 							)}
 						</div>
+						<Button
+							variant='contained'
+							onClick={loadCommentsFromFireBase}>
+							Load Comments
+						</Button>
 					</div>
 
 					<Typography variant='body2' color='text.secondary'>
@@ -410,7 +448,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 						/>
 						<IconButton
 							className={classes.comment_button}
-							onClick={onSubmitHandle}>
+							onClick={onCommentSubmitHandle}>
 							<SendIcon />
 						</IconButton>
 					</div>
@@ -419,7 +457,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 				<div className='comment-display'>
 					{commentArray.map((comm, index) => {
 						return (
-							<div className='comment-style'>
+							<div key={index} className='comment-style'>
 								{comm}
 								<hr />
 							</div>
