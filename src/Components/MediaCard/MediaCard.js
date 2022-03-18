@@ -225,6 +225,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
 	arrayRemove,
@@ -254,7 +255,6 @@ const useStyles = makeStyles(() => ({
 		marginTop: 10,
 	},
 	cardView: {
-		minHeight: 400,
 		width: '100%',
 	},
 }));
@@ -274,6 +274,8 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 
 	const incidentId = newsData.properties.incident_id;
 
+	const [ht,setHt] = useState(0);
+	const [heightMedia,setHeightMedia] =useState(400);
 	const [comment, setComment] = useState('');
 
 	const [commentArray, setCommentArray] = useState([]);
@@ -383,9 +385,28 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		// fetch the comments field from the doc
 		const commentsFromFirebase = commentsDoc.data()['comments'];
 
+		// console.log(commentsFromFirebase);
+
+		if(commentsFromFirebase === undefined){
+			alert("No previous comments to load");
+			return;
+		}
+
 		// update the comments array
 		setCommentArray(commentsFromFirebase);
+		
+		// setting the height of comment section
+		setHt(400);
+
+		//reducing the height of cardView to 0
+		setHeightMedia(0)
 	};
+
+	const collapseHeight=()=>{
+		setHt(0);
+		//reducing the height of cardView to 0
+		setHeightMedia(400)
+	}
 
 	return (
 		<>
@@ -396,12 +417,15 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 						className={classes.cardView}
 						src={fileURL}
 						controls
+						style={{height:`${heightMedia}px`,transition:'all 1s'}}
 					/>
 				) : (
 					<CardMedia
 						component='img'
 						className={classes.cardView}
 						image={fileURL}
+						style={{height:`${heightMedia}px`,transition:'all 1s'}}
+
 					/>
 				)}
 				<CardContent>
@@ -424,11 +448,24 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 								/>
 							)}
 						</div>
-						<Button
+						{/* <Button
 							variant='contained'
 							onClick={loadCommentsFromFireBase}>
 							Load Comments
-						</Button>
+						</Button> */}
+
+						{/* disabled={commentArray.length == 0 ? true:false} */}
+
+						<div className="comment-btn-section">
+							<button className='comment-btn' onClick={loadCommentsFromFireBase } >
+								Load Comments
+							</button>
+							<button className='comment-btn' onClick={collapseHeight}>
+								Hide Comments
+							</button>
+						</div>
+						
+
 					</div>
 
 					<Typography variant='body2' color='text.secondary'>
@@ -454,12 +491,17 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 					</div>
 				</CardContent>
 
-				<div className='comment-display'>
+				<div className='comment-display' style={{height:`${ht}px`}}>
 					{commentArray.map((comm, index) => {
 						return (
 							<div key={index} className='comment-style'>
-								{comm}
-								<hr />
+								<div className='comment-data'>
+									<AccountCircleIcon/> <span>{userEmail}</span>  
+									<div className='actual-comment'>
+										{comm}
+									</div>
+								</div>
+								
 							</div>
 						);
 					})}
@@ -470,3 +512,5 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 };
 
 export default MediaCard;
+
+
