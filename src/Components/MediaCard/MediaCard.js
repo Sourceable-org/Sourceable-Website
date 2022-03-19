@@ -232,7 +232,7 @@ import {
 	doc,
 	getDoc,
 	setDoc,
-	updateDoc
+	updateDoc,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '../Firebase/Firebase';
@@ -409,6 +409,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 
 	const displayCard = (fileType, fileURL) => {
 		if (fileType === 'text') {
+			// vivek makes changes over here for the text
 			return <CardMedia />;
 		} else if (fileType === 'video') {
 			return (
