@@ -145,9 +145,6 @@ export default LifeSave;
 */
 //----------------------------------------------------------------------------------------------------
 
-
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -157,7 +154,7 @@ import React, { useEffect, useState } from 'react';
 // import getLoggedInUser from '../Firebase/Firebase.js';
 import { db } from '../Firebase/Firebase';
 import MediaCard from '../MediaCard/MediaCard';
-import './LifeSave.css'
+import './LifeSave.css';
 
 const LifeSave = () => {
 	// state to store the data of incidents after fetching data from FireBase
@@ -279,32 +276,24 @@ const LifeSave = () => {
 
 	return (
 		<div className='lifeSave'>
-			<div className="slogan">
+			<div className='slogan'>
 				<h5>Empowering. Supporting. Connecting.</h5>
-				<h2>
-					Trusted by citizen journalists, used by the world.
-				</h2>
+				<h2>Trusted by citizen journalists, used by the world.</h2>
 			</div>
 
 			{/* {savedIncidents()} */}
 
-			<div className="bookmark-cards">
-				{
-					bookMarkedIncidents.map((bookMarkedIncident) => {
-						return (
-							<MediaCard
-								newsData={bookMarkedIncident}
-								userBookMarks={userBookMarks}
-								setUserBookMarks={setUserBookMarks}
-							/>
-						);
-					})
-				}
-				
-				
+			<div className='bookmark-cards'>
+				{bookMarkedIncidents.map((bookMarkedIncident) => {
+					return (
+						<MediaCard
+							newsData={bookMarkedIncident}
+							userBookMarks={userBookMarks}
+							setUserBookMarks={setUserBookMarks}
+						/>
+					);
+				})}
 			</div>
-
-
 		</div>
 	);
 };

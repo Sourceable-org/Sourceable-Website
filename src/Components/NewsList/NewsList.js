@@ -1,10 +1,7 @@
-
 import CancelIcon from '@mui/icons-material/Cancel';
 import { IconButton, ListSubheader } from '@mui/material';
-import ListItem from '@mui/material/ListItem';
-import { FixedSizeList } from 'react-window';
 import MediaCard from '../MediaCard/MediaCard.js';
-import './NewsList.css'
+import './NewsList.css';
 const NewsList = ({
 	newsListData,
 	setNewsListData,
@@ -23,12 +20,10 @@ const NewsList = ({
 			// 		userBookMarks={userBookMarks}
 			// 		setUserBookMarks={setUserBookMarks}
 			// 	/> */}
-			// 	
+			//
 			// </ListItem>
 
-			<div>
-				hii
-			</div>
+			<div>hii</div>
 		);
 	};
 
@@ -45,26 +40,22 @@ const NewsList = ({
 					<CancelIcon />
 				</IconButton>
 			</ListSubheader>
-			{
-				newsListData.length > 0 ? (
-					newsListData.map((newsData,index) => {
+			{newsListData.length > 0
+				? newsListData.map((newsData, index) => {
 						return (
 							<MediaCard
 								newsData={newsListData[index]}
 								userBookMarks={userBookMarks}
 								setUserBookMarks={setUserBookMarks}
 							/>
-						)
-					})
-				) : "No Audio or Videos yet!!"
-			}
-
+						);
+				  })
+				: 'No Audio or Videos yet!!'}
 		</div>
 	);
 };
 
 export default NewsList;
-
 
 //----------------------------------------NEW CODE__________________________________________________
 
@@ -116,7 +107,7 @@ export default NewsList;
 // 				{renderRow}
 // 			</FixedSizeList> */}
 
-// {/* 
+// {/*
 // 	const fileURL = newsData.properties.file.url;
 
 // 	const fileType = newsData.properties.file.type;
