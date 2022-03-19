@@ -214,18 +214,17 @@ export default MediaCard;
 //----------------------------------------------------------------------------------------------------------
 
 import makeStyles from '@material-ui/styles/makeStyles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BookmarkBorderRounded from '@mui/icons-material/BookmarkBorderRounded';
 import BookmarkRounded from '@mui/icons-material/BookmarkRounded';
 import SendIcon from '@mui/icons-material/Send';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
 	arrayRemove,
@@ -233,7 +232,7 @@ import {
 	doc,
 	getDoc,
 	setDoc,
-	updateDoc,
+	updateDoc
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '../Firebase/Firebase';
