@@ -1,13 +1,72 @@
-.card-bottom-style{
-    display: flex;
-    justify-content: space-between;
+
+.card-bottom-style {
+  display: flex;
+  justify-content: space-between;
 }
 
-.card-bottom-style img{
-    cursor: pointer;
+.card-bottom-style img {
+  cursor: pointer;
+}
+.comment-display {
+  overflow-y: auto;
+  transition: all 1s;
+  background: #536976; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #292e49,
+    #536976
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #292e49,
+    #536976
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.comment-style {
+  /* background-color: black; */
+  padding: 3px 10px;
 }
 
-.comment-style{
-    background-color: aqua;
-    padding: 3px 10px;
+.comment-btn-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-btn {
+  border: none;
+  background: transparent;
+  padding: 3px;
+  margin: 2px;
+  font-size: 12px;
+  background-color: #f35271;
+  color: white;
+  border-radius: 5px;
+}
+.comment-data {
+  background-color: white;
+  word-wrap: break-word;
+}
+
+.comment-data svg {
+  margin: 6px 7px;
+  padding: 0px;
+  font-size: 30px;
+}
+.comment-data span {
+  color: #00000085;
+  font-size: small;
+}
+
+.comment-data span:hover {
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+.actual-comment {
+  margin-left: 45px;
+  margin-top: 0px;
+}
+.comment-data:hover {
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  transform: scale(1.06);
 }

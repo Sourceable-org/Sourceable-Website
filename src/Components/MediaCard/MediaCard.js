@@ -225,6 +225,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
 	arrayRemove,
@@ -254,7 +255,6 @@ const useStyles = makeStyles(() => ({
 		marginTop: 10,
 	},
 	cardView: {
-		minHeight: 400,
 		width: '100%',
 	},
 }));
@@ -274,6 +274,8 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 
 	const incidentId = newsData.properties.incident_id;
 
+	const [ht, setHt] = useState(0);
+	const [heightMedia, setHeightMedia] = useState(400);
 	const [comment, setComment] = useState('');
 
 	const [commentArray, setCommentArray] = useState([]);
@@ -292,7 +294,10 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 
 		addCommentOnFireBase(comment);
 
-		setCommentArray([...commentArray, comment]);
+		setCommentArray([
+			{ comment: comment, user: userEmail },
+			...commentArray,
+		]);
 		setComment('');
 	};
 
@@ -386,8 +391,21 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		// fetch the comments field from the doc
 		const commentsFromFirebase = commentsDoc.data()['comments'];
 
+		// console.log(commentsFromFirebase);
+
+		if (commentsFromFirebase === undefined) {
+			alert('No previous comments to load');
+			return;
+		}
+
 		// update the comments array
-		setCommentArray(commentsFromFirebase);
+		setCommentArray(commentsFromFirebase.reverse());
+
+		// setting the height of comment section
+		setHt(400);
+
+		//reducing the height of cardView to 0
+		setHeightMedia(0);
 	};
 
 	const displayCard = (fileType, fileURL) => {
@@ -400,32 +418,33 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 					className={classes.cardView}
 					src={fileURL}
 					controls
+					style={{ height: `${heightMedia}px`, transition: 'all 1s' }}
 				/>
 			);
 		} else if (fileType === 'audio') {
-			return (
-				<CardMedia
-					component='audio'
-					src={fileURL}
-					controls
-					// className={classes.cardView}
-				/>
-			);
+			return <CardMedia component='audio' src={fileURL} controls />;
 		} else if (fileType === 'image') {
 			return (
 				<CardMedia
 					component='img'
 					className={classes.cardView}
 					image={fileURL}
+					style={{ height: `${heightMedia}px`, transition: 'all 1s' }}
 				/>
 			);
 		}
+	};
+	const collapseHeight = () => {
+		setHt(0);
+		//reducing the height of cardView to 0
+		setHeightMedia(400);
 	};
 
 	return (
 		<>
 			<Card variant='outlined' sx={{ maxWidth: 345 }}>
 				{displayCard(fileType, fileURL)}
+
 				<CardContent>
 					<div className='card-bottom-style'>
 						<h5>Event Title</h5>
@@ -446,11 +465,26 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 								/>
 							)}
 						</div>
-						<Button
+						{/* <Button
 							variant='contained'
 							onClick={loadCommentsFromFireBase}>
 							Load Comments
-						</Button>
+						</Button> */}
+
+						{/* disabled={commentArray.length == 0 ? true:false} */}
+
+						<div className='comment-btn-section'>
+							<button
+								className='comment-btn'
+								onClick={loadCommentsFromFireBase}>
+								Load Comments
+							</button>
+							<button
+								className='comment-btn'
+								onClick={collapseHeight}>
+								Hide Comments
+							</button>
+						</div>
 					</div>
 
 					<Typography variant='body2' color='text.secondary'>
@@ -476,12 +510,17 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 					</div>
 				</CardContent>
 
-				<div className='comment-display'>
-					{commentArray.map((comm, index) => {
+				<div className='comment-display' style={{ height: `${ht}px` }}>
+					{commentArray.map((comment, index) => {
 						return (
 							<div key={index} className='comment-style'>
-								{comm}
-								<hr />
+								<div className='comment-data'>
+									<AccountCircleIcon />{' '}
+									<span>{comment.user}</span>
+									<div className='actual-comment'>
+										{comment.comment}
+									</div>
+								</div>
 							</div>
 						);
 					})}
