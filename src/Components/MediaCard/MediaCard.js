@@ -392,7 +392,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 
 		// console.log(commentsFromFirebase);
 
-		if (commentsFromFirebase === undefined) {
+		if (commentsFromFirebase.length === 0) {
 			alert('No previous comments to load');
 			return;
 		}
@@ -407,9 +407,25 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		setHeightMedia(0);
 	};
 
+	 const BasicCard = () =>{
+		return (
+		  <Card sx={{ minWidth: 275 }}>
+			<CardContent>
+			  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+				{fileURL}
+			  </Typography>
+			</CardContent>
+			
+		  </Card>
+		);
+	  }
+
+
 	const displayCard = (fileType, fileURL) => {
 		if (fileType === 'text') {
-			return <CardMedia />;
+			return (
+				BasicCard()
+			)
 		} else if (fileType === 'video') {
 			return (
 				<CardMedia
@@ -422,6 +438,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 			);
 		} else if (fileType === 'audio') {
 			return <CardMedia component='audio' src={fileURL} controls />;
+
 		} else if (fileType === 'image') {
 			return (
 				<CardMedia
