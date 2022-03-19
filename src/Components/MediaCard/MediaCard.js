@@ -300,7 +300,10 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		await setDoc(
 			doc(db, 'Comments', incidentId),
 			{
-				comments: arrayUnion(commentValue),
+				comments: arrayUnion({
+					comment: commentValue,
+					user: userEmail,
+				}),
 			},
 			{ merge: true }
 		);
@@ -387,23 +390,42 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		setCommentArray(commentsFromFirebase);
 	};
 
+	const displayCard = (fileType, fileURL) => {
+		if (fileType === 'text') {
+			return <CardMedia />;
+		} else if (fileType === 'video') {
+			return (
+				<CardMedia
+					component='video'
+					className={classes.cardView}
+					src={fileURL}
+					controls
+				/>
+			);
+		} else if (fileType === 'audio') {
+			return (
+				<CardMedia
+					component='audio'
+					src={fileURL}
+					controls
+					// className={classes.cardView}
+				/>
+			);
+		} else if (fileType === 'image') {
+			return (
+				<CardMedia
+					component='img'
+					className={classes.cardView}
+					image={fileURL}
+				/>
+			);
+		}
+	};
+
 	return (
 		<>
 			<Card variant='outlined' sx={{ maxWidth: 345 }}>
-				{fileType === 'video' ? (
-					<CardMedia
-						component='video'
-						className={classes.cardView}
-						src={fileURL}
-						controls
-					/>
-				) : (
-					<CardMedia
-						component='img'
-						className={classes.cardView}
-						image={fileURL}
-					/>
-				)}
+				{displayCard(fileType, fileURL)}
 				<CardContent>
 					<div className='card-bottom-style'>
 						<h5>Event Title</h5>
