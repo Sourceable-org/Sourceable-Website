@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer.js';
 import Header from './Components/Header/Header.js';
 import Home from './Components/Home/Home.js';
 import JoinUs from './Components/JoinUs/JoinUs.js';
+import Chatbox from './Components/Chatbox/Chatbox.js';
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 				<Route path='/contact' element={<Contact />}></Route>
 				<Route path='/join' element={<JoinUs />}></Route>
 				<Route path='/mygallery' element={<Gallery />}></Route>
+				<Route path="/thread" element={<Chatbox />} />
 			</Routes>
 			<Routes>
 				<Route exact path='/explore' component={null}></Route>
