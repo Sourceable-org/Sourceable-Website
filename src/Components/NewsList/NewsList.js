@@ -15,7 +15,7 @@ const NewsList = ({
 		return (
 			// <ListItem key={index} style={style} component='div'>
 
-			// 	{/* <MediaCard
+			// 	{/* <MediaCard	
 			// 		newsData={newsListData[index]}
 			// 		userBookMarks={userBookMarks}
 			// 		setUserBookMarks={setUserBookMarks}
