@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Contact/Contact.css";
 
@@ -24,43 +24,76 @@ const Contact = () => {
     });
   }, [auth, navigate]);
 
-  
   return (
-    <div class="contact-container">
-      <h2>Contact Us</h2>
-      <form action="#" method="get" class="contact-form font2">
-        <div class="name ">
-          <input
-            type="text"
-            placeholder="Enter your name"
-            class="name-input font2"
-          />
-        </div>
-        <div class="email">
-          {" "}
-          <input
-            type="email"
-            name=""
-            id=""
-            placeholder="Enter your email-id"
-            class="email-input font2"
-          />
-        </div>
-        <div class="textarea-contact">
-          <textarea
-            name=""
-            id=""
-            cols="10"
-            rows="7"
-            class="textarea-input font2"
-            placeholder="Enter your concern in detail.."
-          ></textarea>
-        </div>
-        <button type="submit" class="btn-contact">
-          Submit
-        </button>
-      </form>
+    <div className="bg">
+      <div class="contact-container">
+        <h2 className="contact-container-item">Contact Us</h2>
+        <hr className="contact-container-item" />
+
+        {/* <div className="contact-container-item"> */}
+        <form action="#" method="get" class="contact-form">
+          <div class="contact-form-item">
+            <InputBox type={"text"} label={"Your Name"} />
+          </div>
+          <div class="contact-form-item">
+            <InputBox type={"email"} label={"Your Email ID"} />
+          </div>
+          <div class="contact-form-item">
+            <textarea
+              placeholder=" "
+              className="input"
+              name="text-area"
+              id="text-area"
+              cols="10"
+              rows="7"
+            ></textarea>
+            <label htmlFor="text-area" class="label">
+              Enter your concern in Detail{" "}
+            </label>
+          </div>
+          <div className="contact-form-item btn-container">
+            <button type="reset" class="btn btn-contact">
+              Clear
+            </button>
+            <button type="submit" class="btn btn-contact">
+              Submit
+            </button>
+          </div>
+        </form>
+        {/* </div> */}
+      </div>
     </div>
+  );
+};
+
+////custom input box/////
+
+const InputBox = ({ label, type }) => {
+  const [focus, setFocus] = useState();
+
+  const focusHandler = () => {
+    setFocus(true);
+  };
+
+  const blurHandler = (e) => {
+    console.log(e.target.value.length);
+    e.target.value.length ? setFocus(true) : setFocus(false);
+  };
+  return (
+    <>
+      <label htmlFor={label} class={`label ${focus ? "focus" : "not-focus"}`}>
+        {label}
+      </label>
+      <input
+        name={label}
+        id={label}
+        type={type}
+        class="input"
+        onFocus={focusHandler}
+        onBlur={blurHandler}
+        placeholder=" "
+      />
+    </>
   );
 };
 
