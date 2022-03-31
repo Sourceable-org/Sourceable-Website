@@ -1,4 +1,12 @@
-import { collection, doc, getDocs } from 'firebase/firestore';
+import {
+	collection,
+	getDocs,
+	query,
+	where,
+	Timestamp,
+	addDoc,
+	onSnapshot,
+} from 'firebase/firestore';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { db } from '../Firebase/Firebase';
@@ -11,19 +19,8 @@ const ChatRoom = ({
 	currentReceiverChatID,
 	senderChatID,
 }) => {
-	//all messages
-	const [messages, setMessages] = useState([
-		// {
-		// 	key: 0,
-		// 	message: 'Hello, How are you?',
-		// 	time: '10:10 am',
-		// },
-		// {
-		// 	key: 1,
-		// 	message: "I'm Fine, How're you?",
-		// 	time: '10:12 am',
-		// },
-	]);
+	// state to store messages of the chatRoom
+	const [messages, setMessages] = useState([]);
 
 	// function to get the chatRoom ID on the basis of sender and receiver user id
 	const getChatRoomID = () => {
@@ -65,7 +62,7 @@ const ChatRoom = ({
 
 					// if the senderChatID and uid of the composer of the message is equal
 					// then set key to 0
-					if (messageData['user']['_id'] === senderChatID) {
+					if (messageData['sentBy'] === senderChatID) {
 						messageData['key'] = 0;
 					}
 					// if unequal then set key to 1
@@ -84,12 +81,34 @@ const ChatRoom = ({
 		loadPreviousMessages();
 	}, [currentReceiverChatID, chatRoomID]);
 
-	const sendMessage = useCallback(() => {
-		setMessages([
-			...messages,
-			{ key: 0, message: currentMessage, time: currentTime },
-		]);
+	const addMessage = () => {
+		const currentMessageToAdd = {
+			_id: '112',
+			text: currentMessage,
+			sentTo: currentReceiverChatID,
+			sentBy: senderChatID,
+			createdAt: Timestamp.fromDate(new Date()),
+			user: {
+				_id: '112',
+			},
+		};
+
+		// Add the message and store it in the chatRoom messages collection
+		addDoc(
+			collection(db, 'chatrooms', chatRoomID, 'messages'),
+			currentMessageToAdd
+		);
+
 		setCurrentMesssage('');
+
+		return currentMessageToAdd;
+	};
+
+	const sendMessage = useCallback(() => {
+		const messageToAdd = addMessage();
+		messageToAdd['key'] = 0;
+
+		setMessages([...messages, messageToAdd]);
 	}, [currentMessage]);
 
 	const onChangeHandler = (e) => {
