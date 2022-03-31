@@ -1,8 +1,7 @@
-import { db } from '../Firebase/Firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
-import { v4 as uuid } from 'uuid';
+import { db } from '../Firebase/Firebase';
 import './Chatbox.css';
 
 const Chatbox = () => {
@@ -45,44 +44,6 @@ const Chatbox = () => {
 			time: '10:20 am',
 		},
 	]);
-
-	//self
-	const user = {
-		key: 0,
-		messaage: [{}],
-	};
-
-	//demo data
-	const users = [
-		{
-			id: uuid(),
-			name: 'Vincent Porter',
-			status: '7 mins ago',
-			profilePhotoURL:
-				'https://bootdey.com/img/Content/avatar/avatar1.png',
-		},
-		{
-			id: uuid(),
-			name: 'Aiden Chavezr',
-			status: 'online',
-			profilePhotoURL:
-				'https://bootdey.com/img/Content/avatar/avatar4.png',
-		},
-		{
-			id: uuid(),
-			name: 'Mike Thomas',
-			status: 'online',
-			profilePhotoURL:
-				'https://bootdey.com/img/Content/avatar/avatar2.png',
-		},
-		{
-			id: uuid(),
-			name: 'Christian Kelly',
-			status: '10 hours ago',
-			profilePhotoURL:
-				'https://bootdey.com/img/Content/avatar/avatar3.png',
-		},
-	];
 
 	//function
 	const profileButtonClick = (name, status, profilePhotoURL) => {
