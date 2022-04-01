@@ -5,7 +5,7 @@ import {
 	createUserWithEmailAndPassword,
 	getAuth,
 	signInWithEmailAndPassword,
-	signOut
+	signOut,
 } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import React, { useRef, useState } from 'react';
@@ -39,6 +39,8 @@ const JoinUs = () => {
 					name: name,
 					email: email,
 					account_type: JOURNALIST_ACCOUNT_TYPE,
+					status: 'online',
+					uid: user.uid,
 				});
 			})
 			.catch((error) => {

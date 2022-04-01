@@ -1,11 +1,12 @@
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
+	addDoc,
 	collection,
 	getDocs,
-	query,
-	where,
-	Timestamp,
-	addDoc,
 	onSnapshot,
+	orderBy,
+	query,
+	Timestamp,
 } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -15,9 +16,8 @@ import './Chatbox.css';
 const ChatRoom = ({
 	currentReceiverName,
 	currentReceiverStatus,
-	currentReceiverProfilePhoto,
 	currentReceiverChatID,
-	senderChatID,
+	senderEmail,
 }) => {
 	// state to store messages of the chatRoom
 	const [messages, setMessages] = useState([]);
@@ -28,7 +28,7 @@ const ChatRoom = ({
 
 		// push the IDS of the sender and receiver
 		usersID.push(currentReceiverChatID);
-		usersID.push(senderChatID);
+		usersID.push(senderEmail);
 
 		// sort the userIDs array
 		usersID.sort();
@@ -48,48 +48,53 @@ const ChatRoom = ({
 	const chatRoomID = getChatRoomID();
 
 	useEffect(() => {
-		const loadPreviousMessages = async () => {
-			// get all documents that have messages for the given chatRoom
-			const chatRoomPreviousMessagesSnapshot = await getDocs(
-				collection(db, 'chatrooms', chatRoomID, 'messages')
-			);
+		// make the ChatRoom Query
+		const chatRoomQuery = query(
+			collection(db, 'chatrooms', chatRoomID, 'messages'),
+			orderBy('createdAt')
+		);
 
-			// get the previous messages of the current chatroom
-			const chatRoomPreviousMessages =
-				chatRoomPreviousMessagesSnapshot.docs.map((doc) => {
-					// get the data about the message
-					const messageData = doc.data();
+		const unsubscribe = onSnapshot(chatRoomQuery, (snapshot) => {
+			const newMessages = [...messages];
+			snapshot.docs.map((change) => {
+				console.log(change.type);
 
-					// if the senderChatID and uid of the composer of the message is equal
-					// then set key to 0
-					if (messageData['sentBy'] === senderChatID) {
-						messageData['key'] = 0;
-					}
-					// if unequal then set key to 1
-					else {
-						messageData['key'] = 1;
-					}
+				// get the data about the message
+				const messageData = change.data();
 
-					// return the messageData
-					return messageData;
-				});
+				// if the senderChatID and uid of the composer of the message is equal
+				// then set key to 0
+				if (messageData['sentBy'] === senderEmail) {
+					messageData['key'] = 0;
+				}
+				// if unequal then set key to 1
+				else {
+					messageData['key'] = 1;
+				}
 
-			// update the messages state variables
-			setMessages(chatRoomPreviousMessages);
+				// append the messages into newMessage
+				newMessages.push(messageData);
+			});
+
+			// update the messages state variable
+			setMessages(newMessages);
+		});
+
+		return () => {
+			unsubscribe();
 		};
-
-		loadPreviousMessages();
 	}, [currentReceiverChatID, chatRoomID]);
 
+	// function to add a new message into the chatroom
 	const addMessage = () => {
 		const currentMessageToAdd = {
-			_id: '112',
+			_id: new Date().getTime(),
 			text: currentMessage,
 			sentTo: currentReceiverChatID,
-			sentBy: senderChatID,
+			sentBy: senderEmail,
 			createdAt: Timestamp.fromDate(new Date()),
 			user: {
-				_id: '112',
+				_id: senderEmail,
 			},
 		};
 
@@ -99,6 +104,7 @@ const ChatRoom = ({
 			currentMessageToAdd
 		);
 
+		// reset the message input box to empty string
 		setCurrentMesssage('');
 
 		return currentMessageToAdd;
@@ -121,8 +127,6 @@ const ChatRoom = ({
 		setCurrentTime(moment(time).format('h:mm a'));
 	}, [sendMessage]);
 
-	console.log({ messages });
-
 	return (
 		<div className='chat'>
 			<div className='chat-header clearfix'>
@@ -132,10 +136,10 @@ const ChatRoom = ({
 							href='javascript:void(0);'
 							data-toggle='modal'
 							data-target='#view_info'>
-							<img
+							{/* <img
 								src={currentReceiverProfilePhoto}
 								alt='avatar'
-							/>
+							/> */}
 						</a>
 						<div className='chat-about'>
 							<div className='mb'>{currentReceiverName}</div>
@@ -218,27 +222,41 @@ const Chatbox = () => {
 		useState('');
 	const [currentReceiverChatID, setCurrentReceiverChatID] = useState('');
 
-	// to store the details of the sender
-	const [senderChatID, setSenderChatID] = useState(
-		'75iqM8VeGRNM1Z3EqAVYF0DIQG42'
-	);
+	// to store the details of the email of the sender
+	const [senderEmail, setSenderEmail] = useState('');
 
 	// state to store the chatUsers
 	const [chatUsers, setChatUsers] = useState([]);
 
-	//
-	const profileButtonClick = (name, status, profilePhotoURL, uid) => {
+	// change the state variables when profile of a user is clicked
+	const profileButtonClick = (name, status, uid) => {
 		console.log('Clicked on another user');
 		setCurrentReceiverName(name);
 		setCurrentReceiverStatus(status);
-		setCurrentReceiverProfilePhoto(profilePhotoURL);
 		setCurrentReceiverChatID(uid);
 	};
 
+	// create FireBase auth object
+	const auth = getAuth();
+
+	// run the useEffect to get the uid of the loggedIn user
 	useEffect(() => {
+		// after successful user login
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				// update the state of the senderEmail
+				setSenderEmail(user.email);
+			}
+		});
+	}, []);
+
+	useEffect(() => {
+		// if senderEmail is not yet fetched then do not make API CALL
+		if (senderEmail === '') return;
+
 		// make a query to fetch all the users from the FireBase Backend
 		const getAllChatUsersFromFireBase = async () => {
-			const chatUsersSnapshot = await getDocs(collection(db, 'users'));
+			const chatUsersSnapshot = await getDocs(collection(db, 'Account'));
 
 			// iterate all the docs and just return the document data
 			const chatUsersFromFireBase = chatUsersSnapshot.docs.map((doc) => {
@@ -261,12 +279,19 @@ const Chatbox = () => {
 				return chatUserData;
 			});
 
+			// keep all the chat users except the loggedInUser
+			const chatUsersFromFireBaseWithoutLoggedInUser =
+				chatUsersFromFireBase.filter(
+					(element) => element.email !== senderEmail
+				);
+
 			//  update the state of chatUsers
-			setChatUsers(chatUsersFromFireBase);
+			setChatUsers(chatUsersFromFireBaseWithoutLoggedInUser);
 		};
 
+		// fetch all the chatUsers from the FireBase
 		getAllChatUsersFromFireBase();
-	}, []);
+	}, [senderEmail]);
 
 	return (
 		<div className='container-chat-box'>
@@ -285,18 +310,17 @@ const Chatbox = () => {
 								</span>
 							</div>
 							<ul className='list-unstyled chat-list mt-2 mb-0'>
-								{chatUsers.map(({ name, status, pic, uid }) => (
+								{chatUsers.map(({ name, status, email }) => (
 									<li
 										className='clearfix'
 										onClick={() =>
 											profileButtonClick(
 												name,
 												status,
-												pic,
-												uid
+												email
 											)
 										}>
-										<img src={pic} alt='avatar' />
+										{/* <img src={pic} alt='avatar' /> */}
 										<div className='about'>
 											<div className='name'>{name}</div>
 											<div className='status'>
@@ -312,15 +336,20 @@ const Chatbox = () => {
 							</ul>
 						</div>
 
-						<ChatRoom
-							currentReceiverName={currentReceiverName}
-							currentReceiverStatus={currentReceiverStatus}
-							currentReceiverProfilePhoto={
-								currentReceiverProfilePhoto
+						{chatUsers.map(({ name, status, email }) => {
+							if (email === currentReceiverChatID) {
+								return (
+									<ChatRoom
+										currentReceiverName={name}
+										currentReceiverStatus={status}
+										currentReceiverChatID={email}
+										senderEmail={senderEmail}
+									/>
+								);
+							} else {
+								return null;
 							}
-							currentReceiverChatID={currentReceiverChatID}
-							senderChatID={senderChatID}
-						/>
+						})}
 					</div>
 				</div>
 			</div>
