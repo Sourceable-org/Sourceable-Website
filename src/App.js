@@ -2,17 +2,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import About from './Components/About/About.js';
+import Chatbox from './Components/Chatbox/Chatbox.js';
 import Contact from './Components/Contact/Contact.js';
 import Explore from './Components/Explore/Explore.js';
-import Gallery from './Components/Gallery/Gallery.js';
 //components
 import Footer from './Components/Footer/Footer.js';
+import Gallery from './Components/Gallery/Gallery.js';
 import Header from './Components/Header/Header.js';
 import Home from './Components/Home/Home.js';
 import JoinUs from './Components/JoinUs/JoinUs.js';
-import Chatbox from './Components/Chatbox/Chatbox.js';
 
-function App() {
+const App = () => {
 	return (
 		<>
 			<Header />
@@ -23,7 +23,7 @@ function App() {
 				<Route path='/contact' element={<Contact />}></Route>
 				<Route path='/join' element={<JoinUs />}></Route>
 				<Route path='/mygallery' element={<Gallery />}></Route>
-				<Route path="/thread" element={<Chatbox />} />
+				<Route path='/thread' element={<Chatbox />} />
 			</Routes>
 			<Routes>
 				<Route exact path='/explore' component={null}></Route>
@@ -32,6 +32,6 @@ function App() {
 			</Routes>
 		</>
 	);
-}
+};
 
 export default App;

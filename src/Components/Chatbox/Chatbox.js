@@ -2,17 +2,21 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
 	addDoc,
 	collection,
+	doc,
 	getDocs,
+	increment,
 	onSnapshot,
 	orderBy,
 	query,
+	setDoc,
 	Timestamp,
+	where,
 } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { db } from '../Firebase/Firebase';
 import './Chatbox.css';
-
+// const FieldValue = require('firebase-admin').firestore.FieldValue;
 const ChatRoom = ({
 	currentReceiverName,
 	currentReceiverStatus,
@@ -102,6 +106,20 @@ const ChatRoom = ({
 		addDoc(
 			collection(db, 'chatrooms', chatRoomID, 'messages'),
 			currentMessageToAdd
+		);
+
+		// create the notification Id from the emails of both the users
+		const notificationId = senderEmail + '-' + currentReceiverChatID;
+
+		// add the details about the notifications into the FireBase
+		setDoc(
+			doc(db, 'Notification', notificationId),
+			{
+				count: increment(1),
+				from: senderEmail,
+				to: currentReceiverChatID,
+			},
+			{ merge: true }
 		);
 
 		// reset the message input box to empty string
@@ -228,6 +246,9 @@ const Chatbox = () => {
 	// state to store the chatUsers
 	const [chatUsers, setChatUsers] = useState([]);
 
+	// state to store the notifications
+	const [notifications, setNotifications] = useState([]);
+
 	// change the state variables when profile of a user is clicked
 	const profileButtonClick = (name, status, uid) => {
 		console.log('Clicked on another user');
@@ -249,6 +270,25 @@ const Chatbox = () => {
 			}
 		});
 	}, []);
+
+	useEffect(() => {
+		// if the current receiver is empty then do nothing
+		if (currentReceiverChatID === '') return;
+
+		// create the notification Id from the emails of both the users
+		const notificationId = currentReceiverChatID + '-' + senderEmail;
+
+		// set notification counter to 0 when user clicks on the receiver profile
+		setDoc(
+			doc(db, 'Notification', notificationId),
+			{
+				count: 0,
+				from: currentReceiverChatID,
+				to: senderEmail,
+			},
+			{ merge: true }
+		);
+	}, [currentReceiverChatID]);
 
 	useEffect(() => {
 		// if senderEmail is not yet fetched then do not make API CALL
@@ -285,13 +325,91 @@ const Chatbox = () => {
 					(element) => element.email !== senderEmail
 				);
 
-			//  update the state of chatUsers
 			setChatUsers(chatUsersFromFireBaseWithoutLoggedInUser);
 		};
 
-		// fetch all the chatUsers from the FireBase
+		// make a query to fetch the notifications for all chatrooms of the sender
+		const getNotificationForAllChatRooms = async () => {
+			// get notifications for all chatrooms of the sender
+			const senderNotificationSnapshots = await getDocs(
+				query(
+					collection(db, 'Notification'),
+					where('to', '==', senderEmail)
+				)
+			);
+
+			// store the notifications in the senderNotifications variable
+			const senderNotifications = senderNotificationSnapshots.docs.map(
+				(senderNotificationDoc) => {
+					return senderNotificationDoc.data();
+				}
+			);
+
+			// update the state of notifications
+			setNotifications(senderNotifications);
+		};
+
+		// fetch the chatUsers from the FireBase
 		getAllChatUsersFromFireBase();
+
+		// fetch the notifications from the FireBase
+		getNotificationForAllChatRooms();
+
+		//  update the state of chatUsers
 	}, [senderEmail]);
+
+	// fetch the value of notification
+	const getNotificationValue = (email) => {
+		// filter the notification object based upon the receiver email
+		const receiverNotificationObject = notifications.filter(
+			(notification) => notification.from === email
+		);
+
+		console.log({ receiverNotificationObject });
+
+		// if object not existed then return 0
+		if (receiverNotificationObject.length === 0) {
+			return 0;
+		}
+
+		// return the notification count from the sender
+		return receiverNotificationObject[0]['count'];
+	};
+
+	const displayChats = () => {
+		if (notifications.length > 0 && chatUsers.length > 0) {
+			return (
+				<>
+					{chatUsers.map(({ name, status, email }) => (
+						<li
+							className='clearfix'
+							onClick={() =>
+								profileButtonClick(name, status, email)
+							}>
+							{/* <img src={pic} alt='avatar' /> */}
+							<div className='about'>
+								<div className='name'>{name}</div>
+								<div className='name'>
+									{getNotificationValue(email)}
+								</div>
+								<div className='status'>
+									{' '}
+									<i
+										className={`fa fa-circle
+														${status !== 'online' ? 'offline' : 'online'}`}></i>{' '}
+									{status}{' '}
+								</div>
+							</div>
+						</li>
+					))}
+				</>
+			);
+		}
+
+		return null;
+	};
+
+	console.log(notifications.length);
 
 	return (
 		<div className='container-chat-box'>
@@ -310,29 +428,7 @@ const Chatbox = () => {
 								</span>
 							</div>
 							<ul className='list-unstyled chat-list mt-2 mb-0'>
-								{chatUsers.map(({ name, status, email }) => (
-									<li
-										className='clearfix'
-										onClick={() =>
-											profileButtonClick(
-												name,
-												status,
-												email
-											)
-										}>
-										{/* <img src={pic} alt='avatar' /> */}
-										<div className='about'>
-											<div className='name'>{name}</div>
-											<div className='status'>
-												{' '}
-												<i
-													className={`fa fa-circle
-														${status !== 'online' ? 'offline' : 'online'}`}></i>{' '}
-												{status}{' '}
-											</div>
-										</div>
-									</li>
-								))}
+								{displayChats()}
 							</ul>
 						</div>
 

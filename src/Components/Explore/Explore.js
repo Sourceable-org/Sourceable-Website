@@ -24,7 +24,7 @@ const Explore = () => {
 	const [userBookMarks, setUserBookMarks] = useState([]);
 
 	// state to store the month index to show events of specific month only
-	const [monthIndex, setMonthIndex] = useState(2);
+	const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
 
 	// state to store the data of incidents after fetching data from FireBase
 	const [incidents, setIncidentsData] = useState([]);
