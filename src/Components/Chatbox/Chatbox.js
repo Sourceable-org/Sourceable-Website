@@ -108,6 +108,20 @@ const ChatRoom = ({
 			currentMessageToAdd
 		);
 
+		// create the notification Id from the emails of both the users
+		const notificationId = senderEmail + '-' + currentReceiverChatID;
+
+		// add the details about the notifications into the FireBase
+		setDoc(
+			doc(db, 'Notification', notificationId),
+			{
+				count: increment(1),
+				from: senderEmail,
+				to: currentReceiverChatID,
+			},
+			{ merge: true }
+		);
+
 		// reset the message input box to empty string
 		setCurrentMesssage('');
 
@@ -197,7 +211,8 @@ const ChatRoom = ({
 				</ul>
 			</div>
 			<div className='chat-message clearfix'>
-				<div className='flex-row'>
+				<div className='input-group mb-0'>
+					<div className='input-group-prepend'></div>
 					<input
 						value={currentMessage}
 						type='text'
@@ -255,6 +270,25 @@ const Chatbox = () => {
 			}
 		});
 	}, []);
+
+	useEffect(() => {
+		// if the current receiver is empty then do nothing
+		if (currentReceiverChatID === '') return;
+
+		// create the notification Id from the emails of both the users
+		const notificationId = currentReceiverChatID + '-' + senderEmail;
+
+		// set notification counter to 0 when user clicks on the receiver profile
+		setDoc(
+			doc(db, 'Notification', notificationId),
+			{
+				count: 0,
+				from: currentReceiverChatID,
+				to: senderEmail,
+			},
+			{ merge: true }
+		);
+	}, [currentReceiverChatID]);
 
 	useEffect(() => {
 		// if senderEmail is not yet fetched then do not make API CALL
@@ -377,6 +411,9 @@ const Chatbox = () => {
 
 		return null;
 	};
+
+	// console.log(notifications.length);
+	console.log({ chatUsers });
 
 	return (
 		<div className='container-chat-box'>

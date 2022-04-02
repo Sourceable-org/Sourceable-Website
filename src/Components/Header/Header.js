@@ -1,4 +1,6 @@
+import { db } from '../Firebase/Firebase';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { serverTimestamp, doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -8,22 +10,17 @@ import './Header.css';
 const Header = () => {
 	const auth = getAuth();
 	const [loggedIn, setLoggedIN] = useState(false);
+	const [loggedInUserEmail, setLoggedINUserEmail] = useState('');
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-				// User is signed in, see docs for a list of available properties
-				// https://firebase.google.com/docs/reference/js/firebase.User
-				const uid = user.uid;
 				setLoggedIN(true);
-				console.log('OnAuthState', user);
+				setLoggedINUserEmail(user.email);
 				// ...
 			} else {
-				//
-				// ...
 				setLoggedIN(false);
-
-				console.log('User is signed out');
+				setLoggedINUserEmail('');
 			}
 		});
 	}, [auth]);
@@ -53,8 +50,6 @@ const Header = () => {
 								className='navOnHover'>
 								Explore
 							</Nav.Link>
-
-							
 						</Nav>
 						<Nav.Link
 							as={Link}
@@ -71,6 +66,18 @@ const Header = () => {
 										.then(() => {
 											console.log('Sign-out successful.');
 											setLoggedIN(false);
+
+											updateDoc(
+												doc(
+													db,
+													'Account',
+													loggedInUserEmail
+												),
+												{
+													status: serverTimestamp(),
+												}
+											);
+
 											// navigate("/");
 										})
 										.catch((error) => {
@@ -87,14 +94,13 @@ const Header = () => {
 								className='navOnHover'>
 								Join Us
 							</Nav.Link>
-	
 						)}
 						<Nav.Link
-								 as={Link}
-								 to="/mygallery" 
-								 className='navOnHover' >
-									My Gallery
-								</Nav.Link>
+							as={Link}
+							to='/mygallery'
+							className='navOnHover'>
+							My Gallery
+						</Nav.Link>
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>

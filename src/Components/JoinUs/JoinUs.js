@@ -7,7 +7,7 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 } from 'firebase/auth';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Firebase/Firebase';
@@ -72,7 +72,7 @@ const JoinUs = () => {
 	const Login = async (e) => {
 		e.preventDefault();
 		signInWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
+			.then(async (userCredential) => {
 				// Signed in
 				const user = userCredential.user;
 
@@ -81,6 +81,10 @@ const JoinUs = () => {
 						alert('Mobile Users Not Allowed');
 					});
 				} else {
+					await updateDoc(doc(db, 'Account', user.email), {
+						status: 'online',
+					});
+
 					navigate('/');
 				}
 
