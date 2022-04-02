@@ -40,7 +40,6 @@ const JoinUs = () => {
 					email: email,
 					account_type: JOURNALIST_ACCOUNT_TYPE,
 					status: 'online',
-					uid: user.uid,
 				});
 			})
 			.catch((error) => {

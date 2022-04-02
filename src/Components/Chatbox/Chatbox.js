@@ -3,7 +3,6 @@ import {
 	addDoc,
 	collection,
 	doc,
-	getDocs,
 	increment,
 	onSnapshot,
 	orderBy,
@@ -58,34 +57,35 @@ const ChatRoom = ({
 			orderBy('createdAt')
 		);
 
-		const unsubscribe = onSnapshot(chatRoomQuery, (snapshot) => {
-			const newMessages = [...messages];
-			snapshot.docs.map((change) => {
-				console.log(change.type);
+		const realTimeChatRoomMessagesListener = onSnapshot(
+			chatRoomQuery,
+			(snapshot) => {
+				const newMessages = [...messages];
+				snapshot.docs.map((change) => {
+					// get the data about the message
+					const messageData = change.data();
 
-				// get the data about the message
-				const messageData = change.data();
+					// if the senderChatID and uid of the composer of the message is equal
+					// then set key to 0
+					if (messageData['sentBy'] === senderEmail) {
+						messageData['key'] = 0;
+					}
+					// if unequal then set key to 1
+					else {
+						messageData['key'] = 1;
+					}
 
-				// if the senderChatID and uid of the composer of the message is equal
-				// then set key to 0
-				if (messageData['sentBy'] === senderEmail) {
-					messageData['key'] = 0;
-				}
-				// if unequal then set key to 1
-				else {
-					messageData['key'] = 1;
-				}
+					// append the messages into newMessage
+					newMessages.push(messageData);
+				});
 
-				// append the messages into newMessage
-				newMessages.push(messageData);
-			});
-
-			// update the messages state variable
-			setMessages(newMessages);
-		});
+				// update the messages state variable
+				setMessages(newMessages);
+			}
+		);
 
 		return () => {
-			unsubscribe();
+			realTimeChatRoomMessagesListener();
 		};
 	}, [currentReceiverChatID, chatRoomID]);
 
@@ -295,65 +295,70 @@ const Chatbox = () => {
 		if (senderEmail === '') return;
 
 		// make a query to fetch all the users from the FireBase Backend
-		const getAllChatUsersFromFireBase = async () => {
-			const chatUsersSnapshot = await getDocs(collection(db, 'Account'));
+		const accountsQuery = query(collection(db, 'Account'));
 
-			// iterate all the docs and just return the document data
-			const chatUsersFromFireBase = chatUsersSnapshot.docs.map((doc) => {
-				// get the data of the chatUser
-				const chatUserData = doc.data();
+		// function to fetch realtime data about accounts
+		const realTimeAccountListener = onSnapshot(
+			accountsQuery,
+			(snapshot) => {
+				const newChatUsers = [...chatUsers];
 
-				// if the status is string then set the value to online
-				if (typeof chatUserData.status === 'string') {
-					chatUserData.status = 'online';
-				}
-				// if the status is timestamp type then get the DateObject
-				// indicates the user is offline currently and we will display the last seen
-				else {
-					chatUserData.status = chatUserData.status
-						.toDate()
-						.toLocaleString();
-				}
+				snapshot.docs.forEach((change) => {
+					const singleChatUserData = change.data();
 
-				// return the chatUserData object
-				return chatUserData;
-			});
+					// if the status is string then set the value to online
+					if (typeof singleChatUserData.status === 'string') {
+						singleChatUserData.status = 'online';
+					}
+					// if the status is timestamp type then get the DateObject
+					// indicates the user is offline currently and we will display the last seen
+					else {
+						singleChatUserData.status = singleChatUserData.status
+							.toDate()
+							.toLocaleString();
+					}
 
-			// keep all the chat users except the loggedInUser
-			const chatUsersFromFireBaseWithoutLoggedInUser =
-				chatUsersFromFireBase.filter(
-					(element) => element.email !== senderEmail
-				);
+					// append the data of the new chat user
+					newChatUsers.push(singleChatUserData);
+				});
 
-			setChatUsers(chatUsersFromFireBaseWithoutLoggedInUser);
+				// keep all the chat users except the loggedInUser
+				const chatUsersFromFireBaseWithoutLoggedInUser =
+					newChatUsers.filter(
+						(element) => element.email !== senderEmail
+					);
+
+				// update the chatUsers state variable
+				setChatUsers(chatUsersFromFireBaseWithoutLoggedInUser);
+			}
+		);
+
+		// make a query to fetch all the notifications
+		const notificationsQuery = query(
+			collection(db, 'Notification'),
+			where('to', '==', senderEmail)
+		);
+
+		// function to fetch realtime data about notifications
+		const realTimeNotificationListener = onSnapshot(
+			notificationsQuery,
+			(snapshot) => {
+				const newNotifications = [...notifications];
+
+				snapshot.docs.forEach((change) => {
+					// append the data of the new notification
+					newNotifications.push(change.data());
+				});
+
+				// update the state of notifications
+				setNotifications(newNotifications);
+			}
+		);
+
+		return () => {
+			realTimeAccountListener();
+			realTimeNotificationListener();
 		};
-
-		// make a query to fetch the notifications for all chatrooms of the sender
-		const getNotificationForAllChatRooms = async () => {
-			// get notifications for all chatrooms of the sender
-			const senderNotificationSnapshots = await getDocs(
-				query(
-					collection(db, 'Notification'),
-					where('to', '==', senderEmail)
-				)
-			);
-
-			// store the notifications in the senderNotifications variable
-			const senderNotifications = senderNotificationSnapshots.docs.map(
-				(senderNotificationDoc) => {
-					return senderNotificationDoc.data();
-				}
-			);
-
-			// update the state of notifications
-			setNotifications(senderNotifications);
-		};
-
-		// fetch the chatUsers from the FireBase
-		getAllChatUsersFromFireBase();
-
-		// fetch the notifications from the FireBase
-		getNotificationForAllChatRooms();
 
 		//  update the state of chatUsers
 	}, [senderEmail]);
@@ -365,8 +370,6 @@ const Chatbox = () => {
 			(notification) => notification.from === email
 		);
 
-		console.log({ receiverNotificationObject });
-
 		// if object not existed then return 0
 		if (receiverNotificationObject.length === 0) {
 			return 0;
@@ -377,7 +380,7 @@ const Chatbox = () => {
 	};
 
 	const displayChats = () => {
-		if (notifications.length > 0 && chatUsers.length > 0) {
+		if (chatUsers.length > 0) {
 			return (
 				<>
 					{chatUsers.map(({ name, status, email }) => (
@@ -409,7 +412,8 @@ const Chatbox = () => {
 		return null;
 	};
 
-	console.log(notifications.length);
+	// console.log(notifications.length);
+	console.log({ chatUsers });
 
 	return (
 		<div className='container-chat-box'>
