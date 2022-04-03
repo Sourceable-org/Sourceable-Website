@@ -380,7 +380,7 @@ const Chatbox = () => {
 	};
 
 	const displayChats = () => {
-		if (chatUsers.length > 0) {
+		if (chatUsers.length > 0 && notifications.length > 0) {
 			return (
 				<>
 					{chatUsers.map(({ name, status, email }) => (
