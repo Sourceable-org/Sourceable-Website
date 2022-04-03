@@ -76,8 +76,13 @@
 }
 
 .people-list .about {
-  float: left;
+  /* float: left; */
   padding-left: 8px;
+}
+
+.people-list .about .notification_counter{
+  color: blue;
+  float: right;
 }
 
 .people-list .status {
