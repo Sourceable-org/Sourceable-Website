@@ -379,32 +379,42 @@ const Chatbox = () => {
 		return receiverNotificationObject[0]['count'];
 	};
 
+  //Jiten
 	const displayChats = () => {
 		if (chatUsers.length > 0) {
 			return (
 				<>
-					{chatUsers.map(({ name, status, email }) => (
-						<li
-							className='clearfix'
-							onClick={() =>
-								profileButtonClick(name, status, email)
-							}>
-							{/* <img src={pic} alt='avatar' /> */}
-							<div className='about'>
-								<div className='name'>{name}</div>
-								<div className='name'>
+					
+           {chatUsers.map(({ name, status, email }) => (
+                    <li
+                      className="clearfix"
+                      onClick={() => profileButtonClick(name, status, email)}
+                    >
+                      {/* <img src={pic} alt='avatar' /> */}
+                      <div className="about">
+                        <span>
+                          <i
+                            className="fa fa-user icon"
+                            style={{
+                              color: `#${Math.floor(Math.random() * 1000000)}`,
+                            }}
+                          ></i>
+                        </span>
+                        <span className="name">{name}</span>
+                        <div className='name'>
 									{getNotificationValue(email)}
 								</div>
-								<div className='status'>
-									{' '}
-									<i
-										className={`fa fa-circle
-														${status !== 'online' ? 'offline' : 'online'}`}></i>{' '}
-									{status}{' '}
-								</div>
-							</div>
-						</li>
-					))}
+                        <div className="status">
+                          {" "}
+                          <i
+                            className={`fa fa-circle
+                            ${status !== "online" ? "offline" : "online"}`}
+                          ></i>{" "}
+                          {status}{" "}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
 				</>
 			);
 		}
@@ -415,6 +425,8 @@ const Chatbox = () => {
 	// console.log(notifications.length);
 	console.log({ chatUsers });
 
+  //Jiten
+
 	return (
 		<div className='container-chat-box'>
 			<div className='row clearfix'>
@@ -422,14 +434,7 @@ const Chatbox = () => {
 					<div className='card chat-app'>
 						<div id='plist' className='people-list'>
 							<div className='input-group mb-0'>
-								<input
-									type='text'
-									className='form-control'
-									placeholder='Search...'
-								/>
-								<span className='input-group-text'>
-									<i className='fa fa-search'></i>
-								</span>
+								
 							</div>
 							<ul className='list-unstyled chat-list mt-2 mb-0'>
 								{displayChats()}
