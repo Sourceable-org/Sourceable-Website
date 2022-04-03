@@ -6,6 +6,8 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../Firebase/Firebase';
 import './Header.css';
+import { FaRocketchat } from "react-icons/fa";
+
 
 const Header = () => {
 	const auth = getAuth();
@@ -101,6 +103,12 @@ const Header = () => {
 							className='navOnHover'>
 							My Gallery
 						</Nav.Link>
+						<Nav.Link 
+						as={Link} 
+						to="/thread" 
+						className="navOnHover">
+              			<FaRocketchat size={30} className="icon-message" />
+            </Nav.Link>
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>

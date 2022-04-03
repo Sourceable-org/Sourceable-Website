@@ -18,3 +18,9 @@
     color: grey;
     text-decoration: none;
 }
+
+.icon-message:hover{
+    transform: scale(1.05);
+    color: white;
+   
+   }

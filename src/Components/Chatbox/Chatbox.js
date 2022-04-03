@@ -1,4 +1,6 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+
 import {
 	addDoc,
 	collection,
@@ -405,9 +407,8 @@ const Chatbox = () => {
 										}}></i>
 								</span>
 								<span className='name'>{name}</span>
-
 								<div className='notification_counter'>
-									{getNotificationValue(email)}
+									{getNotificationValue(email) !== 0 ? getNotificationValue(email) : ""}
 								</div>
 								<div className='status'>
 									{' '}
@@ -469,6 +470,26 @@ const Chatbox = () => {
 			);
 		}
 	};
+
+	// const auth = getAuth();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		// when the auth status is changed
+		onAuthStateChanged(auth, (user) => {
+			// if user object exists means loggedIn
+			if (user) {
+				// User is signed in, see docs for a list of available properties
+				// https://firebase.google.com/docs/reference/js/firebase.User
+				const uid = user.uid;
+			}
+			// user is not logged in
+			else {
+				// redirect to login page
+				navigate('/join');
+			}
+		});
+	}, [auth, navigate]);
 
 	return (
 		<div className='container-chat-box'>

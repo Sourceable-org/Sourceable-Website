@@ -28,7 +28,7 @@ const Gallery = () => {
 	}, [auth, navigate]);
 	return (
 		<>
-			<div className='notification'>
+			{/* <div className='notification'>
 				<img
 					src={NotificationImg}
 					alt='No loaded'
@@ -68,7 +68,7 @@ const Gallery = () => {
 						Close
 					</button>
 				</Modal>
-			</div>
+			</div> */}
 			<LifeSave />
 		</>
 	);

@@ -83,6 +83,16 @@
 .people-list .about .notification_counter{
   color: blue;
   float: right;
+
+  /* position: absolute; */
+  margin-top: 12px;
+  top: -100px;
+  right: -10px;
+  padding: 0px 5px;
+  border-radius: 50%;
+  background: #0d6efd;
+  color: white;
+  font-size: 15px;
 }
 
 .people-list .status {
