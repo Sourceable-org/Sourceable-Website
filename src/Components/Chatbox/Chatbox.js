@@ -379,42 +379,46 @@ const Chatbox = () => {
 		return receiverNotificationObject[0]['count'];
 	};
 
-  //Jiten
+	//Jiten
 	const displayChats = () => {
+		// if chatUsers are present and notifications are present
 		if (chatUsers.length > 0 && notifications.length > 0) {
 			return (
 				<>
-					
-           {chatUsers.map(({ name, status, email }) => (
-                    <li
-                      className="clearfix"
-                      onClick={() => profileButtonClick(name, status, email)}
-                    >
-                      {/* <img src={pic} alt='avatar' /> */}
-                      <div className="about">
-                        <span>
-                          <i
-                            className="fa fa-user icon"
-                            style={{
-                              color: `#${Math.floor(Math.random() * 1000000)}`,
-                            }}
-                          ></i>
-                        </span>
-                        <span className="name">{name}</span>
-                        <div className='name'>
+					{/* iterate chatUsers and display their data   */}
+					{chatUsers.map(({ name, status, email }) => (
+						<li
+							className='clearfix'
+							onClick={() =>
+								profileButtonClick(name, status, email)
+							}>
+							{/* <img src={pic} alt='avatar' /> */}
+							<div className='about'>
+								<span>
+									<i
+										className='fa fa-user icon'
+										style={{
+											color: `#${Math.floor(
+												Math.random() * 1000000
+											)}`,
+										}}></i>
+								</span>
+								<span className='name'>{name}</span>
+								<div className='name'>
 									{getNotificationValue(email)}
 								</div>
-                        <div className="status">
-                          {" "}
-                          <i
-                            className={`fa fa-circle
-                            ${status !== "online" ? "offline" : "online"}`}
-                          ></i>{" "}
-                          {status}{" "}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
+								<div className='status'>
+									{' '}
+									<i
+										className={`fa fa-circle
+                            ${
+								status !== 'online' ? 'offline' : 'online'
+							}`}></i>{' '}
+									{status}{' '}
+								</div>
+							</div>
+						</li>
+					))}
 				</>
 			);
 		}
@@ -422,10 +426,45 @@ const Chatbox = () => {
 		return null;
 	};
 
-	// console.log(notifications.length);
-	console.log({ chatUsers });
+	// this function will show either image when currentReceiverChatID is empty
+	// else it will show chat messages of the particular chat room
+	const displayChatLaunchWindow = () => {
+		// if currentReceiverChatID is not empty
+		if (currentReceiverChatID !== '') {
+			return (
+				<>
+					{/* iterate all chatUsers and display the ChatRoom for the
+					selected receiver email */}
+					{chatUsers.map(({ name, status, email }) => {
+						// if receiver email is equal to email in the chat users array
+						if (email === currentReceiverChatID) {
+							// display the ChatRoom component for that selected current receiver email address
+							return (
+								<ChatRoom
+									currentReceiverName={name}
+									currentReceiverStatus={status}
+									currentReceiverChatID={email}
+									senderEmail={senderEmail}
+								/>
+							);
+						}
+						// if it does not match then do not render anything
+						else {
+							return null;
+						}
+					})}
+				</>
+			);
+		}
 
-  //Jiten
+		// if the current receiver email is empty then show a background image
+		// similar to whatsapp Desktop or whatsapp Web
+		else {
+			return (
+				<img src='https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg' />
+			);
+		}
+	};
 
 	return (
 		<div className='container-chat-box'>
@@ -433,28 +472,13 @@ const Chatbox = () => {
 				<div className='col-lg-12'>
 					<div className='card chat-app'>
 						<div id='plist' className='people-list'>
-							<div className='input-group mb-0'>
-								
-							</div>
+							<div className='input-group mb-0'></div>
 							<ul className='list-unstyled chat-list mt-2 mb-0'>
 								{displayChats()}
 							</ul>
 						</div>
-
-						{chatUsers.map(({ name, status, email }) => {
-							if (email === currentReceiverChatID) {
-								return (
-									<ChatRoom
-										currentReceiverName={name}
-										currentReceiverStatus={status}
-										currentReceiverChatID={email}
-										senderEmail={senderEmail}
-									/>
-								);
-							} else {
-								return null;
-							}
-						})}
+						{/* function to show the chat Launch window */}
+						{displayChatLaunchWindow()}
 					</div>
 				</div>
 			</div>
