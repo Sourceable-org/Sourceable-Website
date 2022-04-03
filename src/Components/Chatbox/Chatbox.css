@@ -28,6 +28,7 @@
   z-index: 7;
   height: 75vh;
   overflow: scroll;
+  overflow-x: scroll;
   /* background-color: red; */
 }
 
@@ -320,4 +321,13 @@
   padding: 5px 8px;
   border-radius: 100px;
   font-size: 18px;
+}
+
+.chat-launch-background{
+  /* margin-inline-start: 33%; */
+  position: absolute;
+  height: 75vh;
+
+
+
 }

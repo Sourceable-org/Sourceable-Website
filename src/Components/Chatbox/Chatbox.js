@@ -15,6 +15,9 @@ import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { db } from '../Firebase/Firebase';
 import './Chatbox.css';
+
+import CHATLAUNCH from '../../images/chat_first.png';
+
 // const FieldValue = require('firebase-admin').firestore.FieldValue;
 const ChatRoom = ({
 	currentReceiverName,
@@ -211,8 +214,8 @@ const ChatRoom = ({
 				</ul>
 			</div>
 			<div className='chat-message clearfix'>
-				<div className='input-group mb-0'>
-					<div className='input-group-prepend'></div>
+				<div className='flex-row'>
+					
 					<input
 						value={currentMessage}
 						type='text'
@@ -461,8 +464,8 @@ const Chatbox = () => {
 		// similar to whatsapp Desktop or whatsapp Web
 		else {
 			return (
-				<img src='https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg' />
-			);
+				<img className='chat-launch-background' src={CHATLAUNCH} alt='Chat' />
+				);
 		}
 	};
 
