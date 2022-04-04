@@ -249,8 +249,14 @@ const Chatbox = () => {
 	// state to store the chatUsers
 	const [chatUsers, setChatUsers] = useState([]);
 
+	// state to maintain if chat is user loaded or not
+	const [chatUserLoaded, setChatUsersLoaded] = useState(false);
+
 	// state to store the notifications
 	const [notifications, setNotifications] = useState([]);
+
+	// state to maintain if notifications data is loaded or not
+	const [notificationLoaded, setNotificationLoaded] = useState(false);
 
 	// change the state variables when profile of a user is clicked
 	const profileButtonClick = (name, status, uid) => {
@@ -331,6 +337,8 @@ const Chatbox = () => {
 						(element) => element.email !== senderEmail
 					);
 
+				// chat users are set to true
+				setChatUsersLoaded(true);
 				// update the chatUsers state variable
 				setChatUsers(chatUsersFromFireBaseWithoutLoggedInUser);
 			}
@@ -352,6 +360,9 @@ const Chatbox = () => {
 					// append the data of the new notification
 					newNotifications.push(change.data());
 				});
+
+				// set notifications are set to true
+				setNotificationLoaded(true);
 
 				// update the state of notifications
 				setNotifications(newNotifications);
@@ -382,10 +393,9 @@ const Chatbox = () => {
 		return receiverNotificationObject[0]['count'];
 	};
 
-	//Jiten
 	const displayChats = () => {
 		// if chatUsers are present and notifications are present
-		if (chatUsers.length > 0 && notifications.length > 0) {
+		if (chatUsers.length > 0 && notificationLoaded === true) {
 			return (
 				<>
 					{/* iterate chatUsers and display their data */}
@@ -408,7 +418,9 @@ const Chatbox = () => {
 								</span>
 								<span className='name'>{name}</span>
 								<div className='notification_counter'>
-									{getNotificationValue(email) !== 0 ? getNotificationValue(email) : ""}
+									{getNotificationValue(email) !== 0
+										? getNotificationValue(email)
+										: ''}
 								</div>
 								<div className='status'>
 									{' '}
