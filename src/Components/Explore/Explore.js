@@ -553,7 +553,7 @@ ${total.toLocaleString()}
 			<div ref={mapContainer} className='map-container' />
 			<div className='map-overlay top'>
 				<div className='map-overlay-inner'>
-					<h2>Incidents in Syria</h2>
+					<h2>Incidents</h2>
 					<label id='month'></label>
 					<input
 						id='slider'

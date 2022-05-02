@@ -213,375 +213,385 @@ export default MediaCard;
 */
 //----------------------------------------------------------------------------------------------------------
 
-import makeStyles from "@material-ui/styles/makeStyles";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import BookmarkBorderRounded from "@mui/icons-material/BookmarkBorderRounded";
-import BookmarkRounded from "@mui/icons-material/BookmarkRounded";
-import SendIcon from "@mui/icons-material/Send";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import Message from "@mui/icons-material/Message";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import makeStyles from '@material-ui/styles/makeStyles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BookmarkBorderRounded from '@mui/icons-material/BookmarkBorderRounded';
+import BookmarkRounded from '@mui/icons-material/BookmarkRounded';
+import SendIcon from '@mui/icons-material/Send';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Message from '@mui/icons-material/Message';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
- arrayRemove,
- arrayUnion,
- doc,
- getDoc,
- setDoc,
- updateDoc,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { db } from "../Firebase/Firebase";
-import "./MediaCard.css";
+	arrayRemove,
+	arrayUnion,
+	doc,
+	getDoc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { db } from '../Firebase/Firebase';
+import './MediaCard.css';
 
 // styles for the MediaCard Component
 const useStyles = makeStyles(() => ({
- comment_section: {
- marginTop: 5,
- marginBottom: 50,
- },
- textfield: {
- width: 270,
- float: "left",
- height: "auto",
- },
- comment_button: {
- float: "right",
- marginTop: 10,
- },
- cardView: {
- width: "100%",
- },
+	comment_section: {
+		marginTop: 5,
+		marginBottom: 50,
+	},
+	textfield: {
+		width: 270,
+		float: 'left',
+		height: 'auto',
+	},
+	comment_button: {
+		float: 'right',
+		marginTop: 10,
+	},
+	cardView: {
+		width: '100%',
+	},
 }));
 
 const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
- // get the email address
- const [userEmail, setUserEmail] = useState(undefined);
+	// get the email address
+	const [userEmail, setUserEmail] = useState(undefined);
 
- // get the classes
- const classes = useStyles();
+	// get the classes
+	const classes = useStyles();
 
- const fileURL = newsData.properties.file.url;
+	const fileURL = newsData.properties.file.url;
 
- const fileType = newsData.properties.file.type;
+	const fileType = newsData.properties.file.type;
 
- const verifiedOrNot = newsData.properties.verified;
+	const verifiedOrNot = newsData.properties.verified;
 
- const incidentId = newsData.properties.incident_id;
+	const incidentId = newsData.properties.incident_id;
 
- const [ht, setHt] = useState(0);
- const [heightMedia, setHeightMedia] = useState(400);
- const [comment, setComment] = useState("");
+	const incidentDescription = newsData.properties.text;
 
- const [commentArray, setCommentArray] = useState([]);
+	const incidentCreationTime = newsData.properties.created;
 
- const [loadComments, setLoadComments] = useState(false);
+	const [ht, setHt] = useState(0);
+	const [heightMedia, setHeightMedia] = useState(400);
+	const [comment, setComment] = useState('');
 
- const [hidden, setHidden] = useState(true);
+	const [commentArray, setCommentArray] = useState([]);
 
- const [eventTitle, setEventTitle] = useState("Cake Cermony");
- const [eventDescription, setEventDescription] = useState(
- " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
- );
+	const [loadComments, setLoadComments] = useState(false);
 
- const [timeStamp, setTimeStamp] = useState("2 minutes ago");
+	const [hidden, setHidden] = useState(true);
 
- const date = new Date();
- console.log(date.getMinutes() - 10);
+	const [eventTitle, setEventTitle] = useState('Cake Cermony');
 
- const onChangeHandle = (e) => {
- setComment(e.target.value);
- };
+	const [timeStamp, setTimeStamp] = useState('2 minutes ago');
 
- const onCommentSubmitHandle = (e) => {
- e.preventDefault();
- if (comment === "") {
- alert("Comment cannot be empty");
- return;
- }
+	const date = new Date();
+	console.log(date.getMinutes() - 10);
 
- addCommentOnFireBase(comment);
+	const onChangeHandle = (e) => {
+		setComment(e.target.value);
+	};
 
- setCommentArray([{ comment: comment, user: userEmail }, ...commentArray]);
- setComment("");
- };
+	const onCommentSubmitHandle = (e) => {
+		e.preventDefault();
+		if (comment === '') {
+			alert('Comment cannot be empty');
+			return;
+		}
 
- const addCommentOnFireBase = async (commentValue) => {
- await setDoc(
- doc(db, "Comments", incidentId),
- {
- comments: arrayUnion({
- comment: commentValue,
- user: userEmail,
- }),
- },
- { merge: true }
- );
- };
+		addCommentOnFireBase(comment);
 
- const [bookmarkStatus, setBookmarkStatus] = useState(
- userBookMarks.includes(incidentId)
- );
+		setCommentArray([
+			{ comment: comment, user: userEmail },
+			...commentArray,
+		]);
+		setComment('');
+	};
 
- useEffect(() => {
- // const user = getLoggedInUser();
+	const addCommentOnFireBase = async (commentValue) => {
+		await setDoc(
+			doc(db, 'Comments', incidentId),
+			{
+				comments: arrayUnion({
+					comment: commentValue,
+					user: userEmail,
+				}),
+			},
+			{ merge: true }
+		);
+	};
 
- const auth = getAuth();
+	const [bookmarkStatus, setBookmarkStatus] = useState(
+		userBookMarks.includes(incidentId)
+	);
 
- onAuthStateChanged(auth, (user) => {
- if (user) {
- setUserEmail(user.email);
- } else {
- setUserEmail(undefined);
- }
- });
- }, []);
+	useEffect(() => {
+		// const user = getLoggedInUser();
 
- useEffect(() => {
- loadComments ? loadCommentsFromFireBase() : collapseHeight();
- }, [loadComments]);
+		const auth = getAuth();
 
- // function to add bookMark in FireBase
- const addBookMarkOnFireBase = async () => {
- // create a document under Bookmarks for a user if not present
- // add the incident_id to the bookmarks list
- await setDoc(
- doc(db, "BookMarks", userEmail),
- {
- bookmarks: arrayUnion(incidentId),
- },
- { merge: true }
- );
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				setUserEmail(user.email);
+			} else {
+				setUserEmail(undefined);
+			}
+		});
+	}, []);
 
- // setUserBookMarks([...userBookMarks, incidentId]);
- };
+	useEffect(() => {
+		loadComments ? loadCommentsFromFireBase() : collapseHeight();
+	}, [loadComments]);
 
- const removeBookMarkFromFireBase = async () => {
- // fetch a document under Bookmarks for a user if not present
- // remove the incident_id to the bookmarks list
+	// function to add bookMark in FireBase
+	const addBookMarkOnFireBase = async () => {
+		// create a document under Bookmarks for a user if not present
+		// add the incident_id to the bookmarks list
+		await setDoc(
+			doc(db, 'BookMarks', userEmail),
+			{
+				bookmarks: arrayUnion(incidentId),
+			},
+			{ merge: true }
+		);
 
- await updateDoc(doc(db, "BookMarks", userEmail), {
- bookmarks: arrayRemove(incidentId),
- });
+		// setUserBookMarks([...userBookMarks, incidentId]);
+	};
 
- // setUserBookMarks(userBookMarks.filter((y) => y !== incidentId));
- };
+	const removeBookMarkFromFireBase = async () => {
+		// fetch a document under Bookmarks for a user if not present
+		// remove the incident_id to the bookmarks list
 
- const handleBookMarkIconButtonClick = () => {
- // user is not loggedIn so do not do anything
- if (userEmail === undefined) {
- // alert('User is not logged in');
- return;
- }
+		await updateDoc(doc(db, 'BookMarks', userEmail), {
+			bookmarks: arrayRemove(incidentId),
+		});
 
- // if the incident was previously not bookmarked
- if (bookmarkStatus === false) {
- // make a call on FireBase to add BookMark
- addBookMarkOnFireBase();
- }
- // if the incident was previously bookmarked
- else {
- // make a call on FireBase to remove the BookMark
- removeBookMarkFromFireBase();
- }
+		// setUserBookMarks(userBookMarks.filter((y) => y !== incidentId));
+	};
 
- // take the complement of the bookmarkStatus
- setBookmarkStatus(!bookmarkStatus);
- };
+	const handleBookMarkIconButtonClick = () => {
+		// user is not loggedIn so do not do anything
+		if (userEmail === undefined) {
+			// alert('User is not logged in');
+			return;
+		}
 
- // function to load comments for this specific incident
- const loadCommentsFromFireBase = async () => {
- const commentsDoc = await getDoc(doc(db, "Comments", incidentId));
+		// if the incident was previously not bookmarked
+		if (bookmarkStatus === false) {
+			// make a call on FireBase to add BookMark
+			addBookMarkOnFireBase();
+		}
+		// if the incident was previously bookmarked
+		else {
+			// make a call on FireBase to remove the BookMark
+			removeBookMarkFromFireBase();
+		}
 
- if (!commentsDoc.exists()) {
- return;
- }
+		// take the complement of the bookmarkStatus
+		setBookmarkStatus(!bookmarkStatus);
+	};
 
- // fetch the comments field from the doc
- const commentsFromFirebase = commentsDoc.data()["comments"];
+	// function to load comments for this specific incident
+	const loadCommentsFromFireBase = async () => {
+		const commentsDoc = await getDoc(doc(db, 'Comments', incidentId));
 
- // console.log(commentsFromFirebase);
+		if (!commentsDoc.exists()) {
+			return;
+		}
 
- if (commentsFromFirebase.length === 0) {
- alert("No previous comments to load");
- return;
- }
+		// fetch the comments field from the doc
+		const commentsFromFirebase = commentsDoc.data()['comments'];
 
- // update the comments array
- setCommentArray(commentsFromFirebase.reverse());
+		// console.log(commentsFromFirebase);
 
- // setting the height of comment section
- setHt(400);
+		if (commentsFromFirebase.length === 0) {
+			alert('No previous comments to load');
+			return;
+		}
 
- //reducing the height of cardView to 0
- setHeightMedia(0);
- };
+		// update the comments array
+		setCommentArray(commentsFromFirebase.reverse());
 
- console.log();
+		// setting the height of comment section
+		setHt(400);
 
- const BasicCard = () => {
- return (
- <Card sx={{ minWidth: 275 }}>
- <CardContent>
- <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
- {fileURL}
- </Typography>
- </CardContent>
- </Card>
- );
- };
+		//reducing the height of cardView to 0
+		setHeightMedia(0);
+	};
 
- const displayCard = (fileType, fileURL) => {
- if (fileType === "text") {
- return BasicCard();
- } else if (fileType === "video") {
- return (
- <CardMedia
- component="video"
- className={classes.cardView}
- src={fileURL}
- controls
- style={{ height: `${heightMedia}px`, transition: "all 1s" }}
- />
- );
- } else if (fileType === "audio") {
- return <CardMedia component="audio" src={fileURL} controls />;
- } else if (fileType === "image") {
- return (
- <CardMedia
- component="img"
- className={classes.cardView}
- image={fileURL}
- style={{ height: `${heightMedia}px`, transition: "all 1s" }}
- />
- );
- }
- };
- const collapseHeight = () => {
- setHt(0);
- //reducing the height of cardView to 0
- setHeightMedia(400);
- };
+	console.log();
 
- return (
- <>
- <Card variant="outlined" sx={{ maxWidth: 345 }}>
- {displayCard(fileType, fileURL)}
+	const BasicCard = () => {
+		return (
+			<Card sx={{ minWidth: 275 }}>
+				<CardContent>
+					<Typography
+						sx={{ fontSize: 14 }}
+						color='text.secondary'
+						gutterBottom>
+						{fileURL}
+					</Typography>
+				</CardContent>
+			</Card>
+		);
+	};
 
- <CardContent>
- <div className="card-bottom-style">
- <span className="event-title">{eventTitle}</span>
- <span className="time-stamp">2 minutes ago</span>
- <div>
- {verifiedOrNot ? (
- <VerifiedIcon style={{ color: "#3446eb" }} />
- ) : (
- <VerifiedIcon style={{ color: "#e8c217" }} />
- )}
- &nbsp; &nbsp;
- {bookmarkStatus ? (
- <BookmarkRounded onClick={handleBookMarkIconButtonClick} />
- ) : (
- <BookmarkBorderRounded
- onClick={handleBookMarkIconButtonClick}
- />
- )}
- </div>
- </div>
+	const displayCard = (fileType, fileURL) => {
+		if (fileType === 'text') {
+			return BasicCard();
+		} else if (fileType === 'video') {
+			return (
+				<CardMedia
+					component='video'
+					className={classes.cardView}
+					src={fileURL}
+					controls
+					style={{ height: `${heightMedia}px`, transition: 'all 1s' }}
+				/>
+			);
+		} else if (fileType === 'audio') {
+			return <CardMedia component='audio' src={fileURL} controls />;
+		} else if (fileType === 'image') {
+			return (
+				<CardMedia
+					component='img'
+					className={classes.cardView}
+					image={fileURL}
+					style={{ height: `${heightMedia}px`, transition: 'all 1s' }}
+				/>
+			);
+		}
+	};
+	const collapseHeight = () => {
+		setHt(0);
+		//reducing the height of cardView to 0
+		setHeightMedia(400);
+	};
 
- {console.log(hidden)}
- <div>
- <div
- onClick={() => setHidden(!hidden)}
- className={`event-description ${
- hidden ? "collapse-height" : "expand-height"
- } `}
- >
- {eventDescription}
- </div>
- <span
- className="event-description-controller"
- onClick={() => setHidden(!hidden)}
- >
- {hidden ? "Show more..." : "Show less ..."}
- </span>
- </div>
+	return (
+		<>
+			<Card variant='outlined' sx={{ maxWidth: 345 }}>
+				{displayCard(fileType, fileURL)}
 
- <div className={classes.comment_section}>
- {/* adding Enter key feature to comment */}
- <TextField
- onKeyDown={(e) =>
- e.key === "Enter" ? onCommentSubmitHandle(e) : ""
- }
- label="Comment"
- variant="outlined"
- placeholder="Comment Here please"
- className={classes.textfield}
- value={comment}
- onChange={onChangeHandle}
- />
- <IconButton
- className={classes.comment_button}
- onClick={onCommentSubmitHandle}
- >
- <SendIcon />
- </IconButton>
- </div>
- </CardContent>
+				<CardContent>
+					<div className='card-bottom-style'>
+						{/* <span className='event-title'>{eventTitle}</span> */}
+						<span className='time-stamp'>
+							{incidentCreationTime.toString()}
+						</span>
+						<div>
+							{verifiedOrNot ? (
+								<VerifiedIcon style={{ color: '#3446eb' }} />
+							) : (
+								<VerifiedIcon style={{ color: '#e8c217' }} />
+							)}
+							&nbsp; &nbsp;
+							{bookmarkStatus ? (
+								<BookmarkRounded
+									onClick={handleBookMarkIconButtonClick}
+								/>
+							) : (
+								<BookmarkBorderRounded
+									onClick={handleBookMarkIconButtonClick}
+								/>
+							)}
+						</div>
+					</div>
 
- <div className="comment-display" style={{ height: `${ht}px` }}>
- {commentArray.map((comment, index) => {
- return (
- <div key={index} className="comment-style">
- <div className="comment-data">
- <div className="comment-info">
- <AccountCircleIcon className="icon" />{" "}
- <span>{comment.user}</span>{" "}
- <Link
- state={{ name: comment.user }}
- to="/thread"
- style={{
- textDecorationLine: "none",
- }}
- >
- <Message
- className="icon"
- style={{
- position: "absolute",
- fontSize: 24,
- alignSelf: "flex-end",
- right: 10,
- }}
- />
- </Link>
- </div>
- <div className="actual-comment">{comment.comment}</div>
- </div>
- </div>
- );
- })}
- </div>
- <div
- className="bottom-bar comment-btn"
- onClick={() => {
- setLoadComments(!loadComments);
- }}
- >
- {!loadComments ? (
- <span style={{ fontSize: 14 }}>Load Comments</span>
- ) : (
- <span style={{ fontSize: 14 }}>Hide Comments</span>
- )}
- </div>
- </Card>
- </>
- );
+					{console.log(hidden)}
+					<div>
+						<div
+							onClick={() => setHidden(!hidden)}
+							className={`event-description ${
+								hidden ? 'collapse-height' : 'expand-height'
+							} `}>
+							{incidentDescription}
+						</div>
+						<span
+							className='event-description-controller'
+							onClick={() => setHidden(!hidden)}>
+							{hidden ? 'Show more...' : 'Show less ...'}
+						</span>
+					</div>
+
+					<div className={classes.comment_section}>
+						{/* adding Enter key feature to comment */}
+						<TextField
+							onKeyDown={(e) =>
+								e.key === 'Enter'
+									? onCommentSubmitHandle(e)
+									: ''
+							}
+							label='Comment'
+							variant='outlined'
+							placeholder='Comment Here please'
+							className={classes.textfield}
+							value={comment}
+							onChange={onChangeHandle}
+						/>
+						<IconButton
+							className={classes.comment_button}
+							onClick={onCommentSubmitHandle}>
+							<SendIcon />
+						</IconButton>
+					</div>
+				</CardContent>
+
+				<div className='comment-display' style={{ height: `${ht}px` }}>
+					{commentArray.map((comment, index) => {
+						return (
+							<div key={index} className='comment-style'>
+								<div className='comment-data'>
+									<div className='comment-info'>
+										<AccountCircleIcon className='icon' />{' '}
+										<span>{comment.user}</span>{' '}
+										<Link
+											state={{ name: comment.user }}
+											to='/thread'
+											style={{
+												textDecorationLine: 'none',
+											}}>
+											<Message
+												className='icon'
+												style={{
+													position: 'absolute',
+													fontSize: 24,
+													alignSelf: 'flex-end',
+													right: 10,
+												}}
+											/>
+										</Link>
+									</div>
+									<div className='actual-comment'>
+										{comment.comment}
+									</div>
+								</div>
+							</div>
+						);
+					})}
+				</div>
+				<div
+					className='bottom-bar comment-btn'
+					onClick={() => {
+						setLoadComments(!loadComments);
+					}}>
+					{!loadComments ? (
+						<span style={{ fontSize: 14 }}>Load Comments</span>
+					) : (
+						<span style={{ fontSize: 14 }}>Hide Comments</span>
+					)}
+				</div>
+			</Card>
+		</>
+	);
 };
 
 export default MediaCard;
