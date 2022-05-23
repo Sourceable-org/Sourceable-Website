@@ -3,14 +3,23 @@ import LockOpenSharpIcon from '@mui/icons-material/LockOpenSharp';
 import MailOutlineSharpIcon from '@mui/icons-material/MailOutlineSharp';
 import {
 	createUserWithEmailAndPassword,
+	getAdditionalUserInfo,
 	getAuth,
 	signInWithEmailAndPassword,
+	signInWithPopup,
 	signOut,
 } from 'firebase/auth';
-import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import {
+	doc,
+	getDoc,
+	getFirestore,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Firebase/Firebase';
+import googleSignInProvider from '../Firebase/GoogleProvider';
 import './Joinus.css';
 
 const JoinUs = () => {
@@ -35,12 +44,9 @@ const JoinUs = () => {
 				// Signed in
 				const user = userCredential.user;
 				console.log(user);
-				await setDoc(doc(db, 'Account', email), {
-					name: name,
-					email: email,
-					account_type: JOURNALIST_ACCOUNT_TYPE,
-					status: 'online',
-				});
+
+				// add their email, account type, status and name to the database
+				createWebAccountDetailsOnAccountCreation(email, name);
 			})
 			.catch((error) => {
 				const errorCode = error.code;
@@ -54,11 +60,14 @@ const JoinUs = () => {
 		setName('');
 	};
 
-	const checkAccountValidity = async (user) => {
+	// function to check if the loggedIn User account type is web only
+	const checkAccountValidity = async (userEmail) => {
 		// get account document
-		const accountSnap = await getDoc(doc(db, 'Account', user.email));
+		const accountSnap = await getDoc(doc(db, 'Account', userEmail));
 
+		// if account exists
 		if (accountSnap.exists()) {
+			// account_type matches JOURNALIST_ACCOUNT_TYPE then return true
 			if (
 				accountSnap.data()['account_type'] === JOURNALIST_ACCOUNT_TYPE
 			) {
@@ -69,6 +78,35 @@ const JoinUs = () => {
 		return false;
 	};
 
+	const createWebAccountDetailsOnAccountCreation = async (
+		userEmail,
+		userName
+	) => {
+		await setDoc(doc(db, 'Account', userEmail), {
+			name: userName,
+			email: userEmail,
+			account_type: JOURNALIST_ACCOUNT_TYPE,
+			status: 'online',
+		});
+	};
+
+	// function to be executed after login of the user is successful
+	const handleLoginSuccess = (userEmail) => {
+		// function to update the status of the user to online post successful Login
+		const updateUserStatus = async (userEmail) => {
+			await updateDoc(doc(db, 'Account', userEmail), {
+				status: 'online',
+			});
+		};
+
+		// update the status of the user to online
+		updateUserStatus(userEmail);
+
+		// navigate to the home page after success login
+		navigate('/');
+	};
+
+	// function to handle login process
 	const Login = async (e) => {
 		e.preventDefault();
 		signInWithEmailAndPassword(auth, email, password)
@@ -76,16 +114,15 @@ const JoinUs = () => {
 				// Signed in
 				const user = userCredential.user;
 
-				if (!checkAccountValidity(user)) {
+				if ((await checkAccountValidity(user.email)) === false) {
+					const auth = getAuth();
+
 					signOut(auth).then(() => {
-						alert('Mobile Users Not Allowed');
+						console.log('Mobile Users Not Allowed');
 					});
 				} else {
-					await updateDoc(doc(db, 'Account', user.email), {
-						status: 'online',
-					});
-
-					navigate('/');
+					// call the post login success function
+					handleLoginSuccess(user.email);
 				}
 
 				// ...
@@ -99,7 +136,7 @@ const JoinUs = () => {
 		setPassword('');
 	};
 
-	//switch tabs
+	// switch tabs
 	const switchTabs = (e, tab) => {
 		if (tab === 'login') {
 			switcherTab.current.classList.add('shiftToNeutral');
@@ -116,6 +153,47 @@ const JoinUs = () => {
 		}
 	};
 
+	// function to handle login process using google accounts
+	const handleGoogleLogin = () => {
+		// pass the auth and google provider object to the signInWithPopup
+		signInWithPopup(auth, googleSignInProvider)
+			.then(async (result) => {
+				// fetch the current loggedIn user details
+				const googleLoggedInUser = result.user;
+
+				// check if the user is new or not
+				const newUser = getAdditionalUserInfo(result).isNewUser;
+
+				// if the user has loggedIn for the first time then create a doc for the new user
+				if (newUser) {
+					// add their email, account type, status and name to the database
+					createWebAccountDetailsOnAccountCreation(
+						googleLoggedInUser.email,
+						googleLoggedInUser.displayName
+					);
+				}
+
+				// validate the account type of the loggedIn user
+				if (
+					(await checkAccountValidity(googleLoggedInUser.email)) ===
+					false
+				) {
+					const auth = getAuth();
+
+					// sign out the invalid user
+					signOut(auth).then(() => {
+						console.log('Mobile Users Not Allowed');
+					});
+				}
+
+				// call the post login success function
+				handleLoginSuccess(googleLoggedInUser.email);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
+
 	return (
 		<div className='loginSignUpContainer'>
 			<div className='loginSignUpBox'>
@@ -130,7 +208,6 @@ const JoinUs = () => {
 					{/* Using the below button tag as a boorder-bottom of the login and register and when user clicks on this we switch from login to register and vice versa */}
 					<button ref={switcherTab}></button>
 				</div>
-
 				{/* Login form */}
 				<form className='logInForm' ref={loginTab} onSubmit={Login}>
 					<div className='loginEmail'>
@@ -160,7 +237,7 @@ const JoinUs = () => {
 						//
 					/>
 				</form>
-
+				<button onClick={handleGoogleLogin}> Google Login </button>
 				{/* Register form */}
 				<form
 					className='signUpForm'
@@ -204,9 +281,10 @@ const JoinUs = () => {
 						value='Register'
 						className='signUpBtn'
 					/>
-				</form>
+				</form>{' '}
 			</div>
 		</div>
 	);
 };
+
 export default JoinUs;
