@@ -1,7 +1,8 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import 'react-dropdown/style.css';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
@@ -17,14 +18,24 @@ const Explore = () => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
 
+	// create a reference for the month slider
+	const monthSliderRef = useRef(null);
+
+	// state to store whether month slider input is changed or not
+	const [monthSliderChanged, setMonthSliderChanged] = useState(false);
+
+	// create a reference for the year selector
+	const yearSelectorRef = useRef(null);
+
+	const DEFAULT_YEAR = new Date().getFullYear();
+
+	const DEFAULT_MONTH = new Date().getMonth();
+
 	// state to store email address of the logged in user
 	const [userEmail, setUserEmail] = useState(undefined);
 
 	// store the book marks of the user in this state variable
 	const [userBookMarks, setUserBookMarks] = useState([]);
-
-	// state to store the month index to show events of specific month only
-	const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
 
 	// state to store the data of incidents after fetching data from FireBase
 	const [incidents, setIncidentsData] = useState([]);
@@ -51,8 +62,41 @@ const Explore = () => {
 		'December',
 	];
 
+	const STARTING_YEAR = 2021;
+	const ENDING_YEAR = 2040;
+
+	// generate year choices based on starting and ending year values
+	const year_choices = [...Array(ENDING_YEAR - STARTING_YEAR + 1).keys()].map(
+		(year) => year + STARTING_YEAR
+	);
+
 	const auth = getAuth();
 	const navigate = useNavigate();
+
+	// function to set the Data of Map on incidents data based on month and year
+	const filterDataPointsByMonthAndYear = (month, year) => {
+		// update the data of map with monthly and yearly specific incidents
+		map.current
+			.getSource('incidents')
+			.setData(getIncidentsByMonthAndYear(month, year));
+
+		// set newsListData to empty array when slider input is changed
+		setNewsListData([]);
+	};
+
+	// function to get incidents data filtered by year and month
+	const getIncidentsByMonthAndYear = (month, year) => {
+		// filter incidents on the basis of month and year
+		const filtered_incidents = incidents.filter((incident) => {
+			return (
+				incident.properties.month === month &&
+				incident.properties.year === year
+			);
+		});
+
+		// return the incidents data filtered by month and year
+		return { features: filtered_incidents };
+	};
 
 	useEffect(() => {
 		const getIncidentsDataFromFireStore = async (db) => {
@@ -70,11 +114,12 @@ const Explore = () => {
 				return data;
 			});
 
-			// for each incident add month field in it's property
+			// for each incident add month and year field in it's property
 			const finalIncidentsListData = incidentsListData.map((incident) => {
 				const date = new Date(incident.properties.created);
 
 				incident.properties.month = date.getMonth();
+				incident.properties.year = date.getFullYear();
 
 				return incident;
 			});
@@ -128,7 +173,6 @@ const Explore = () => {
 		if (map.current) return;
 
 		// filters for classifying earthquakes into five categories based on the incident_type
-
 		// get all incidents whose incident_type value is less than 2
 		const incident_type_1 = ['<', ['get', 'incident_type'], 2];
 
@@ -170,28 +214,6 @@ const Explore = () => {
 		// add navigation controls in the map
 		map.current.addControl(new mapboxgl.NavigationControl());
 
-		// function to get monthly incidents data
-		const getMonthlyIncidents = (month) => {
-			// filter incidents on the basis of month
-			const monthly_incidents = incidents.filter((incident) => {
-				return incident.properties.month === month;
-			});
-
-			// return the monthly incidents data
-			return { features: monthly_incidents };
-		};
-
-		// function to set the Data of Map on monthly incidents data
-		const filterDataPointsByMonth = (month) => {
-			// update the data of map with monthly specific incidents
-			map.current
-				.getSource('incidents')
-				.setData(getMonthlyIncidents(month));
-
-			// set newsListData to empty array when slider input is changed
-			setNewsListData([]);
-		};
-
 		// this function is executed after the map is loaded successfully
 		map.current.on('load', () => {
 			// add a clustered GeoJSON source of incidents
@@ -220,7 +242,7 @@ const Explore = () => {
 				},
 			});
 
-			filterDataPointsByMonth(monthIndex);
+			filterDataPointsByMonthAndYear(DEFAULT_MONTH, DEFAULT_YEAR);
 
 			// show circles on the Map for points that are individual (non clustered points)
 			map.current.addLayer({
@@ -256,20 +278,6 @@ const Explore = () => {
 					'circle-radius': 12,
 				},
 			});
-
-			// attach a input listener on the slider
-			document
-				.getElementById('slider')
-				.addEventListener('input', (event) => {
-					// fetch the month Index from slider input
-					const sliderMonthIndexInput = parseInt(event.target.value);
-
-					// update the month index
-					setMonthIndex(sliderMonthIndexInput);
-
-					// filter the data points based on month Index
-					filterDataPointsByMonth(sliderMonthIndexInput);
-				});
 
 			// objects for caching and keeping track of HTML marker objects (for performance)
 			const markers = {};
@@ -523,7 +531,7 @@ ${total.toLocaleString()}
 			/// return the element
 			return el.firstChild;
 		};
-	}, [newsListData, incidents, monthIndex]);
+	}, [newsListData, incidents, DEFAULT_MONTH, DEFAULT_YEAR]);
 
 	// function to display list that shows media and description
 	// it shows data of all the points present in the given cluster
@@ -544,7 +552,26 @@ ${total.toLocaleString()}
 		}
 	};
 
-	console.count('Rendered');
+	const handleYearSelectorChange = (event) => {
+		yearSelectorRef.current.value = parseInt(event.target.value);
+
+		filterDataPointsByMonthAndYear(
+			parseInt(monthSliderRef.current.value),
+			parseInt(yearSelectorRef.current.value)
+		);
+	};
+
+	const handleMonthSliderChange = (event) => {
+		monthSliderRef.current.value = parseInt(event.target.value);
+
+		// update the state to true so now monthSliderRef.current.value is not null
+		setMonthSliderChanged(true);
+
+		filterDataPointsByMonthAndYear(
+			parseInt(monthSliderRef.current.value),
+			parseInt(yearSelectorRef.current.value)
+		);
+	};
 
 	// inside the return method display the map
 	// and show the newsList if user clicks on the cluster point
@@ -556,13 +583,34 @@ ${total.toLocaleString()}
 					<h2>Incidents</h2>
 					<label id='month'></label>
 					<input
+						ref={monthSliderRef}
 						id='slider'
 						type='range'
 						min='0'
 						max='11'
 						step='1'
-						value={monthIndex}></input>
-					<h6> Current Selected Month: {months[monthIndex]} </h6>
+						defaultValue={DEFAULT_MONTH}
+						onChange={handleMonthSliderChange}></input>
+					<h5>
+						Selected Month:
+						{monthSliderChanged
+							? months[monthSliderRef.current.value]
+							: months[DEFAULT_MONTH]}
+					</h5>
+					<h6 style={{ float: 'left' }}>Select Year:</h6>
+					<select
+						style={{ marginLeft: '5px' }}
+						ref={yearSelectorRef}
+						defaultValue={DEFAULT_YEAR}
+						onChange={handleYearSelectorChange}>
+						{year_choices.map((year_choice) => {
+							return (
+								<option value={year_choice}>
+									{year_choice}
+								</option>
+							);
+						})}
+					</select>
 				</div>
 			</div>
 			{displayList()}
