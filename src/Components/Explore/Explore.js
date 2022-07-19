@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
 import './Explore.css';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 // Set the MapBox Access Token. This is present in your MapBox Account
 mapboxgl.accessToken =
@@ -167,7 +168,9 @@ const Explore = () => {
 
 	useEffect(() => {
 		// no incidents are fetched then do nothing
-		if (incidents.length === 0) return;
+		if (incidents.length === 0) {
+			return;
+		}
 
 		// initialize the map only once
 		if (map.current) return;
@@ -578,6 +581,7 @@ ${total.toLocaleString()}
 	return (
 		<div>
 			<div ref={mapContainer} className='map-container' />
+			{incidents.length === 0 ? <LoadingSpinner /> : null}
 			<div className='map-overlay top'>
 				<div className='map-overlay-inner'>
 					<h2>Incidents</h2>

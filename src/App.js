@@ -11,6 +11,7 @@ import Gallery from './Components/Gallery/Gallery.js';
 import Header from './Components/Header/Header.js';
 import Home from './Components/Home/Home.js';
 import JoinUs from './Components/JoinUs/JoinUs.js';
+import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 
 const Explore = React.lazy(() => import('./Components/Explore/Explore'));
 
@@ -18,7 +19,7 @@ const App = () => {
 	return (
 		<>
 			<Header />
-			<Suspense fallback={<div> Loading </div>}>
+			<Suspense fallback={<LoadingSpinner />}>
 				<Routes>
 					<Route exact path='/' element={<Home />}></Route>
 					<Route path='/explore' element={<Explore />} />
