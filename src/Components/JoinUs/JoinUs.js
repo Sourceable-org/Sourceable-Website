@@ -17,6 +17,7 @@ import {
 	updateDoc,
 } from 'firebase/firestore';
 import React, { useRef, useState } from 'react';
+import GoogleIcon from '@mui/icons-material/Google';
 import { useNavigate } from 'react-router-dom';
 import '../Firebase/Firebase';
 import googleSignInProvider from '../Firebase/GoogleProvider';
@@ -154,7 +155,9 @@ const JoinUs = () => {
 	};
 
 	// function to handle login process using google accounts
-	const handleGoogleLogin = () => {
+	const handleGoogleLogin = (event) => {
+		event.preventDefault();
+
 		// pass the auth and google provider object to the signInWithPopup
 		signInWithPopup(auth, googleSignInProvider)
 			.then(async (result) => {
@@ -236,8 +239,8 @@ const JoinUs = () => {
 						className='loginBtn'
 						//
 					/>
+					<GoogleIcon onClick={handleGoogleLogin}> </GoogleIcon>
 				</form>
-				<button onClick={handleGoogleLogin}> Google Login </button>
 				{/* Register form */}
 				<form
 					className='signUpForm'
@@ -281,6 +284,7 @@ const JoinUs = () => {
 						value='Register'
 						className='signUpBtn'
 					/>
+					<GoogleIcon onClick={handleGoogleLogin}> </GoogleIcon>
 				</form>{' '}
 			</div>
 		</div>

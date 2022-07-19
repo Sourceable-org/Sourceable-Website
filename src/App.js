@@ -31,7 +31,7 @@ const App = () => {
 			</Suspense>
 
 			<Routes>
-				<Route exact path='/explore' component={null}></Route>
+				<Route exact path='/explore' element={null}></Route>
 				<Route path='/' element={<Footer />}></Route>
 				<Route path='/mygallery' element={<Footer />}></Route>
 			</Routes>
