@@ -243,7 +243,7 @@ import './MediaCard.css';
 // styles for the MediaCard Component
 const useStyles = makeStyles(() => ({
 	comment_section: {
-		marginTop: 5,
+		marginTop: 5 ,
 		marginBottom: 50,
 	},
 	textfield: {
