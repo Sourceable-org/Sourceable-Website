@@ -1,0 +1,137 @@
+.card-bottom-style {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-bottom-style img {
+  cursor: pointer;
+}
+.comment-display {
+  /* padding: 5px; */
+  overflow-y: auto;
+  transition: all 1s;
+  background: #536976; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #292e49,
+    #536976
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #292e49,
+    #536976
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.comment-style {
+  /* background-color: black; */
+  padding: 3px 10px;
+}
+
+.comment-btn-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment-btn {
+  border: none;
+  background: transparent;
+  padding: 5px;
+  margin: 2px;
+  font-size: 12px;
+  background-color: #f35271;
+  color: white;
+  border-radius: 5px;
+}
+.comment-data {
+  background-color: white;
+  word-wrap: break-word;
+  padding: 10px 5px;
+  margin-block-end: 5px;
+  border-radius: 15px;
+}
+
+.comment-data svg {
+  margin: 6px 7px;
+  padding: 0px;
+  font-size: 30px;
+}
+.comment-data span {
+  color: #00000085;
+  font-size: medium;
+}
+
+.comment-data span:hover {
+  color: black;
+  /* border-bottom: 1px solid black; */
+}
+
+.actual-comment {
+  margin-left: 45px;
+  margin-top: 0px;
+}
+.comment-data:hover {
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  transform: scale(1.06);
+}
+
+.comment-info {
+  position: relative;
+}
+
+.icon:hover {
+  color: #292e49;
+  transform: scale(1.06);
+}
+
+.bottom-bar {
+  cursor: pointer;
+  height: 30px;
+  margin: 3px;
+  /* background-color: rgb(219, 219, 219); */
+  width: 100%;
+  text-align: center;
+  border-radius: 0px;
+}
+
+.bottom-bar:hover {
+  box-shadow: 0px 0px 5px 0.5px rgba(0, 0, 0, 0.5);
+}
+
+.event-title {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.event-description {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  font-size: 13px;
+  padding: 5px 0px;
+  transition: 0.3s;
+  overflow: hidden;
+}
+
+.expand-height {
+  height: auto;
+}
+
+.collapse-height {
+  height: 100px;
+}
+
+.event-description-controller {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+  color: blue;
+}
+
+.time-stamp {
+  font-size: 14px;
+  color: gray;
+}

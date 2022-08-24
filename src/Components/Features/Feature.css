@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+.containerFeature{
+    max-width: 100%;
+    background: #003973;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E5E5BE, #003973);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,#ffffff,#a7a7a8, #3976ef); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: white;
+
+    
+}
+
+
+
+.above>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    /* border: 1px solid green; */
+}
+
+.above>div .first{
+    /* background-color: tomato; */
+   padding-top: 15vh;
+}
+.above>div .first >div{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.above>div .first >div>img{
+    width: 8vw;
+}
+.above>div .first >div>h1{
+    font-family: 'Poppins', sans-serif;
+   padding: 1rem 0;
+}
+
+
+.above>div .second{
+    /* background-color: turquoise; */
+    display: flex;
+}
+
+
+.above>div .second > .left{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.above>div .second > .right{
+    width: 50%;
+    /* background-color: rgb(130, 189, 238); */
+}
+
+.box-item-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: normal;
+    padding: 9%;
+    /* background-color: rgb(199, 28, 28); */
+}
+.box-item-right>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.box-item-right>div>h5{
+    margin: 1vmax 0;
+    font-family: 'Poppins', sans-serif;
+    text-align: left;
+}
+
+.box-item-right>p{
+    font-family: 'Raleway', sans-serif;
+   color:black;
+
+}
+
+.extra .extra_1 > h1{
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    padding-top: 20px;
+}
+
+.extra .extra_1 > p{
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    padding: 1vmax 4rem;
+    font-weight: 700;
+}
+
+
+.extra .extra_2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+}
+
+.extra .extra_2 > div{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+.extra .extra_2 img{
+    width:33%;
+}
+.extra .extra_2 img:last-child{
+    width:20%;
+}
+
+@media screen and (max-width: 600px) {
+    .containerFeature{
+        max-width: 100%;
+        background: #003973;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #a1a191, #003973);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left,#cec4c4,#a7a7a8, #3976ef); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+        color: white;
+    }
+    
+
+    .above>div .second{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .above>div .second > .right{
+        width: 100%;
+        
+    }
+    .above>div .second > .left{
+        width: 100%;
+    } 
+    .extra .extra_1 > p{
+        font-family: 'Raleway', sans-serif;
+        color: black;
+        padding: 1vmax 0rem;
+        font-weight: 700;
+    } 
+}
+
+
+
+
+
+@media screen and (min-width: 1040px) {
+    #lasth5{
+       transform: translateX(-17px);
+    }
+}

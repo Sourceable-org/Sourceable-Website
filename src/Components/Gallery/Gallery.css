@@ -1,0 +1,25 @@
+.notification{
+    position:fixed;
+    top: 10%;
+    right: 2%;
+  }
+
+  .notification >img{
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    z-index: 29;
+  }
+ 
+  .noty_div{
+    margin: 34px 0;
+  }
+  .closeBtn{
+    padding: 1vmax;
+    border: none;
+    border-radius: 6px;
+    font-size: large;
+    background-color: #3976ef;
+    color: white;
+    margin: 1rem 0;
+  }

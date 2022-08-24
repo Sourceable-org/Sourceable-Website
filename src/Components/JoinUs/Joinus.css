@@ -1,0 +1,249 @@
+.loginSignUpContainer{
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+   
+}
+
+.loginSignUpBox{
+    background-color: white;
+    width: 30vw;
+    height: 75vh;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.login_signup_toggler{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3vmax;
+
+}
+
+.login_signup_toggler> p{
+    color: rgba(0, 0, 0, 0.655);
+    font: 300 1vmax "Raleway";
+    transition: all 0.6s;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    margin: 1.4vmax 0;
+  
+}
+
+.login_signup_toggler p:hover{
+    color: #3976ef;
+
+}
+
+
+.loginSignUpBox > div> button{
+    background-color: #3976ef;
+    height: 3px;
+    width: 50%;
+    border: none;
+    transition: all 0.5s;
+}
+
+.logInForm,.signUpForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: auto;
+    padding: 2vmax;
+    height: 70%;
+    transition: all 0.5s;
+}
+
+.signUpForm{
+    transform: translateY(-100%) translateX(-100%) ;
+}
+
+.logInForm > div,.signUpForm>div{
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+}
+.logInForm > div > input,.signUpForm>div > input{
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    outline: none;
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+}
+
+.logInForm > div > svg,.signUpForm>div > svg{
+    position: absolute;
+    transform: translateX(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(0, 0, 0, 0.634);
+}
+
+
+.logInForm > a{
+    color: rgba(0, 0, 0, 0.63);
+    text-decoration: none;
+    align-self: flex-end;
+    transition: all 0.6s;
+    font: 500 1vmax "Gill Sans";
+}
+
+.logInForm > a:hover{
+    color: black;
+}
+
+
+.loginBtn,.signUpBtn{
+    border: none;
+    background-color: #3976ef;
+    color: white;
+    font: 300 0.9vmax "Raleway";
+    width: 100%;
+    padding: 0.8vmax;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.404);
+}
+#registerImage >input{
+    padding: 0%;
+    display: flex;
+}
+
+#registerImage > input::file-selector-button{
+    cursor: pointer;
+    width: 100%;
+    z-index: 2;
+    height: 5vh;
+    margin: 0%;
+    border: none;
+    font: 400 0.8vmax cursive;
+    transition: all 0.5s;
+    padding: 0 1vmax;
+    color: rgba(0, 0, 0, 0.466);
+    background-color: white;
+}
+#registerImage > input::file-selector-button:hover{
+    background-color: rgba(128, 128, 128, 0.329)
+}
+
+.loginBtn:hover,.signUpBtn:hover{
+    background-color: #3976ef;
+}
+
+
+.shiftToLeft{
+    transform: translateX(-100%);
+}
+.shiftToRight{
+    transform: translateX(100%);
+}
+
+.shiftToNeutral{
+    transform: translateX(0%);
+}
+ /* Actully the signup form is below the login in form so using transform(-100%) we are bringing that form to up by 100% */
+
+.shiftToNeutralForm{
+    transform: translateX(0%) translateY(-100%);
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .loginSignUpContainer {
+      background-color: white;
+      top: 7%;
+    }
+    .loginSignUpBox {
+      width: 100vw;
+      height: 95vh;
+      border: none;
+    }
+    .login_signup_toggler {
+      height: 5vmax;
+    }
+    .login_signup_toggler > p {
+      font: 300 1.5vmax "Roboto";
+    }
+  
+    .logInForm,
+    .signUpForm {
+      padding: 5vmax;
+    }
+  
+    .logInForm > div > input,
+    .signUpForm > div > input {
+      padding: 2.5vmax 5vmax;
+      font: 300 1.7vmax cursive;
+    }
+  
+    .logInForm > div > svg,
+    .signUpForm > div > svg {
+      font-size: 2.8vmax;
+    }
+  
+    .logInForm > a {
+      font: 500 1.8vmax "Gill Sans";
+    }
+  
+    #registerImage > img {
+      width: 8vmax;
+      border-radius: 100%;
+    }
+  
+    #registerImage > input::file-selector-button {
+      height: 7vh;
+      font: 400 1.8vmax cursive;
+    }
+  
+    .loginBtn,
+    .signUpBtn {
+      font: 300 1.9vmax "Roboto";
+      padding: 1.8vmax;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

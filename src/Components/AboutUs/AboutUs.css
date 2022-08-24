@@ -1,0 +1,71 @@
+
+.aboutuspage{
+    background: #536976;
+    background: -webkit-linear-gradient(90deg,#292e49,#536976);
+    background-color: #a7a7a8;
+    color: #fff;
+}
+
+.aboutuspage >div{
+    width: 90%;
+    /* background-color: grey; */
+    margin: auto;
+    padding-top:3rem ;
+}
+
+.aboutuspage >div>h1{
+    user-select: auto;
+    padding: 1rem 4rem;
+    padding-left: 4rem;
+    width: 38%;
+    /* border: 1px solid red; */
+    font-family: 'Poppins', sans-serif;
+}
+
+#forBorder{
+    background: #00c6ff;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    
+    margin-left: 4rem;
+    height: 5px;
+    width: 24%;
+}
+
+.aboutuspage >div>div>p{
+   
+    padding: 2rem 4rem;
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 0%;
+}
+
+.aboutuspage >div>div>h3{
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.aboutuspage >div:last-child{
+    padding-bottom: 4rem;
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .aboutuspage >div>h1{
+        width: 100%;
+    }
+
+    #forBorder{
+        width: 59%;
+    }
+    .aboutuspage >div>div>p{
+        padding: 2rem 0rem;
+        font-size: 1.2rem;
+        font-family: 'Raleway', sans-serif;
+        margin-bottom: 0%;
+    }
+
+}
