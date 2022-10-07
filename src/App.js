@@ -13,6 +13,7 @@ import Home from './Components/Home/Home.js';
 import JoinUs from './Components/JoinUs/JoinUs.js';
 import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 import IncidentChat from './Components/IncidentChat/IncidentChat';
+import Dashboard from './Components/Dashboard/Dashboard.js';
 
 const Explore = React.lazy(() => import('./Components/Explore/Explore'));
 
@@ -30,6 +31,9 @@ const App = () => {
 					<Route path='/mygallery' element={<Gallery />}></Route>
 					<Route path='/thread' element={<Chatbox />} />
 					<Route path='/chat' element={<IncidentChat/>}></Route>
+
+					<Route path='/dashboard' element={<Dashboard/>}></Route>
+
 				</Routes>
 			</Suspense>
 
