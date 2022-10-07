@@ -31,7 +31,6 @@ const App = () => {
 					<Route path='/mygallery' element={<Gallery />}></Route>
 					<Route path='/thread' element={<Chatbox />} />
 					<Route path='/chat' element={<IncidentChat/>}></Route>
-
 					<Route path='/dashboard' element={<Dashboard/>}></Route>
 
 				</Routes>

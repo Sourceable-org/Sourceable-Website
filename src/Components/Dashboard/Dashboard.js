@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -47,9 +47,12 @@ import {
   chartExample1,
   chartExample2
 } from "./variables/charts.js";
-import "/Users/afaanansari/Desktop/sourceable/Security-Project/src/assets/css/argon-dashboard-react.css"
-import "/Users/afaanansari/Desktop/sourceable/Security-Project/src/assets/css/argon-dashboard-react.css.map"
-import "/Users/afaanansari/Desktop/sourceable/Security-Project/src/assets/css/argon-dashboard-react.min.css"
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { db } from '../Firebase/Firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import "/Users/vivek/Desktop/Sourceable/Website/Security-Project/src/assets/css/argon-dashboard-react.css"
+import "/Users/vivek/Desktop/Sourceable/Website/Security-Project/src/assets/css/argon-dashboard-react.css.map"
+import "/Users/vivek/Desktop/Sourceable/Website/Security-Project/src/assets/css/argon-dashboard-react.min.css"
 
 const Header = () => {
   return (
@@ -74,6 +77,113 @@ const Index = (props) => {
     setActiveNav(index);
     setChartExample1Data("data" + index);
   };
+
+  const [incidents, setIncidentsData] = useState([]);
+  const [monthData, setMonthData] = useState([]);
+  const [yearData, setYearData] = useState([]);
+  const [countMonth, setCountMonth] = useState(0);
+
+  const jan = 0;
+  const feb = 0;
+  const mar = 0;
+  const apr = 0;
+  const may = 0;
+  const jun = 0;
+  const jul = 0;
+  const aug = 0;
+  const sep = 0;
+  const oct = 0;
+  const nov = 0;
+  const dec = 0;
+
+  useEffect(() => {
+		const getIncidentsDataFromFireStore = async (db) => {
+			// get all documents under the Explore Collection
+			const querySnapshot = await getDocs(collection(db, 'Explore'));
+
+			// iterate all the documents and fetch it's data
+			const incidentsListData = querySnapshot.docs.map((doc) => {
+				// fetch the data of the document
+				const data = doc.data();
+
+				// add the incident_id field with document id
+				data.properties.incident_id = doc.id;
+
+				return data;
+			});
+
+			// for each incident add month and year field in it's property
+			const finalIncidentsListData = incidentsListData.map((incident) => {
+				const date = new Date(incident.properties.created);
+
+				incident.properties.month = date.getMonth();
+				incident.properties.year = date.getFullYear();
+
+        // console.log(incident.properties.month);
+
+
+        switch(incident.properties.month){
+          case 1:
+            jan+=1;
+            break;
+
+          case 2:
+            feb+=1;
+            break;
+
+          case 3:
+            mar+=1;
+            break;
+
+          case 4:
+            apr+=1;
+            break;
+
+          case 5:
+            may+=1;
+            break;
+
+          case 6:
+            jun+=1;
+            break;
+
+          case 7:
+            jul+=1;
+            break;
+
+          case 8:
+            aug+=1;
+            break;
+
+          case 9:
+            sep+=1;
+            break;
+
+          case 10:
+            oct+=1;
+            break;
+
+          case 11:
+            nov+=1;
+            break;
+
+          case 12:
+            dec+=1;
+            break;
+        }
+      
+        console.log(jun);
+				return incident;
+			});
+
+			// update the incidents set with the incidents data
+			setIncidentsData(finalIncidentsListData);
+		};
+		// call the function to fetch incidents data
+		getIncidentsDataFromFireStore(db);
+	}, []);
+
+
   return (
     <>
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
