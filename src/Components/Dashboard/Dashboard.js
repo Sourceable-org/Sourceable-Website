@@ -1,21 +1,4 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -23,6 +6,7 @@ import Chart from "chart.js";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 // reactstrap components
+
 import {
   Button,
   Card,
@@ -37,7 +21,7 @@ import {
   Container,
   Row,
   Col,
-  CardText
+  CardText,
 } from "reactstrap";
 
 // core components
@@ -45,156 +29,221 @@ import {
   chartOptions,
   parseOptions,
   chartExample1,
-  chartExample2
+  chartExample2,
 } from "./variables/charts.js";
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import { db } from '../Firebase/Firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import "/Users/vivek/Desktop/Sourceable/Website/Security-Project/src/assets/css/argon-dashboard-react.css"
-import "/Users/vivek/Desktop/Sourceable/Website/Security-Project/src/assets/css/argon-dashboard-react.css.map"
-import "/Users/vivek/Desktop/Sourceable/Website/Security-Project/src/assets/css/argon-dashboard-react.min.css"
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../Firebase/Firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import "../../assets/css/argon-dashboard-react.css";
+import "../../assets/css/argon-dashboard-react.css.map";
+import "../../assets/css/argon-dashboard-react.min.css";
+import { async } from "@firebase/util";
 
 const Header = () => {
-  return (
-    <>
-    
-    </>
-  );
+  return <></>;
 };
 
-
-
 const Index = (props) => {
-  const [activeNav, setActiveNav] = useState(1);
-  const [chartExample1Data, setChartExample1Data] = useState("data1");
+  const [countMonthYear, setCountMonthYear] = useState({});
+  const [countTypePost, setcountTypePost] = useState({});
+  const [totalPost, setTotalpost] = useState(0);
+  const [countTypeAccount, setcountTypeAccount] = useState({});
+  const [totalAccount, setTotalAccount] = useState(0)
+  let month_data = {};
+  let year_data = {};
+  let month_charts = [];
+  let year_charts = [];
+  let type_data = { text: 0, image: 0, video: 0, audio: 0 };
+  let type_charts = [];
+  let account_type_data = { mobile: 0, web: 0 };
+  let account_type_charts = [];
+  const date_yr = Math.abs(2017 - new Date().getFullYear()) + 1;
+
+  var colors = {
+    gray: {
+      100: "#f6f9fc",
+      200: "#e9ecef",
+      300: "#dee2e6",
+      400: "#ced4da",
+      500: "#adb5bd",
+      600: "#8898aa",
+      700: "#525f7f",
+      800: "#32325d",
+      900: "#212529",
+    },
+    theme: {
+      default: "#172b4d",
+      primary: "#5e72e4",
+      secondary: "#f4f5f7",
+      info: "#11cdef",
+      success: "#2dce89",
+      danger: "#f5365c",
+      warning: "#fb6340",
+    },
+    black: "#12263F",
+    white: "#FFFFFF",
+    transparent: "transparent",
+  };
+
+  let chartExample1_options = {
+    scales: {
+      yAxes: [
+        {
+          gridLines: {
+            color: colors.gray[900],
+            zeroLineColor: colors.gray[900],
+          },
+          ticks: {
+            callback: function (value) {
+              if (!(value % 10)) {
+                return value;
+              }
+            },
+          },
+        },
+      ],
+    },
+    tooltips: {
+      callbacks: {
+        label: function (item, data) {
+          var label = data.datasets[item.datasetIndex].label || "";
+          var yLabel = item.yLabel;
+          var content = "";
+
+          if (data.datasets.length > 1) {
+            content += label;
+          }
+
+          content += yLabel;
+          return content;
+        },
+      },
+    },
+  };
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
 
-  const toggleNavs = (e, index) => {
-    e.preventDefault();
-    setActiveNav(index);
-    setChartExample1Data("data" + index);
-  };
-
-  const [incidents, setIncidentsData] = useState([]);
-  const [monthData, setMonthData] = useState([]);
-  const [yearData, setYearData] = useState([]);
-  const [countMonth, setCountMonth] = useState(0);
-
-  const jan = 0;
-  const feb = 0;
-  const mar = 0;
-  const apr = 0;
-  const may = 0;
-  const jun = 0;
-  const jul = 0;
-  const aug = 0;
-  const sep = 0;
-  const oct = 0;
-  const nov = 0;
-  const dec = 0;
+  for (let i = 0; i < 12; i++) {
+    month_data[(i + 1).toString()] = 0;
+  }
+  for (let i = 0; i < date_yr; i++) {
+    let d = new Date().getFullYear();
+    year_data[(d - i).toString()] = 0;
+  }
 
   useEffect(() => {
-		const getIncidentsDataFromFireStore = async (db) => {
-			// get all documents under the Explore Collection
-			const querySnapshot = await getDocs(collection(db, 'Explore'));
+    const getIncidentsDataFromFireStore = async (db) => {
+      // get all documents under the Explore Collection
+      const querySnapshot = await getDocs(collection(db, "Explore"));
 
-			// iterate all the documents and fetch it's data
-			const incidentsListData = querySnapshot.docs.map((doc) => {
-				// fetch the data of the document
-				const data = doc.data();
+      // iterate all the documents and fetch it's data
+      querySnapshot.docs.map((doc) => {
+        // fetch the data of the document
+        const data = doc.data();
+        const date = new Date(data.properties.created);
+        let month = date.getMonth();
+        let year = date.getFullYear();
+        type_data[data.properties.file.type] += 1;
+        month_data[month] += 1;
+        year_data[year] += 1;
 
-				// add the incident_id field with document id
-				data.properties.incident_id = doc.id;
+        // add the incident_id field with document id
+        data.properties.incident_id = doc.id;
+      });
+      let year_title = Object.keys(year_data);
+      month_charts = Object.values(month_data);
+      year_charts = Object.values(year_data);
+      type_charts = Object.values(type_data);
 
-				return data;
-			});
+      setCountMonthYear({
+        data1: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              label: "Performance",
+              data: month_charts,
+            },
+          ],
+        },
+        data2: {
+          labels: year_title,
+          datasets: [
+            {
+              label: "Performance",
+              data: year_charts,
+            },
+          ],
+        },
+      });
 
-			// for each incident add month and year field in it's property
-			const finalIncidentsListData = incidentsListData.map((incident) => {
-				const date = new Date(incident.properties.created);
+      setcountTypePost({
+        labels: ["Text", "Image", "Video", "Audio"],
+        datasets: [
+          {
+            label: "Sales",
+            data: type_charts,
+            maxBarThickness: 15,
+          },
+        ],
+      });
+      setTotalpost(year_charts.reduce((a, b) => a + b, 0));
+    };
 
-				incident.properties.month = date.getMonth();
-				incident.properties.year = date.getFullYear();
+    const getAccountType = async (db) => {
+      const querySnapshot = await getDocs(collection(db, "Account"));
+      querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        account_type_data[data.account_type] += 1;
+      });
 
-        // console.log(incident.properties.month);
+      account_type_charts = Object.values(account_type_data);
+      console.log(account_type_charts);
 
+      setcountTypeAccount({
+        labels: ["Text", "Image"],
+        datasets: [
+          {
+            label: "Sales",
+            data: account_type_charts,
+            maxBarThickness: 15,
+          },
+        ],
+      });
 
-        switch(incident.properties.month){
-          case 1:
-            jan+=1;
-            break;
+      setTotalAccount(account_type_charts.reduce((a, b) => a + b, 0));
+    };
 
-          case 2:
-            feb+=1;
-            break;
-
-          case 3:
-            mar+=1;
-            break;
-
-          case 4:
-            apr+=1;
-            break;
-
-          case 5:
-            may+=1;
-            break;
-
-          case 6:
-            jun+=1;
-            break;
-
-          case 7:
-            jul+=1;
-            break;
-
-          case 8:
-            aug+=1;
-            break;
-
-          case 9:
-            sep+=1;
-            break;
-
-          case 10:
-            oct+=1;
-            break;
-
-          case 11:
-            nov+=1;
-            break;
-
-          case 12:
-            dec+=1;
-            break;
-        }
-      
-        console.log(jun);
-				return incident;
-			});
-
-			// update the incidents set with the incidents data
-			setIncidentsData(finalIncidentsListData);
-		};
-		// call the function to fetch incidents data
-		getIncidentsDataFromFireStore(db);
-	}, []);
-
+    // call the function to fetch incidents data
+    getIncidentsDataFromFireStore(db);
+    getAccountType(db);
+  }, []);
 
   return (
     <>
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container fluid>
-          <div className="header-body">
-          </div>
+          <div className="header-body"></div>
         </Container>
       </div>
-            {/* Page content */}
+      {/* Page content */}
       <Container className="mt--7" fluid>
-         <Row>
+        <Row>
           <Col className="mb-5 mb-xl-0" xl="8">
             <Card className="bg-gradient-default shadow">
               <CardHeader className="bg-transparent">
@@ -203,91 +252,147 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-light ls-1 mb-1">
                       Overview
                     </h6>
-                    <h2 className="text-white mb-0">Sales value</h2>
-                  </div>
-                  <div className="col">
-                    <Nav className="justify-content-end" pills>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 1
-                          })}
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 1)}
-                        >
-                          <span className="d-none d-md-block">Month</span>
-                          <span className="d-md-none">M</span>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 2
-                          })}
-                          data-toggle="tab"
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 2)}
-                        >
-                          <span className="d-none d-md-block">Week</span>
-                          <span className="d-md-none">W</span>
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
+                    <h2 className="text-white mb-0">Month</h2>
                   </div>
                 </Row>
               </CardHeader>
               <CardBody>
                 <div className="chart">
                   <Line
-                    data={chartExample1[chartExample1Data]}
-                    options={chartExample1.options}
+                    data={countMonthYear["data1"]}
+                    options={chartExample1_options}
                     getDatasetAtEvent={(e) => console.log(e)}
                   />
                 </div>
               </CardBody>
             </Card>
           </Col>
+
+          <Col>
+            <Card className="bg-gradient-default shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h6 className="text-uppercase text-light ls-1 mb-1">
+                      Overview
+                    </h6>
+                    <h2 className="text-white mb-0">Year</h2>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="chart">
+                  <Line
+                    data={countMonthYear["data2"]}
+                    options={chartExample1_options}
+                    getDatasetAtEvent={(e) => console.log(e)}
+                  />
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+
           <Col xl="4">
             <Card className="shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h6 className="text-uppercase text-muted ls-1 mb-1">
-                      Performance
-                    </h6>
-                    <h2 className="mb-0">Total orders</h2>
+              
+                    <h2 className="mb-0">Types of Posts</h2>
                   </div>
                 </Row>
               </CardHeader>
               <CardBody>
-                
+                <div className="chart">
+                  <Bar data={countTypePost} options={chartExample2.options} />
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col xl="5">
+            <Card className="shadow">
+              <CardHeader className="border-0">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h3 className="mb-0">Other Analysis</h3>
+                  </div>
+                </Row>
+              </CardHeader>
+              <Table className="align-items-center table-flush" responsive>
+                <thead className="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Records</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">No. of Posts</th>
+                    <td>{totalPost}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">No. of Accounts</th>
+                    <td>{totalAccount}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Card>
+          </Col>
+
+          <Col xl="3">
+            <Card className="shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h2 className="mb-0">Types of Accounts</h2>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
                 <div className="chart">
                   <Bar
-                    data={chartExample2.data}
+                    data={countTypeAccount}
                     options={chartExample2.options}
                   />
                 </div>
               </CardBody>
             </Card>
           </Col>
+
+          {/* <Col xl="8">
+            <Card className="shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h6 className="text-uppercase text-muted ls-1 mb-1">
+                      Country Based analysis
+                    </h6>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div>
+                  <div
+                    ref={mapContainer}
+                    style={{ height: "400px" }}
+                    className="map-container"
+                  >
+                  
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          </Col> */}
         </Row>
-        <Row className="mt-5">
+
+        {/* <Row className="mt-5">
           <Col className="mb-5 mb-xl-0" xl="8">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
                     <h3 className="mb-0">Page visits</h3>
-                  </div>
-                  <div className="col text-right">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      See all
-                    </Button>
                   </div>
                 </Row>
               </CardHeader>
@@ -354,16 +459,6 @@ const Index = (props) => {
                 <Row className="align-items-center">
                   <div className="col">
                     <h3 className="mb-0">Social traffic</h3>
-                  </div>
-                  <div className="col text-right">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      See all
-                    </Button>
                   </div>
                 </Row>
               </CardHeader>
@@ -456,7 +551,7 @@ const Index = (props) => {
               </Table>
             </Card>
           </Col>
-        </Row> 
+        </Row> */}
       </Container>
     </>
   );
