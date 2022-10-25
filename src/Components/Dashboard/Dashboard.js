@@ -47,21 +47,15 @@ import {
   chartExample1,
   chartExample2
 } from "./variables/charts.js";
-import "/Users/afaanansari/Desktop/sourceable/Security-Project/src/assets/css/argon-dashboard-react.css"
-import "/Users/afaanansari/Desktop/sourceable/Security-Project/src/assets/css/argon-dashboard-react.css.map"
-import "/Users/afaanansari/Desktop/sourceable/Security-Project/src/assets/css/argon-dashboard-react.min.css"
+import "../../../src/assets/css/argon-dashboard-react.css";
+import "../../../src/assets/css/argon-dashboard-react.css.map";
+import "../../../src/assets/css/argon-dashboard-react.min.css";
 
 const Header = () => {
-  return (
-    <>
-    
-    </>
-  );
+  return <></>;
 };
 
-
-
-const Index = (props) => {
+const Index = props => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
 
@@ -78,13 +72,12 @@ const Index = (props) => {
     <>
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container fluid>
-          <div className="header-body">
-          </div>
+          <div className="header-body"></div>
         </Container>
       </div>
-            {/* Page content */}
+      {/* Page content */}
       <Container className="mt--7" fluid>
-         <Row>
+        <Row>
           <Col className="mb-5 mb-xl-0" xl="8">
             <Card className="bg-gradient-default shadow">
               <CardHeader className="bg-transparent">
@@ -103,7 +96,7 @@ const Index = (props) => {
                             active: activeNav === 1
                           })}
                           href="#pablo"
-                          onClick={(e) => toggleNavs(e, 1)}
+                          onClick={e => toggleNavs(e, 1)}
                         >
                           <span className="d-none d-md-block">Month</span>
                           <span className="d-md-none">M</span>
@@ -116,7 +109,7 @@ const Index = (props) => {
                           })}
                           data-toggle="tab"
                           href="#pablo"
-                          onClick={(e) => toggleNavs(e, 2)}
+                          onClick={e => toggleNavs(e, 2)}
                         >
                           <span className="d-none d-md-block">Week</span>
                           <span className="d-md-none">W</span>
@@ -131,7 +124,7 @@ const Index = (props) => {
                   <Line
                     data={chartExample1[chartExample1Data]}
                     options={chartExample1.options}
-                    getDatasetAtEvent={(e) => console.log(e)}
+                    getDatasetAtEvent={e => console.log(e)}
                   />
                 </div>
               </CardBody>
@@ -150,7 +143,6 @@ const Index = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                
                 <div className="chart">
                   <Bar
                     data={chartExample2.data}
@@ -173,7 +165,7 @@ const Index = (props) => {
                     <Button
                       color="primary"
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={e => e.preventDefault()}
                       size="sm"
                     >
                       See all
@@ -249,7 +241,7 @@ const Index = (props) => {
                     <Button
                       color="primary"
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={e => e.preventDefault()}
                       size="sm"
                     >
                       See all
@@ -346,7 +338,7 @@ const Index = (props) => {
               </Table>
             </Card>
           </Col>
-        </Row> 
+        </Row>
       </Container>
     </>
   );
