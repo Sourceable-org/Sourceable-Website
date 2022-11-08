@@ -260,14 +260,38 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
+  
 const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 	// get the email address
 	const [userEmail, setUserEmail] = useState(undefined);
 
+	function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+			   arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + arr.join("\\u");
+	  }
+
+	function decryptData(str){
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+		
+		console.log('-----------------------------------------------------------------------');
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	
+	  }
+
 	// get the classes
 	const classes = useStyles();
 
-	const fileURL = newsData.properties.file.url;
+	const fileURL = decryptData(newsData.properties.file.url);
 
 	const fileType = newsData.properties.file.type;
 
@@ -275,7 +299,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 
 	const incidentId = newsData.properties.incident_id;
 
-	const incidentDescription = newsData.properties.text;
+	const incidentDescription = decryptData(newsData.properties.text);
 
 	const incidentCreationTime = newsData.properties.created;
 
