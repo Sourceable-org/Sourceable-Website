@@ -28,15 +28,19 @@ const ChatRoom = ({
 }) => {
 	// state to store messages of the chatRoom
 	const [messages, setMessages] = useState([]);
+	//current message
+	const [currentMessage, setCurrentMesssage] = useState('');
+	const [currentTime, setCurrentTime] = useState('');
+
 	const location = useLocation();
+	// console.log("LOCCC",location.state);
+	// const { from } = location.state;
 
-	const { from } = location.state;
-
-	console.log("from routes2 --- ", from);
+	console.log("from routes2 --- ");
 	// function to get the chatRoom ID on the basis of sender and receiver user id
 	const getChatRoomID = () => {
+		console.log("aaaa");
 		const usersID = [];
-
 		// push the IDS of the sender and receiver
 		usersID.push(currentReceiverChatID);
 		usersID.push(senderEmail);
@@ -51,14 +55,12 @@ const ChatRoom = ({
 		return chatRoomID;
 	};
 
-	//current message
-	const [currentMessage, setCurrentMesssage] = useState('');
-	const [currentTime, setCurrentTime] = useState('');
-
+	
 	// get the chatRoomID for the sender and the receiver
-	const chatRoomID = getChatRoomID;
-
+	// const chatRoomID = getChatRoomID;
+	const chatRoomID = currentReceiverChatID+"-"+senderEmail;
 	useEffect(() => {
+		
 		console.log("from routes",chatRoomID);
 		// make the ChatRoom Query
 		console.log("chatbox here");
@@ -161,7 +163,7 @@ const ChatRoom = ({
 				<div className='row'>
 					<div className='col-lg-6'>
 						<a
-							href='javascript:void(0);'
+							href='#'
 							data-toggle='modal'
 							data-target='#view_info'>
 							{/* <img

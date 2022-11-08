@@ -107,7 +107,7 @@ const Header = () => {
 						as={Link} 
 						to="/thread" 
 						className="navOnHover">
-              			<FaRocketchat size={30} className="icon-message" />
+						<FaRocketchat size={30} className="icon-message" />
             </Nav.Link>
 					</Navbar.Collapse>
 				</Container>
