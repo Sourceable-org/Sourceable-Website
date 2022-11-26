@@ -30,9 +30,9 @@ const App = () => {
 					<Route path='/join' element={<JoinUs />}></Route>
 					<Route path='/mygallery' element={<Gallery />}></Route>
 					<Route path='/thread' element={<Chatbox />} />
+					<Route path='/payment' element={<PaymentButton />} />
 					<Route path='/chat' element={<IncidentChat/>}></Route>
 					<Route path='/dashboard' element={<Dashboard/>}></Route>
-					<Route path='/payment' element={<PaymentButton />} />
 				</Routes>
 			</Suspense>
 
