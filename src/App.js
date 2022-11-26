@@ -12,6 +12,7 @@ import Header from './Components/Header/Header.js';
 import Home from './Components/Home/Home.js';
 import JoinUs from './Components/JoinUs/JoinUs.js';
 import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
+import PaymentButton from './Components/PaymentButton/PaymentButton';
 
 const Explore = React.lazy(() => import('./Components/Explore/Explore'));
 
@@ -28,6 +29,7 @@ const App = () => {
 					<Route path='/join' element={<JoinUs />}></Route>
 					<Route path='/mygallery' element={<Gallery />}></Route>
 					<Route path='/thread' element={<Chatbox />} />
+					<Route path='/payment' element={<PaymentButton />} />
 				</Routes>
 			</Suspense>
 
