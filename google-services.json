@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "510047313365",
+    "project_id": "sourcable-34a9c",
+    "storage_bucket": "sourcable-34a9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510047313365:android:aa287e66e58121547f315c",
+        "android_client_info": {
+          "package_name": "com.sourceable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510047313365-449ahrpks524s1h4akoh6sf31g0d9g3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv9zg6i9GuOowxXxeMSLZRkEPkkKkaPyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510047313365-449ahrpks524s1h4akoh6sf31g0d9g3s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "510047313365-hdqnl2c6e0blfs3nn9cut4kssclfk03f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Sourceable"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
