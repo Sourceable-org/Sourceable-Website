@@ -5,7 +5,6 @@ import './App.css';
 import About from './Components/About/About.js';
 import Chatbox from './Components/Chatbox/Chatbox.js';
 import Contact from './Components/Contact/Contact.js';
-//components
 import Footer from './Components/Footer/Footer.js';
 import Gallery from './Components/Gallery/Gallery.js';
 import Header from './Components/Header/Header.js';
@@ -14,6 +13,7 @@ import JoinUs from './Components/JoinUs/JoinUs.js';
 import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 import IncidentChat from './Components/IncidentChat/IncidentChat';
 import Dashboard from './Components/Dashboard/Dashboard.js';
+import PaymentButton from './Components/PaymentButton/PaymentButton';
 
 const Explore = React.lazy(() => import('./Components/Explore/Explore'));
 
@@ -32,7 +32,7 @@ const App = () => {
 					<Route path='/thread' element={<Chatbox />} />
 					<Route path='/chat' element={<IncidentChat/>}></Route>
 					<Route path='/dashboard' element={<Dashboard/>}></Route>
-
+					<Route path='/payment' element={<PaymentButton />} />
 				</Routes>
 			</Suspense>
 
