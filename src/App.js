@@ -31,14 +31,11 @@ const App = () => {
 					<Route path='/join' element={<JoinUs />}></Route>
 					<Route path='/mygallery' element={<Gallery />}></Route>
 					<Route path='/thread' element={<Chatbox />} />
-<<<<<<< HEAD
 					<Route path='/payment' element={<PaymentButton />} />
-=======
 					<Route path='/chat' element={<IncidentChat/>}></Route>
 
 					<Route path='/dashboard' element={<Dashboard/>}></Route>
 
->>>>>>> 0c432ae40f0970077d2334315851b9c4a11f8147
 				</Routes>
 			</Suspense>
 
