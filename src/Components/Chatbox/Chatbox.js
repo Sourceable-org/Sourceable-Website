@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import {
 	addDoc,
@@ -28,7 +28,11 @@ const ChatRoom = ({
 }) => {
 	// state to store messages of the chatRoom
 	const [messages, setMessages] = useState([]);
+	const location = useLocation();
 
+	const { from } = location.state;
+
+	console.log("from routes2 --- ", from);
 	// function to get the chatRoom ID on the basis of sender and receiver user id
 	const getChatRoomID = () => {
 		const usersID = [];
@@ -52,10 +56,12 @@ const ChatRoom = ({
 	const [currentTime, setCurrentTime] = useState('');
 
 	// get the chatRoomID for the sender and the receiver
-	const chatRoomID = getChatRoomID();
+	const chatRoomID = getChatRoomID;
 
 	useEffect(() => {
+		console.log("from routes",chatRoomID);
 		// make the ChatRoom Query
+		console.log("chatbox here");
 		const chatRoomQuery = query(
 			collection(db, 'chatrooms', chatRoomID, 'messages'),
 			orderBy('createdAt')

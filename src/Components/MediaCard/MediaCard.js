@@ -236,7 +236,7 @@ import {
 	updateDoc,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../Firebase/Firebase';
 import './MediaCard.css';
 
@@ -260,14 +260,38 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
+  
+const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 	// get the email address
 	const [userEmail, setUserEmail] = useState(undefined);
+
+	function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+			   arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + arr.join("\\u");
+	  }
+
+	function decryptData(str){
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+		
+		console.log('-----------------------------------------------------------------------');
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	
+	  }
 
 	// get the classes
 	const classes = useStyles();
 
-	const fileURL = newsData.properties.file.url;
+	const fileURL = decryptData(newsData.properties.file.url);
 
 	const fileType = newsData.properties.file.type;
 
@@ -275,9 +299,11 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 
 	const incidentId = newsData.properties.incident_id;
 
-	const incidentDescription = newsData.properties.text;
+	const incidentDescription = decryptData(newsData.properties.text);
 
 	const incidentCreationTime = newsData.properties.created;
+
+	const incidentUser = newsData.properties.user;
 
 	const [ht, setHt] = useState(0);
 	const [heightMedia, setHeightMedia] = useState(400);
@@ -295,6 +321,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 
 	const date = new Date();
 	console.log(date.getMinutes() - 10);
+	console.log(incidentUser);
 
 	const onChangeHandle = (e) => {
 		setComment(e.target.value);
@@ -476,6 +503,33 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 		setHeightMedia(400);
 	};
 
+	const auth = getAuth();
+	const [loggedIn, setLoggedIN] = useState(false);
+	const [loggedInUserEmail, setLoggedINUserEmail] = useState('');
+
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				setLoggedIN(true);
+				setLoggedINUserEmail(user.email);
+				// ...
+			} else {
+				setLoggedIN(false);
+				setLoggedINUserEmail('');
+			}
+		});
+	}, [auth]);
+
+	const getChatRoomID = () => {
+		// const currentUser = db.auth().currentUser;
+		const chatRoomID = incidentUser + '-' + loggedInUserEmail;
+
+		return chatRoomID;
+
+	}
+	const chatRoomID = getChatRoomID();
+	console.log(chatRoomID);
+
 	return (
 		<>
 			<Card variant='outlined' sx={{ maxWidth: 345 }}>
@@ -506,6 +560,12 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 						</div>
 					</div>
 
+					<div>
+						<Link to="/chat" state={{ from: chatRoomID , incidentEmail : incidentUser}}>
+						Chat Here
+					</Link>
+					</div>
+
 					{console.log(hidden)}
 					<div>
 						<div
@@ -521,7 +581,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 							{hidden ? 'Show more...' : 'Show less ...'}
 						</span>
 					</div>
-
+					
 					<div className={classes.comment_section}>
 						{/* adding Enter key feature to comment */}
 						<TextField
@@ -552,7 +612,8 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks }) => {
 								<div className='comment-data'>
 									<div className='comment-info'>
 										<AccountCircleIcon className='icon' />{' '}
-										<span>{comment.user}</span>{' '}
+										<span>{comment.user }</span>{' '}
+
 										<Link
 											state={{ name: comment.user }}
 											to='/thread'

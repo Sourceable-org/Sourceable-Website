@@ -13,6 +13,8 @@ import Home from './Components/Home/Home.js';
 import JoinUs from './Components/JoinUs/JoinUs.js';
 import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 import PaymentButton from './Components/PaymentButton/PaymentButton';
+import IncidentChat from './Components/IncidentChat/IncidentChat';
+import Dashboard from './Components/Dashboard/Dashboard.js';
 
 const Explore = React.lazy(() => import('./Components/Explore/Explore'));
 
@@ -29,7 +31,14 @@ const App = () => {
 					<Route path='/join' element={<JoinUs />}></Route>
 					<Route path='/mygallery' element={<Gallery />}></Route>
 					<Route path='/thread' element={<Chatbox />} />
+<<<<<<< HEAD
 					<Route path='/payment' element={<PaymentButton />} />
+=======
+					<Route path='/chat' element={<IncidentChat/>}></Route>
+
+					<Route path='/dashboard' element={<Dashboard/>}></Route>
+
+>>>>>>> 0c432ae40f0970077d2334315851b9c4a11f8147
 				</Routes>
 			</Suspense>
 
