@@ -134,27 +134,6 @@ const Index = (props) => {
     year_data[(d - i).toString()] = 0;
   }
 
-  const auth = getAuth();
-	const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState(undefined);
-  
-  useEffect(() => {
-		// when the auth status is changed
-		onAuthStateChanged(auth, (user) => {
-			// if user object exists means loggedIn
-			if (user) {
-				// User is signed in, see docs for a list of available properties
-				// https://firebase.google.com/docs/reference/js/firebase.User
-				setUserEmail(user.email);
-			}
-			// user is not logged in
-			else {
-				// redirect to login page
-				navigate('/join');
-			}
-		});
-	}, [auth, navigate]);
-
   useEffect(() => {
     const getIncidentsDataFromFireStore = async (db) => {
       // get all documents under the Explore Collection
@@ -254,6 +233,27 @@ const Index = (props) => {
     getIncidentsDataFromFireStore(db);
     getAccountType(db);
   }, []);
+
+
+  const auth = getAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // when the auth status is changed
+    onAuthStateChanged(auth, (user) => {
+      // if user object exists means loggedIn
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+      }
+      // user is not logged in
+      else {
+        // redirect to login page
+        navigate("/join");
+      }
+    });
+  }, [auth, navigate]);
 
   return (
     <>
