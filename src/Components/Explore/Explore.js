@@ -142,6 +142,11 @@ const Explore = () => {
 			const data = await getDoc(userBookmarkDocumentRef);
 
 			const userBookMarks = data.data()['bookmarks'];
+
+			console.log(userBookMarks);
+
+
+
 			setUserBookMarks(userBookMarks);
 		};
 
