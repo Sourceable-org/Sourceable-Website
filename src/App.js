@@ -36,7 +36,6 @@ const App = () => {
 					<Route path='/payment' element={<PaymentButton />} />
 				</Routes>
 			</Suspense>
-
 			<Routes>
 				<Route exact path='/explore' element={null}></Route>
 				<Route path='/' element={<Footer />}></Route>
