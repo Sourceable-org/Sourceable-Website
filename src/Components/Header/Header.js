@@ -45,7 +45,12 @@ const Header = () => {
 							<Nav.Link as={Link} to='/' className='navOnHover'>
 								Home
 							</Nav.Link>
-
+							<Nav.Link
+								as={Link}
+								to='/dashboard'
+								className='navOnHover'>
+								Dashboard
+							</Nav.Link>
 							<Nav.Link
 								as={Link}
 								to='/explore'

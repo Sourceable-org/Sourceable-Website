@@ -6,7 +6,7 @@ import Chart from "chart.js";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 // reactstrap components
-
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -133,6 +133,27 @@ const Index = (props) => {
     let d = new Date().getFullYear();
     year_data[(d - i).toString()] = 0;
   }
+
+  const auth = getAuth();
+	const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState(undefined);
+  
+  useEffect(() => {
+		// when the auth status is changed
+		onAuthStateChanged(auth, (user) => {
+			// if user object exists means loggedIn
+			if (user) {
+				// User is signed in, see docs for a list of available properties
+				// https://firebase.google.com/docs/reference/js/firebase.User
+				setUserEmail(user.email);
+			}
+			// user is not logged in
+			else {
+				// redirect to login page
+				navigate('/join');
+			}
+		});
+	}, [auth, navigate]);
 
   useEffect(() => {
     const getIncidentsDataFromFireStore = async (db) => {
