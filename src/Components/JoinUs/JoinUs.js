@@ -116,11 +116,12 @@ const JoinUs = () => {
 				const user = userCredential.user;
 
 				if ((await checkAccountValidity(user.email)) === false) {
-					const auth = getAuth();
+					// const auth = getAuth();
 
-					signOut(auth).then(() => {
-						console.log('Mobile Users Not Allowed');
-					});
+					// signOut(auth).then(() => {
+					// 	console.log('Mobile Users Not Allowed');
+					// });
+					handleLoginSuccess(user.email);
 				} else {
 					// call the post login success function
 					handleLoginSuccess(user.email);
@@ -181,12 +182,13 @@ const JoinUs = () => {
 					(await checkAccountValidity(googleLoggedInUser.email)) ===
 					false
 				) {
-					const auth = getAuth();
+					// const auth = getAuth();
 
-					// sign out the invalid user
-					signOut(auth).then(() => {
-						console.log('Mobile Users Not Allowed');
-					});
+					// // sign out the invalid user
+					// signOut(auth).then(() => {
+					// 	console.log('Mobile Users Not Allowed');
+					// });
+					handleLoginSuccess(googleLoggedInUser.email);
 				}
 
 				// call the post login success function
