@@ -28,7 +28,15 @@ const Explore = () => {
 	// create a reference for the year selector
 	const yearSelectorRef = useRef(null);
 
+	const typeSelectorRef = useRef(null);
+
+	const categorySelectorRef = useRef(null);
+
 	const DEFAULT_YEAR = new Date().getFullYear();
+
+	const DEFAULT_CATEGORY = 'bombing';
+
+	const DEFAULT_TYPE = 'image';
 
 	const DEFAULT_MONTH = new Date().getMonth();
 
@@ -63,6 +71,18 @@ const Explore = () => {
 		'December',
 	];
 
+	const incidentType = [
+		'audio',
+		'image',
+		'text',
+		'video'
+	]
+
+	const incidentCategory = [
+		'Bombing',
+		'Protest'
+	]
+
 	const STARTING_YEAR = 2021;
 	const ENDING_YEAR = 2040;
 
@@ -75,23 +95,24 @@ const Explore = () => {
 	const navigate = useNavigate();
 
 	// function to set the Data of Map on incidents data based on month and year
-	const filterDataPointsByMonthAndYear = (month, year) => {
+	const filterDataPointsByMonthAndYear = (month, year, type) => {
 		// update the data of map with monthly and yearly specific incidents
 		map.current
 			.getSource('incidents')
-			.setData(getIncidentsByMonthAndYear(month, year));
+			.setData(getIncidentsByMonthAndYear(month, year, type));
 
 		// set newsListData to empty array when slider input is changed
 		setNewsListData([]);
 	};
 
 	// function to get incidents data filtered by year and month
-	const getIncidentsByMonthAndYear = (month, year) => {
+	const getIncidentsByMonthAndYear = (month, year, type) => {
 		// filter incidents on the basis of month and year
 		const filtered_incidents = incidents.filter((incident) => {
 			return (
 				incident.properties.month === month &&
-				incident.properties.year === year
+				incident.properties.year === year &&
+				incident.properties.file.type === type
 			);
 		});
 
@@ -250,7 +271,7 @@ const Explore = () => {
 				},
 			});
 
-			filterDataPointsByMonthAndYear(DEFAULT_MONTH, DEFAULT_YEAR);
+			filterDataPointsByMonthAndYear(DEFAULT_MONTH, DEFAULT_YEAR, DEFAULT_TYPE);
 
 			// show circles on the Map for points that are individual (non clustered points)
 			map.current.addLayer({
@@ -565,9 +586,33 @@ ${total.toLocaleString()}
 
 		filterDataPointsByMonthAndYear(
 			parseInt(monthSliderRef.current.value),
-			parseInt(yearSelectorRef.current.value)
+			parseInt(yearSelectorRef.current.value),
+			typeSelectorRef.current.value,
+			// categorySelectorRef.current.value
 		);
 	};
+
+	const handleTypeSelectorChange = (event) => {
+		typeSelectorRef.current.value = event.target.value;
+
+		filterDataPointsByMonthAndYear(
+			parseInt(monthSliderRef.current.value),
+			parseInt(yearSelectorRef.current.value),
+			typeSelectorRef.current.value,
+			// categorySelectorRef.current.value
+		);
+	};
+
+	// const handleCategorySelectorChange = (event) => {
+	// 	categorySelectorRef.current.value = event.target.value;
+
+	// 	filterDataPointsByMonthAndYear(
+	// 		parseInt(monthSliderRef.current.value),
+	// 		parseInt(yearSelectorRef.current.value),
+	// 		typeSelectorRef.current.value,
+	// 		categorySelectorRef.current.value
+	// 	);
+	// };
 
 	const handleMonthSliderChange = (event) => {
 		monthSliderRef.current.value = parseInt(event.target.value);
@@ -577,7 +622,9 @@ ${total.toLocaleString()}
 
 		filterDataPointsByMonthAndYear(
 			parseInt(monthSliderRef.current.value),
-			parseInt(yearSelectorRef.current.value)
+			parseInt(yearSelectorRef.current.value),
+			typeSelectorRef.current.value,
+			// categorySelectorRef.current.value
 		);
 	};
 
@@ -606,7 +653,7 @@ ${total.toLocaleString()}
 							? months[monthSliderRef.current.value]
 							: months[DEFAULT_MONTH]}
 					</h5>
-					<h6 style={{ float: 'left' }}>Select Year:</h6>
+					<h6 style={{ float: 'left' }}>Select Year:
 					<select
 						style={{ marginLeft: '5px' }}
 						ref={yearSelectorRef}
@@ -620,6 +667,41 @@ ${total.toLocaleString()}
 							);
 						})}
 					</select>
+					</h6>
+
+					<h6 style={{ float: 'left' }}>Select Incident Type:
+					<select
+						style={{ marginLeft: '5px' }}
+						ref={typeSelectorRef}
+						defaultValue={DEFAULT_TYPE}
+						onChange={handleTypeSelectorChange}>
+						{incidentType.map((incidet_Type) => {
+							return (
+								<option value={incidet_Type}>
+									{incidet_Type}
+								</option>
+							);
+						})}
+					</select>
+					</h6>
+
+
+					{/* <h6 style={{ float: 'left' }}>Select Incident Category:
+					<select
+						style={{ marginLeft: '5px' }}
+						ref={categorySelectorRef}
+						defaultValue={DEFAULT_CATEGORY}
+						onChange={handleCategorySelectorChange}>
+						{incidentCategory.map((incidet_Category) => {
+							return (
+								<option value={incidet_Category}>
+									{incidet_Category}
+								</option>
+							);
+						})}
+					</select>
+					</h6> */}
+
 				</div>
 			</div>
 			{displayList()}
