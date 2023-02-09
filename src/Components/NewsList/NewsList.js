@@ -8,6 +8,10 @@ const NewsList = ({
 	userBookMarks,
 	setUserBookMarks,
 }) => {
+
+	newsListData.sort((a,b)=> new Date(b.properties.created).getTime()- new Date(a.properties.created).getTime());
+
+	console.log("news",new Date(newsListData[0].properties.created).getTime())
 	// function that is executed for all rows of the lists
 	const renderRow = ({ index, style }) => {
 		// index is the current row number
