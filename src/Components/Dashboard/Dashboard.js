@@ -6,7 +6,7 @@ import Chart from "chart.js";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 // reactstrap components
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -49,11 +49,15 @@ const Index = (props) => {
   const [countTypePost, setcountTypePost] = useState({});
   const [totalPost, setTotalpost] = useState(0);
   const [countTypeAccount, setcountTypeAccount] = useState({});
-  const [totalAccount, setTotalAccount] = useState(0)
+  const [totalAccount, setTotalAccount] = useState(0);
+  const [posts, setPosts] = useState([]);
   let month_data = {};
   let year_data = {};
   let month_charts = [];
   let year_charts = [];
+  let userDataCount = {};
+  let user_posts = [];
+
   let type_data = { text: 0, image: 0, video: 0, audio: 0 };
   let type_charts = [];
   let account_type_data = { mobile: 0, web: 0 };
@@ -139,6 +143,8 @@ const Index = (props) => {
       // get all documents under the Explore Collection
       const querySnapshot = await getDocs(collection(db, "Explore"));
 
+      const userData = [];
+
       // iterate all the documents and fetch it's data
       querySnapshot.docs.map((doc) => {
         // fetch the data of the document
@@ -149,10 +155,29 @@ const Index = (props) => {
         type_data[data.properties.file.type] += 1;
         month_data[month] += 1;
         year_data[year] += 1;
+        userDataCount[data.properties.user] = 0;
 
         // add the incident_id field with document id
         data.properties.incident_id = doc.id;
+        userData.push(data);
       });
+      for (let i = 0; i < userData.length; i++) {
+        userDataCount[userData[i].properties.user] += 1;
+      }
+
+      let userAccountName = Object.keys(userDataCount);
+      let userPostCount = Object.values(userDataCount);
+
+      for (let i = 0; i < userAccountName.length; i++) {
+        user_posts.push({
+          account: userAccountName[i],
+          count: userPostCount[i],
+        });
+        // setPosts(oldArray => [...oldArray, {"account":userAccountName[i],"count":userPostCount[i]}]);
+      }
+      console.log("TTTTTT", user_posts);
+
+      month_charts = Object.values(month_data);
       let year_title = Object.keys(year_data);
       month_charts = Object.values(month_data);
       year_charts = Object.values(year_data);
@@ -203,6 +228,8 @@ const Index = (props) => {
         ],
       });
       setTotalpost(year_charts.reduce((a, b) => a + b, 0));
+
+      setPosts(user_posts)
     };
 
     const getAccountType = async (db) => {
@@ -234,7 +261,6 @@ const Index = (props) => {
     getAccountType(db);
   }, []);
 
-
   const auth = getAuth();
   const navigate = useNavigate();
 
@@ -254,6 +280,16 @@ const Index = (props) => {
       }
     });
   }, [auth, navigate]);
+
+  const Frame = ({account,count}) => {
+    console.log(account + " " + count );
+    return (
+      <tr>
+      <th scope="row">{account}</th>
+      <td>{count}</td>
+    </tr>
+    );
+  };
 
   return (
     <>
@@ -318,7 +354,6 @@ const Index = (props) => {
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
                   <div className="col">
-              
                     <h2 className="mb-0">Types of Posts</h2>
                   </div>
                 </Row>
@@ -348,14 +383,22 @@ const Index = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+
+                  {posts.map((data) => (
+                    <Frame
+                    account={data.account}
+                           count={data.count}
+                    //        age={data.Age}
+                    />
+                  ))}
+                  {/* <tr>
                     <th scope="row">No. of Posts</th>
                     <td>{totalPost}</td>
                   </tr>
                   <tr>
                     <th scope="row">No. of Accounts</th>
                     <td>{totalAccount}</td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </Table>
             </Card>

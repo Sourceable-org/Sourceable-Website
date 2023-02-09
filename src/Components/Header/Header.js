@@ -109,7 +109,7 @@ const Header = () => {
 							My Gallery
 						</Nav.Link>
 
-						<h2 className='payment'><a href="https://gofund.me/462fbdac" target="_blank">Payment</a></h2>
+						<h3 className='payment'><a href="https://gofund.me/462fbdac" target="_blank">Support US</a></h3>
 
 						<Nav.Link 
 						as={Link} 
