@@ -136,6 +136,8 @@ const Explore = () => {
 				return data;
 			});
 
+			
+
 			// for each incident add month and year field in it's property
 			const finalIncidentsListData = incidentsListData.map((incident) => {
 				const date = new Date(incident.properties.created);
@@ -145,6 +147,7 @@ const Explore = () => {
 
 				return incident;
 			});
+			console.log(finalIncidentsListData);
 
 			// update the incidents set with the incidents data
 			setIncidentsData(finalIncidentsListData);
@@ -342,7 +345,7 @@ const Explore = () => {
 						props.file = JSON.parse(props.file);
 						// props.created = JSON.parse(props.created);
 
-						setNewsListData([{ properties: props }]);
+						setNewsListData([{ properties: props , geometry: props}]);
 					});
 
 					marker.addTo(map.current);
@@ -395,6 +398,8 @@ const Explore = () => {
 												return {
 													properties:
 														cluster_point.properties,
+													geometry:
+														cluster_point.geometry,
 												};
 											}
 										);

@@ -239,6 +239,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../Firebase/Firebase';
 import './MediaCard.css';
+import Geocode from "react-geocode";
 
 // styles for the MediaCard Component
 const useStyles = makeStyles(() => ({
@@ -298,6 +299,9 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 	const verifiedOrNot = newsData.properties.verified;
 
 	const incidentId = newsData.properties.incident_id;
+
+	const geometry = newsData.geometry.coordinates;
+	console.log("*****************************",geometry);
 
 	const incidentDescription = decryptData(newsData.properties.text);
 
@@ -392,6 +396,18 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 
 		// setUserBookMarks([...userBookMarks, incidentId]);
 	};
+
+	// function to add bookMark in FireBase
+	// const getLocation = async () => {
+	// 	// create a document under Bookmarks for a user if not present
+	// 	// add the incident_id to the bookmarks list
+	// 	const location = await getDoc(doc(db, 'Explore', incidentId));
+	// 	// setUserBookMarks([...userBookMarks, incidentId]);
+	// 	const longitude = location.geometry.coordinates;
+
+	// 	console.log(longitude[0], longitude[1]);
+
+	// };
 
 	const removeBookMarkFromFireBase = async () => {
 		// fetch a document under Bookmarks for a user if not present
@@ -530,6 +546,57 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 	const chatRoomID = getChatRoomID();
 	console.log(chatRoomID);
 
+	Geocode.setApiKey("AIzaSyCdxDZlCZXDMqEiGStevVmw9xUv9UaTlOM");
+
+	// set response language. Defaults to english.
+	Geocode.setLanguage("en");
+
+	// set response region. Its optional.
+	// A Geocoding request with region=es (Spain) will return the Spanish city.
+	Geocode.setRegion("IN");
+
+	// Enable or disable logs. Its optional.
+	Geocode.enableDebug();	
+
+	// Get formatted address, city, state, country from latitude & longitude when
+	// Geocode.setLocationType("ROOFTOP") enabled
+	// the below parser will work for most of the countries
+	const [city, setCity] = useState('');
+	const [state, setState] = useState('');
+	const [country, setCountry] = useState('');
+	const [address, setAddress] = useState('');
+
+	const location = () => {
+		Geocode.fromLatLng(geometry[1], geometry[0]).then(
+		(response) => {
+			setAddress(response.results[0].formatted_address);
+			console.log( "Address : " , address);
+		
+		for (let i = 0; i < response.results[0].address_components.length; i++) {
+			for (let j = 0; j < response.results[0].address_components[i].types.length; j++) {
+			switch (response.results[0].address_components[i].types[j]) {
+				case "locality":
+				setCity(response.results[0].address_components[i].long_name);
+				break;
+				case "administrative_area_level_1":
+				setState(response.results[0].address_components[i].long_name);
+				break;
+				case "country":
+				setCountry(response.results[0].address_components[i].long_name);
+				break;
+			}
+			}
+		}
+		console.log("Address : *****", city, state, country);
+		console.log(address);
+		},
+		(error) => {
+		console.error(error);
+		}
+	);
+	}
+	
+
 	return (
 		<>
 			<Card variant='outlined' sx={{ maxWidth: 345 }}>
@@ -557,7 +624,14 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 									onClick={handleBookMarkIconButtonClick}
 								/>
 							)}
+							{city}
 						</div>
+					</div>
+
+					<div>
+						Location :
+						{location()}
+						{address}
 					</div>
 
 					<div>

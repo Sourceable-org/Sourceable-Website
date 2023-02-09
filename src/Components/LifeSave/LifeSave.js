@@ -216,6 +216,8 @@ const LifeSave = () => {
 				})
 			);
 
+			console.log("bookMarkedIncidents :::::::::::: ",bookMarkedIncidents);
+			console.log("bookMarkedIncidents :::::::::::: ",bookMarkedIncidents);
 			// iterate all the documents and fetch it's data
 			const bookmarkedIncidentsListData = bookMarkedIncidents.map(
 				(doc) => {

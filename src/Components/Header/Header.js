@@ -108,6 +108,9 @@ const Header = () => {
 							className='navOnHover'>
 							My Gallery
 						</Nav.Link>
+
+						<h2 className='payment'><a href="https://gofund.me/462fbdac" target="_blank">Payment</a></h2>
+
 						<Nav.Link 
 						as={Link} 
 						to="/thread" 
