@@ -111,7 +111,7 @@ const Features = () => {
               <p>
                 On February 6, 2023, powerful earthquakes struck the region
                 encompassing southeast Turkey and northwest Syria. With the
-                death toll already over 3,500, it is expected to rise, with
+                death toll already over 21,000, it is expected to rise, with
                 aftershocks, harsh winter weather, and loss of vital public
                 infrastructure hampering rescue efforts.
                 <br />
