@@ -8,8 +8,12 @@ const AboutUs = () => {
         <div id="forBorder"></div>
         <div>
           <p>
-            Sourceable empowers citizen journalists to document, verify,
-            archive, and share newsworthy data directly to paid subscribers.
+            Sourceable empowers citizen journalists to&nbsp;
+            <b style={{
+                    fontWeight: "bold",
+                  }}>   
+             document, verify,
+            archive, and share</b>newsworthy data directly to paid subscribers.
             Leveraging innovative verification technology, Sourceable
             revolutionizes the media, journalism, and technology industries by
             providing verified data directly to media and human rights
@@ -27,8 +31,10 @@ const AboutUs = () => {
         <div>
           <h3> Empowering. Supporting. Connecting.</h3>
           <p>
-            Sourceable is the proud recipient of the 2022 Global Public Policy
-            Network - Henrik Enderlin Award. In March 2022, Sourceable was
+            Sourceable is the proud recipient of the <b style={{
+                    fontWeight: "bold",
+                  }}> 2022 Global Public Policy
+            Network - Henrik Enderlin Award.</b> In March 2022, Sourceable was
             awarded the first-prize title. For more information,{" "}
             <a
               target={"_blank"}
@@ -38,8 +44,10 @@ const AboutUs = () => {
             </a>
             <br />
             <br />
-            Sourceable was awarded the first-prize in the Brown Institute’s
-            Media, Journalism, and Technology competition, put on by Columbia
+            Sourceable was awarded the <b style={{
+                    fontWeight: "bold",
+                  }}> first-prize in the Brown Institute’s
+            Media, Journalism, and Technology competition,</b> put on by Columbia
             University’s 2022 Venture Challenge Competitions. The competition
             granted the Sourceable team to participate in a 10-week summer
             incubator with the Brown Institute. For more information, <a

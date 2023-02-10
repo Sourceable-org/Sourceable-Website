@@ -6,6 +6,10 @@ import Sup0 from "../../images/sup_1.png";
 /*import Sup3 from '../../images/sup_3.png';*/
 import Sup4 from "../../images/sup_2.png";
 import Sup2 from "../../images/sup_4.png";
+import support1 from "../../images/support_image1.jpeg"
+import support2 from "../../images/support_image2.jpeg"
+import support3 from "../../images/support_image3.jpeg"
+import support4 from "../../images/support_image4.jpeg"
 import "./Feature.css";
 
 const Features = () => {
@@ -21,7 +25,7 @@ const Features = () => {
         <div>
           <div className="extra">
             <div className="extra_1">
-              <h1>Our Pilot Project</h1>
+              {/* <h1>Our Pilot Project</h1> */}
               <p>
                 Hello from team Sourceable, a startup empowering citizen
                 journalists to tell their stories to the world from places of
@@ -36,6 +40,16 @@ const Features = () => {
                 Despite the risks to his personal safety and the extremely cold
                 temperatures, he continues to document the events so the world
                 can see the tragedies as they unfold.
+                
+                <br></br>
+                <br></br>
+                <div style={{ textAlign: "center" }}>
+               
+                <img src={support1} alt="Sup2 not loaded" display="flex" width= "70%" />
+              
+             </div>
+                
+                <br></br>
                 <br></br>
                 Another of our citizen journalists, Ahmed, is a Syrian refugee
                 living in Gaziantep, Turkey. He also lost his home on Monday,
@@ -43,6 +57,16 @@ const Features = () => {
                 Ahmed is documenting the aftermath of the earthquakes live,
                 which you can view his journey here: sourceable.info/explore
                 <br />
+                <br></br>
+                <br></br>
+            <div style={{ textAlign: "center"}}>
+               
+                <img src={support2} alt="Sup2 not loaded" display="flex" width= "70%"/>
+             
+            </div>
+               
+                <br></br>
+                <br></br>
                 Sourceable is grounded on the ideals and bravery of our citizen
                 journalists, and we especially seek to support them in this
                 time.
@@ -56,19 +80,51 @@ const Features = () => {
                 >
                   All donations collected from this fundraiser will go directly
                   to our citizen journalists, enabling them to access vital aid
-                  and support them in rebuilding their lives. We are currently
-                  supporting the livelihoods of 10 citizen journalists in Syria
-                  and Turkey. All of them have been severely impacted by this
-                  crisis.
+                  and support them in rebuilding their lives.
+                  
                 </b>
               </div>
+              
+              <div style={{ paddingLeft: "60px" }}>
+                <b
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                  }}
+                >
+                 We are currently supporting the livelihoods of 10 citizen journalists in Syria and Turkey. 
+                 All of them have been severely impacted by this crisis.
+                </b>
+              </div>
+              <br></br>  
+              <div style={{ paddingLeft: "60px" }}>
+                <b
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                  }}
+                >
+                 BACKGROUND ON THE EARTHQUAKES AND CRISIS
+                </b>
+              </div>
+
               <p>
                 On February 6, 2023, powerful earthquakes struck the region
                 encompassing southeast Turkey and northwest Syria. With the
-                death toll already over 3,500, it is expected to rise, with
+                death toll already over 21,000, it is expected to rise, with
                 aftershocks, harsh winter weather, and loss of vital public
                 infrastructure hampering rescue efforts.
                 <br />
+                <br></br>
+                <br></br>
+              <div style={{ textAlign: "center" ,width:"500", height:"50%" }}>
+               
+                <img src={support3} alt="Sup2 not loaded" display="flex" width= "70%"/>
+               
+              </div>
+                
+                <br></br>
+                <br></br>
                 In Syria, already devastated by over a decade of civil war, the
                 earthquake has greatly impacted the communities of 4.1 million
                 people, many of them displaced by the conflict and living in
@@ -78,7 +134,17 @@ const Features = () => {
                 struggling to cope. The earthquake represents the latest event
                 to affect the Syrian communities displaced by civil war and
                 affected by cholera and severe winter conditions.
+                <br></br>
+                <br></br>
+                <div style={{ textAlign: "center"}}>
+               
+               <img src={support4} alt="Sup2 not loaded" display="flex" width= "70%"/>
+            
+           </div>
+              
+                
               </p>
+              
             </div>
 
             <div className="extra_2">
