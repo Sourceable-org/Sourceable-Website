@@ -12,7 +12,6 @@
 }
 
 
-
 .above>div{
     display: flex;
     align-items: center;
@@ -100,6 +99,11 @@
     padding: 1vmax 4rem;
     font-weight: 700;
 }
+.extra .extra_1 > img{
+    width:33%;
+    display: flex;
+    align-items: center;
+}
 
 
 .extra .extra_2{
@@ -118,6 +122,11 @@
 }
 .extra .extra_2 img{
     width:33%;
+}
+.extra .extra_new img{
+    width:10%;
+    display: block;
+    align-items: center;
 }
 .extra .extra_2 img:last-child{
     width:20%;
