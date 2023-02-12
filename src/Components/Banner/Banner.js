@@ -12,9 +12,17 @@ const Banner = () => {
 			<div className='first'>
 				<div className='part1-left'>
 					<img src={Source_logo} alt='Logo not loaded' />
+					<br></br>
+					<br></br>
 					<p>
-						Empowering, supporting, and connecting citizen
-						journalists to share and protect their stories.
+					Sourceable empowers, supports, and connects citizen journalists to tell 
+					their stories with the world. Through Sourceable’s verified technology, 
+					we help these journalists&nbsp;
+					<b style={{
+                    fontWeight: "bold",
+                 	 }}>   
+             		document, verify, archive, and share&nbsp;</b>           
+					newsworthy data with our members in real-time.
 					</p>
 					<b> DOWNLOAD SECURITY</b>
 					<div>
