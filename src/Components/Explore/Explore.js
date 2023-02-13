@@ -75,7 +75,8 @@ const Explore = () => {
 		'audio',
 		'image',
 		'text',
-		'video'
+		'video',
+		'All'
 	]
 
 	const incidentCategory = [
@@ -97,10 +98,19 @@ const Explore = () => {
 	// function to set the Data of Map on incidents data based on month and year
 	const filterDataPointsByMonthAndYear = (month, year, type) => {
 		// update the data of map with monthly and yearly specific incidents
-		map.current
-			.getSource('incidents')
-			.setData(getIncidentsByMonthAndYear(month, year, type));
 
+		if (type == 'All')
+		{
+			map.current
+				.getSource('incidents')
+				.setData(getIncidentsByAllType(month, year));
+		}
+		else
+		{
+			map.current
+				.getSource('incidents')
+				.setData(getIncidentsByMonthAndYear(month, year, type));
+		}
 		// set newsListData to empty array when slider input is changed
 		setNewsListData([]);
 	};
@@ -113,6 +123,19 @@ const Explore = () => {
 				incident.properties.month === month &&
 				incident.properties.year === year &&
 				incident.properties.file.type === type
+			);
+		});
+
+		// return the incidents data filtered by month and year
+		return { features: filtered_incidents };
+	};
+
+	const getIncidentsByAllType = (month, year) => {
+		// filter incidents on the basis of month and year
+		const filtered_incidents = incidents.filter((incident) => {
+			return (
+				incident.properties.month === month &&
+				incident.properties.year === year
 			);
 		});
 
@@ -592,8 +615,7 @@ ${total.toLocaleString()}
 		filterDataPointsByMonthAndYear(
 			parseInt(monthSliderRef.current.value),
 			parseInt(yearSelectorRef.current.value),
-			typeSelectorRef.current.value,
-			// categorySelectorRef.current.value
+			typeSelectorRef.current.value
 		);
 	};
 
@@ -603,9 +625,9 @@ ${total.toLocaleString()}
 		filterDataPointsByMonthAndYear(
 			parseInt(monthSliderRef.current.value),
 			parseInt(yearSelectorRef.current.value),
-			typeSelectorRef.current.value,
-			// categorySelectorRef.current.value
+			typeSelectorRef.current.value
 		);
+		
 	};
 
 	// const handleCategorySelectorChange = (event) => {

@@ -26,11 +26,11 @@
 
 
 .first > .part1-left > p {
-	font-size: xx-large;
+	font-size: x-large;
 	font-family: 'Roboto';
 	margin-bottom: 3vmax;
 	color: black;
-	font-weight: bold;
+	/* font-weight: bold; */
 	color: white;
 }
 .first > .part1-left > b {
