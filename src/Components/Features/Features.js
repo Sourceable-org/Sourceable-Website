@@ -12,12 +12,25 @@ import support3 from "../../images/support_image3.jpeg"
 import support4 from "../../images/support_image4.jpeg"
 import "./Feature.css";
 
+import ReactGA from "react-ga";
+
+
+
 const Features = () => {
   useEffect(() => {
     Aos.init({
       duration: 500,
     });
   }, []);
+
+  const useAnalyticsEventTracker = (category="Blog category") => {
+    const eventTracker = (action = "test action", label = "test label") => {
+      ReactGA.event({category, action, label});
+    }
+    return eventTracker;
+  }
+  
+  const gaEventTracker = useAnalyticsEventTracker('Supporrt Us');
 
   return (
     <div className="containerFeature">
@@ -35,7 +48,7 @@ const Features = () => {
               cover burial costs, travel to safer areas, and buy food, water, and warm clothes.
               <br></br>
               <br></br>
-              Please donate here and spread the word: <a href="https://gofund.me/462fbdac" color=""> click here</a>
+              Please donate here and spread the word: <a href="https://gofund.me/462fbdac" onClick={()=>gaEventTracker('Payment')}> click here</a>
 
               </p>
                 
@@ -84,7 +97,7 @@ const Features = () => {
               and we especially seek to support them in this time.
               <br></br>
               <br></br>
-              To help, please donate <a href="https://gofund.me/462fbdac"> here</a>
+              To help, please donate <a href="https://gofund.me/462fbdac" onClick={()=>gaEventTracker('Payment')}> here</a>
               <br></br>
               <br></br>
               Thank you for your support.
@@ -106,7 +119,7 @@ const Features = () => {
 					
                   }}
                 >
-					<h1><b style={{fontFamily:"bold"}}>
+					<h1 onClick={()=>gaEventTracker('Payment')}><b style={{fontFamily:"bold"}}>
                   Support US
 				  </b></h1>
                 </button>

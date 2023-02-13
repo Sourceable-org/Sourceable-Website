@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -15,9 +15,20 @@ import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 import IncidentChat from './Components/IncidentChat/IncidentChat';
 import Dashboard from './Components/Dashboard/Dashboard.js';
 import PaymentButton from './Components/PaymentButton/PaymentButton';
+import ReactGa4 from "react-ga";
 const Explore = React.lazy(() => import('./Components/Explore/Explore'));
 
+
+const TRACTING_ID = 'UA-244831752-1';
+ReactGa4.initialize(TRACTING_ID);
+
+
 const App = () => {
+
+	useEffect(()=>{
+		ReactGa4.pageview(window.location.pathname + window.location.search)
+	},[]);
+	
 	return (
 		<>
 			<Header />

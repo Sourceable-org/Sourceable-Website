@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
 import './Explore.css';
+import ReactGa from "react-ga";
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 // Set the MapBox Access Token. This is present in your MapBox Account
@@ -142,6 +143,10 @@ const Explore = () => {
 		// return the incidents data filtered by month and year
 		return { features: filtered_incidents };
 	};
+
+	useEffect(() => {
+		ReactGa.pageview(window.location.pathname);
+	}, [])
 
 	useEffect(() => {
 		const getIncidentsDataFromFireStore = async (db) => {
