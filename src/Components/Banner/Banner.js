@@ -38,7 +38,7 @@ const Banner = () => {
 							height: '100%',
 							position: 'relative',
 							top: '10%',
-						}}src/Components/Banner/Banner.css
+						}}
 						autoplay=''
 						loop
 						muted>
