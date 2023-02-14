@@ -12,7 +12,11 @@ import support3 from "../../images/support_image3.jpeg"
 import support4 from "../../images/support_image4.jpeg"
 import "./Feature.css";
 
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
+const TRACTING_ID = 'G-T2J1RSTLG9';
+ReactGA.initialize(TRACTING_ID);
+
 
 
 
