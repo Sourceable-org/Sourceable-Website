@@ -27,19 +27,19 @@ ReactGA.initialize(TRACTING_ID);
 
 const App = () => {
 
-	useEffect(()=>{
-		// ReactGA.pageview("window.location.pathname + window.location.search")
-		// ReactGA.send({ hitType: "pageview", page: "/explore" });
-		ReactGA.event({
-			category: "time spent cat",
-			action: "time spent action",
-			// label: "your label", // optional
-			// value: 99, // optional, must be a number
-			nonInteraction: true, // optional, true/false
-			// transport: "xhr", // optional, beacon/xhr/image
-		  });
+	// useEffect(()=>{
+	// 	// ReactGA.pageview("window.location.pathname + window.location.search")
+	// 	// ReactGA.send({ hitType: "pageview", page: "/explore" });
+	// 	ReactGA.event({
+	// 		category: "time spent cat",
+	// 		action: "time spent action ",
+	// 		// label: "your label", // optional
+	// 		// value: 99, // optional, must be a number
+	// 		nonInteraction: true, // optional, true/false
+	// 		// transport: "xhr", // optional, beacon/xhr/image
+	// 	  });
 
-	},[]);
+	// },[]);
 	
 	return (
 		<>

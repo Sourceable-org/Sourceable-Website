@@ -1,4 +1,5 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { Helmet } from "react-helmet";
 
 const PaymentButton = () => {
   const CLIENT_ID =
@@ -38,6 +39,10 @@ const PaymentButton = () => {
 
   return (
     <div style={{ width: "30%", marginTop: "20px" }}>
+      <Helmet>
+        <title>Sourceable | Support US</title>
+      </Helmet>
+      
       {/* <PayPalScriptProvider options={{ 'client-id': CLIENT_ID }}>
 				<PayPalButtons
 					createOrder={createOrder}

@@ -18,6 +18,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import CHATLAUNCH from '../../images/chat_first.png';
 import { db } from '../Firebase/Firebase';
 import './IncidentChat.css';
+import { Helmet } from 'react-helmet';
 
 // const FieldValue = require('firebase-admin').firestore.FieldValue;
 const ChatRoom = ({
@@ -502,6 +503,9 @@ const IncidentChat = () => {
 
 	return (
 		<div className='container-chat-box'>
+			<Helmet>
+        <title>Sourceable | Chat</title>
+      </Helmet>
 			{/* <div className="row clearfix"> */}
 			{/* <div className="col-lg-12"> */}
 			<div className='card chat-app'>

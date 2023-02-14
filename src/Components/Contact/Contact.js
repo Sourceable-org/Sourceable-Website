@@ -2,10 +2,25 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Contact/Contact.css";
+import { Helmet } from "react-helmet";
+import ReactGA from "react-ga4";
 
 const Contact = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+  useEffect(()=>{
+		// ReactGA.pageview("window.location.pathname + window.location.search")
+		// ReactGA.send({ hitType: "pageview", page: "/explore" });
+		ReactGA.event({
+			category: "Sourceable | Contact",
+			action: "Sourceable | Contact",
+			// label: "your label", // optional
+			// value: 99, // optional, must be a number
+			nonInteraction: true, // optional, true/false
+			// transport: "xhr", // optional, beacon/xhr/image
+		  });
+
+	},[]);
 
   useEffect(() => {
     // when the auth status is changed
@@ -26,6 +41,9 @@ const Contact = () => {
 
   return (
     <div className="bg">
+      <Helmet>
+        <title>Sourceable | Contact</title>
+      </Helmet>
       <div class="contact-container">
         <h2 className="contact-container-item">Contact Us</h2>
         <hr className="contact-container-item" />

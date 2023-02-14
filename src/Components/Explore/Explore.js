@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../Firebase/Firebase';
 import NewsList from '../NewsList/NewsList.js';
 import './Explore.css';
+import { Helmet } from "react-helmet";
 import ReactGa from "react-ga";
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import ReactGA from "react-ga4";
 
 // Set the MapBox Access Token. This is present in your MapBox Account
 mapboxgl.accessToken =
@@ -37,7 +39,7 @@ const Explore = () => {
 
 	const DEFAULT_CATEGORY = 'bombing';
 
-	const DEFAULT_TYPE = 'image';
+	const DEFAULT_TYPE = 'All';
 
 	const DEFAULT_MONTH = new Date().getMonth();
 
@@ -205,6 +207,20 @@ const Explore = () => {
 		// call the function to fetch incidents bookmarks data
 		getUserBookMarksData(db);
 	}, [userEmail]);
+
+	useEffect(()=>{
+		// ReactGA.pageview("window.location.pathname + window.location.search")
+		// ReactGA.send({ hitType: "pageview", page: "/explore" });
+		ReactGA.event({
+			category: "Sourceable | Explore",
+			action: "Sourceable | Explore",
+			// label: "your label", // optional
+			// value: 99, // optional, must be a number
+			nonInteraction: true, // optional, true/false
+			// transport: "xhr", // optional, beacon/xhr/image
+		  });
+
+	},[]);
 
 	useEffect(() => {
 		// when the auth status is changed
@@ -664,6 +680,9 @@ ${total.toLocaleString()}
 	// and show the newsList if user clicks on the cluster point
 	return (
 		<div>
+			<Helmet>
+        <title>Sourceable | Explore</title>
+      </Helmet>
 			<div ref={mapContainer} className='map-container' />
 			{incidents.length === 0 ? <LoadingSpinner /> : null}
 			<div className='map-overlay top'>

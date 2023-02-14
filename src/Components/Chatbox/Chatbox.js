@@ -14,10 +14,12 @@ import {
 	where,
 } from 'firebase/firestore';
 import moment from 'moment';
+import { Helmet } from 'react-helmet';
 import React, { useCallback, useEffect, useState } from 'react';
 import CHATLAUNCH from '../../images/chat_first.png';
 import { db } from '../Firebase/Firebase';
 import './Chatbox.css';
+import ReactGA from "react-ga4";
 
 // const FieldValue = require('firebase-admin').firestore.FieldValue;
 const ChatRoom = ({
@@ -288,6 +290,20 @@ const Chatbox = () => {
 		});
 	}, []);
 
+	useEffect(()=>{
+		// ReactGA.pageview("window.location.pathname + window.location.search")
+		// ReactGA.send({ hitType: "pageview", page: "/explore" });
+		ReactGA.event({
+			category: "Sourceable | Chat",
+			action: "Sourceable | Chat",
+			// label: "your label", // optional
+			// value: 99, // optional, must be a number
+			nonInteraction: true, // optional, true/false
+			// transport: "xhr", // optional, beacon/xhr/image
+		  });
+
+	},[]);
+
 	useEffect(() => {
 		// if the current receiver is empty then do nothing
 		if (currentReceiverChatID === '') return;
@@ -454,6 +470,9 @@ const Chatbox = () => {
 		if (currentReceiverChatID !== '') {
 			return (
 				<>
+				<Helmet>
+        <title>Sourceable | Chat</title>
+      </Helmet>
 					{/* iterate all chatUsers and display the ChatRoom for the
  selected receiver email */}
 					{chatUsers.map(({ name, status, email }) => {
@@ -513,9 +532,13 @@ const Chatbox = () => {
 
 	return (
 		<div className='container-chat-box'>
+			
 			{/* <div className="row clearfix"> */}
 			{/* <div className="col-lg-12"> */}
 			<div className='card chat-app'>
+			<Helmet>
+        <title>Sourceable | Chat</title>
+      </Helmet>
 				<div id='plist' className='people-list'>
 					<div className='input-group mb-0'></div>
 					<ul className='list-unstyled chat-list mt-2 mb-0'>

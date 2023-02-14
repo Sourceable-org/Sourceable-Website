@@ -5,10 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import NotificationImg from '../../images/notification.jpeg';
 import '../Gallery/Gallery.css';
 import LifeSave from '../LifeSave/LifeSave';
+import { Helmet } from "react-helmet";
+import ReactGA from "react-ga4";
+
 const Gallery = () => {
 	const [handleModal, setHandleModal] = useState(false);
 	const auth = getAuth();
 	const navigate = useNavigate();
+
+	useEffect(()=>{
+		// ReactGA.pageview("window.location.pathname + window.location.search")
+		// ReactGA.send({ hitType: "pageview", page: "/explore" });
+		ReactGA.event({
+			category: "Sourceable | Gallery",
+			action: "Sourceable | Gallery",
+			// label: "your label", // optional
+			// value: 99, // optional, must be a number
+			nonInteraction: true, // optional, true/false
+			// transport: "xhr", // optional, beacon/xhr/image
+		  });
+
+	},[]);
 
 	useEffect(() => {
 		// when the auth status is changed
@@ -28,6 +45,9 @@ const Gallery = () => {
 	}, [auth, navigate]);
 	return (
 		<>
+		<Helmet>
+        <title>Sourceable | Gallery</title>
+      </Helmet>
 			{/* <div className='notification'>
 				<img
 					src={NotificationImg}

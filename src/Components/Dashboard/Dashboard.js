@@ -7,6 +7,7 @@ import Chart from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
 // reactstrap components
 import { useNavigate } from "react-router-dom";
+import ReactGA from "react-ga4";
 import {
   Button,
   Card,
@@ -23,7 +24,7 @@ import {
   Col,
   CardText,
 } from "reactstrap";
-
+import { Helmet } from "react-helmet";
 // core components
 import {
   chartOptions,
@@ -137,6 +138,19 @@ const Index = (props) => {
     let d = new Date().getFullYear();
     year_data[(d - i).toString()] = 0;
   }
+  useEffect(()=>{
+		// ReactGA.pageview("window.location.pathname + window.location.search")
+		// ReactGA.send({ hitType: "pageview", page: "/explore" });
+		ReactGA.event({
+			category: "Sourceable | Dashboard",
+			action: "Sourceable | Dashboard",
+			// label: "your label", // optional
+			// value: 99, // optional, must be a number
+			nonInteraction: true, // optional, true/false
+			// transport: "xhr", // optional, beacon/xhr/image
+		  });
+
+	},[]);
 
   useEffect(() => {
     const getIncidentsDataFromFireStore = async (db) => {
@@ -293,6 +307,9 @@ const Index = (props) => {
 
   return (
     <>
+    <Helmet>
+        <title>Sourceable | Dashboard</title>
+      </Helmet>
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container fluid>
           <div className="header-body"></div>
