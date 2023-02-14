@@ -112,14 +112,6 @@ const Features = () => {
                 </button>
               </a>
             </div>
-            <div className="extra_2">
-              <h1>Our Partners and Supporters</h1>
-              <div>
-                <img src={Sup2} alt="Sup2 not loaded" />
-                <img src={Sup4} alt="Sup4 not loaded" />
-                <img src={Sup0} alt="Sup1 not loaded" />
-              </div>
-            </div>
           </div>
         </div>
       </div>
