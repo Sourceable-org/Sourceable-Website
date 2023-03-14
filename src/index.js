@@ -5,12 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-
+ import {AlertProvider} from "./Components/JoinUs/AuthContext"
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
+		<AlertProvider>
 			<App />
+			</AlertProvider>
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')

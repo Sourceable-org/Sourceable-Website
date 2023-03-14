@@ -37,7 +37,7 @@ const Explore = () => {
 
 	const DEFAULT_YEAR = new Date().getFullYear();
 
-	const DEFAULT_CATEGORY = 'bombing';
+	const DEFAULT_CATEGORY = 'All';
 
 	const DEFAULT_TYPE = 'All';
 
@@ -83,8 +83,14 @@ const Explore = () => {
 	]
 
 	const incidentCategory = [
-		'Bombing',
-		'Protest'
+		"All",
+		"Bombing",
+		"Protest",
+		"Fire",
+		"Conflict",
+		"Environmental Hazard",
+		"Human Interest Story",
+		"Msc (App & Website)",
 	]
 
 	const STARTING_YEAR = 2021;
@@ -99,36 +105,73 @@ const Explore = () => {
 	const navigate = useNavigate();
 
 	// function to set the Data of Map on incidents data based on month and year
-	const filterDataPointsByMonthAndYear = (month, year, type) => {
+	const filterDataPointsByMonthAndYear = (month, year, type,category) => {
 		// update the data of map with monthly and yearly specific incidents
 
-		if (type == 'All')
+		if (type == 'All' && category == "All")
 		{
 			map.current
 				.getSource('incidents')
 				.setData(getIncidentsByAllType(month, year));
 		}
+		else if(type == 'All' && category != "All"){
+			map.current
+				.getSource('incidents')
+				.setData(getIncidentsByAllCategoryAndDifType(month, year,category));
+		}
+		else if(type != 'All' && category == "All"){
+			map.current
+				.getSource('incidents')
+				.setData(getIncidentsByAllTypeAndDifCategory(month, year,type));
+		}
 		else
 		{
 			map.current
 				.getSource('incidents')
-				.setData(getIncidentsByMonthAndYear(month, year, type));
+				.setData(getIncidentsByMonthAndYear(month, year, type,category));
 		}
 		// set newsListData to empty array when slider input is changed
 		setNewsListData([]);
 	};
 
 	// function to get incidents data filtered by year and month
-	const getIncidentsByMonthAndYear = (month, year, type) => {
+	const getIncidentsByMonthAndYear = (month, year, type,category) => {
 		// filter incidents on the basis of month and year
 		const filtered_incidents = incidents.filter((incident) => {
 			return (
 				incident.properties.month === month &&
 				incident.properties.year === year &&
-				incident.properties.file.type === type
+				incident.properties.file.type === type &&
+				incident.properties.categories[0] === category
 			);
 		});
+		// return the incidents data filtered by month and year
+		return { features: filtered_incidents };
+	};
 
+	// function to get incidents data filtered by year and month
+	const getIncidentsByAllCategoryAndDifType = (month, year,category) => {
+		// filter incidents on the basis of month and year
+		const filtered_incidents = incidents.filter((incident) => {
+			return (
+				incident.properties.month === month &&
+				incident.properties.year === year &&
+				incident.properties.categories[0] === category
+			);
+		});
+		// return the incidents data filtered by month and year
+		return { features: filtered_incidents };
+	};
+
+	const getIncidentsByAllTypeAndDifCategory = (month, year,type) => {
+		// filter incidents on the basis of month and year
+		const filtered_incidents = incidents.filter((incident) => {
+			return (
+				incident.properties.month === month &&
+				incident.properties.year === year &&
+				incident.properties.file.type === type 
+			);
+		});
 		// return the incidents data filtered by month and year
 		return { features: filtered_incidents };
 	};
@@ -159,10 +202,16 @@ const Explore = () => {
 			const incidentsListData = querySnapshot.docs.map((doc) => {
 				// fetch the data of the document
 				const data = doc.data();
-
+				
 				// add the incident_id field with document id
 				data.properties.incident_id = doc.id;
 
+				if(data.properties.categories != [] && data.properties.categories != undefined ){
+					console.log("categories",data.properties.categories)
+				}
+				else{
+					data.properties.categories = []
+				}
 				return data;
 			});
 
@@ -177,7 +226,7 @@ const Explore = () => {
 
 				return incident;
 			});
-			console.log(finalIncidentsListData);
+			// console.log("finalIncidentsListData",finalIncidentsListData);
 
 			// update the incidents set with the incidents data
 			setIncidentsData(finalIncidentsListData);
@@ -318,7 +367,7 @@ const Explore = () => {
 				},
 			});
 
-			filterDataPointsByMonthAndYear(DEFAULT_MONTH, DEFAULT_YEAR, DEFAULT_TYPE);
+			filterDataPointsByMonthAndYear(DEFAULT_MONTH, DEFAULT_YEAR, DEFAULT_TYPE,DEFAULT_CATEGORY);
 
 			// show circles on the Map for points that are individual (non clustered points)
 			map.current.addLayer({
@@ -636,7 +685,8 @@ ${total.toLocaleString()}
 		filterDataPointsByMonthAndYear(
 			parseInt(monthSliderRef.current.value),
 			parseInt(yearSelectorRef.current.value),
-			typeSelectorRef.current.value
+			typeSelectorRef.current.value,
+			categorySelectorRef.current.value
 		);
 	};
 
@@ -646,21 +696,22 @@ ${total.toLocaleString()}
 		filterDataPointsByMonthAndYear(
 			parseInt(monthSliderRef.current.value),
 			parseInt(yearSelectorRef.current.value),
-			typeSelectorRef.current.value
+			typeSelectorRef.current.value,
+			categorySelectorRef.current.value
 		);
 		
 	};
 
-	// const handleCategorySelectorChange = (event) => {
-	// 	categorySelectorRef.current.value = event.target.value;
+	const handleCategorySelectorChange = (event) => {
+		categorySelectorRef.current.value = event.target.value;
 
-	// 	filterDataPointsByMonthAndYear(
-	// 		parseInt(monthSliderRef.current.value),
-	// 		parseInt(yearSelectorRef.current.value),
-	// 		typeSelectorRef.current.value,
-	// 		categorySelectorRef.current.value
-	// 	);
-	// };
+		filterDataPointsByMonthAndYear(
+			parseInt(monthSliderRef.current.value),
+			parseInt(yearSelectorRef.current.value),
+			typeSelectorRef.current.value,
+			categorySelectorRef.current.value
+		);
+	};
 
 	const handleMonthSliderChange = (event) => {
 		monthSliderRef.current.value = parseInt(event.target.value);
@@ -672,7 +723,7 @@ ${total.toLocaleString()}
 			parseInt(monthSliderRef.current.value),
 			parseInt(yearSelectorRef.current.value),
 			typeSelectorRef.current.value,
-			// categorySelectorRef.current.value
+			categorySelectorRef.current.value
 		);
 	};
 
@@ -737,7 +788,7 @@ ${total.toLocaleString()}
 					</h6>
 
 
-					{/* <h6 style={{ float: 'left' }}>Select Incident Category:
+					<h6 style={{ float: 'left' }}>Select Incident Category:
 					<select
 						style={{ marginLeft: '5px' }}
 						ref={categorySelectorRef}
@@ -751,7 +802,7 @@ ${total.toLocaleString()}
 							);
 						})}
 					</select>
-					</h6> */}
+					</h6>
 
 				</div>
 			</div>

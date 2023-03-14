@@ -1,3 +1,4 @@
+
 .loginSignUpContainer{
     width: 100vw;
     max-width: 100%;
@@ -43,7 +44,7 @@
 }
 
 .login_signup_toggler p:hover{
-    color: #3976ef;
+    color: #000000;
 
 }
 
@@ -78,13 +79,13 @@
 
 }
 .logInForm > div > input,.signUpForm>div > input{
-    padding: 1vmax 4vmax;
-    padding-right: 1vmax;
+    padding: 1vmax 1vmax;
+    /* padding-right: 1vmax; */
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.219);
     outline: none;
     border-radius: 4px;
-    font: 300 0.9vmax cursive;
+    font: 300 0.9vmax ;
 }
 
 .logInForm > div > svg,.signUpForm>div > svg{
