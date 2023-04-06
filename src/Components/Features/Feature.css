@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 .containerFeature{
     max-width: 100%;
-    background: #003973;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #E5E5BE, #003973);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right,#ffffff,#a7a7a8, #3976ef); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: white;  /* fallback for old browsers */
+    /* background: -webkit-linear-gradient(to right, #E5E5BE, #003973);  Chrome 10-25, Safari 5.1-6 */
+    /* background: linear-gradient(to right,#ffffff,#a7a7a8, #3976ef); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     color: white;
 
@@ -136,8 +136,8 @@
     .containerFeature{
         max-width: 100%;
         background: #003973;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to left, #a1a191, #003973);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to left,#cec4c4,#a7a7a8, #3976ef); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        /* background: -webkit-linear-gradient(to left, #a1a191, #003973);  /* Chrome 10-25, Safari 5.1-6 */
+        /* background: linear-gradient(to left,#cec4c4,#a7a7a8, #3976ef); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
     
         color: white;
     }
