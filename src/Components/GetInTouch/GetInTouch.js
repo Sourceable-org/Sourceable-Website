@@ -64,13 +64,13 @@ const Contact = () => {
                     <a href="https://www.facebook.com/your-page-url" target="_blank" rel="noopener noreferrer" style={{color:"white", fontSize:"150%", alignItems:"center"}}>
                       <FaFacebook />
                     </a>
-                    <a href="https://www.instagram.com/your-page-url" target="_blank" rel="noopener noreferrer" style={{paddingLeft:"5%", color:"white", fontSize:"150%", alignItems:"center"}}>
+                    <a href="https://www.instagram.com/sourceable_inc/ " target="_blank" rel="noopener noreferrer" style={{paddingLeft:"5%", color:"white", fontSize:"150%", alignItems:"center"}}>
                       <FaInstagram />
                     </a>
                     <a href="https://twitter.com/your-page-url" target="_blank" rel="noopener noreferrer" style={{paddingLeft:"5%",color:"white", fontSize:"150%", alignItems:"center"}}>
                       <FaTwitter />
                     </a>
-                    <a href="https://www.linkedin.com/in/your-page-url/" target="_blank" rel="noopener noreferrer" style={{paddingLeft:"5%",color:"white", fontSize:"150%", alignItems:"center"}}>
+                    <a href="https://www.linkedin.com/company/sourceable-inc " target="_blank" rel="noopener noreferrer" style={{paddingLeft:"5%",color:"white", fontSize:"150%", alignItems:"center"}}>
                       <FaLinkedin />
                     </a>
 

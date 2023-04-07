@@ -5,9 +5,9 @@ import APPSTORE from '../../images/app store.png';
 import PLAYSTORE from '../../images/play store.png';
 import Vid from '../../video/sourceable-video_final.mp4';
 import Source_logo from '../../images/Capture.JPG';
-import image1 from '../../images/image1.webp';
-import image2 from '../../images/image2.webp';
-import image3 from '../../images/image3.webp';
+import image1 from '../../images/imagehome1.jpeg';
+import image2 from '../../images/imagehome2.jpeg';
+import image3 from '../../images/imagehome3.jpeg';
 
 function Rectangle() {
 	return (
@@ -80,12 +80,12 @@ const Banner = () => {
 				<div style={{ display: 'flex', flexWrap: 'wrap', paddingTop:"100px" , paddingLeft:"200px"}}>
 					<div style={{ display: 'flex', flexDirection: 'row'}}>
 						<div style={{display: 'flex', flexDirection: 'column'}}>
-							<img src={image2} alt="Image 3" style={{ width: '200px', height: '200px', margin: '10px' }} />
-							<img src={image1} alt="Image 1" style={{ width: '200px', height: '200px', margin: '10px' }} />
+							<img src={image3} alt="Image 2" style={{ width: '200px', height: '200px', margin: '10px' }} />
+							<img src={image2} alt="Image 1" style={{ width: '200px', height: '200px', margin: '10px' }} />
 						</div>
 						
 						<div style={{ }}></div>
-							<img src={image3} alt="Image 3" style={{ width: '300px', height: '410px', margin: '10px' }} />
+							<img src={image1} alt="Image 3" style={{ width: '300px', height: '420px', margin: '10px' }} />
 						</div>
 					</div>
 					
