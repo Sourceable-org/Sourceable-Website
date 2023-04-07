@@ -63,7 +63,7 @@ const Index = (props) => {
   let type_charts = [];
   let account_type_data = { mobile: 0, web: 0 };
   let account_type_charts = [];
-  const date_yr = Math.abs(2017 - new Date().getFullYear()) + 1;
+  const date_yr = Math.abs(2021 - new Date().getFullYear()) + 1;
 
   var colors = {
     gray: {
@@ -96,8 +96,8 @@ const Index = (props) => {
       yAxes: [
         {
           gridLines: {
-            color: colors.gray[900],
-            zeroLineColor: colors.gray[900],
+            color: colors.black,
+            zeroLineColor: colors.black,
           },
           ticks: {
             callback: function (value) {
@@ -257,7 +257,7 @@ const Index = (props) => {
       console.log(account_type_charts);
 
       setcountTypeAccount({
-        labels: ["Text", "Image"],
+        labels: ["Mobile", "Web"],
         datasets: [
           {
             label: "Sales",
@@ -278,22 +278,22 @@ const Index = (props) => {
   const auth = getAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // when the auth status is changed
-    onAuthStateChanged(auth, (user) => {
-      // if user object exists means loggedIn
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-      }
-      // user is not logged in
-      else {
-        // redirect to login page
-        navigate("/join");
-      }
-    });
-  }, [auth, navigate]);
+  // useEffect(() => {
+  //   // when the auth status is changed
+  //   onAuthStateChanged(auth, (user) => {
+  //     // if user object exists means loggedIn
+  //     if (user) {
+  //       // User is signed in, see docs for a list of available properties
+  //       // https://firebase.google.com/docs/reference/js/firebase.User
+  //       const uid = user.uid;
+  //     }
+  //     // user is not logged in
+  //     else {
+  //       // redirect to login page
+  //       navigate("/join");
+  //     }
+  //   });
+  // }, [auth, navigate]);
 
   const Frame = ({account,count}) => {
     console.log(account + " " + count );
@@ -310,7 +310,7 @@ const Index = (props) => {
     <Helmet>
         <title>Sourceable | Dashboard</title>
       </Helmet>
-      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
+      <div className="header  pb-5 pt-5 pt-md-8">
         <Container fluid>
           <div className="header-body"></div>
         </Container>
@@ -318,7 +318,7 @@ const Index = (props) => {
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
-          <Col className="mb-5 mb-xl-0" xl="8">
+          {/* <Col className="mb-5 mb-xl-0" xl="8">
             <Card className="bg-gradient-default shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
@@ -340,31 +340,9 @@ const Index = (props) => {
                 </div>
               </CardBody>
             </Card>
-          </Col>
+          </Col> */}
 
-          <Col>
-            <Card className="bg-gradient-default shadow">
-              <CardHeader className="bg-transparent">
-                <Row className="align-items-center">
-                  <div className="col">
-                    <h6 className="text-uppercase text-light ls-1 mb-1">
-                      Overview
-                    </h6>
-                    <h2 className="text-white mb-0">Year</h2>
-                  </div>
-                </Row>
-              </CardHeader>
-              <CardBody>
-                <div className="chart">
-                  <Line
-                    data={countMonthYear["data2"]}
-                    options={chartExample1_options}
-                    getDatasetAtEvent={(e) => console.log(e)}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
+          
 
           <Col xl="4">
             <Card className="shadow">
@@ -382,8 +360,49 @@ const Index = (props) => {
               </CardBody>
             </Card>
           </Col>
-
-          <Col xl="5">
+          <Col xl="4">
+            <Card className="shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h6 className="text-uppercase text-light ls-1 mb-1">
+                      Overview
+                    </h6>
+                    <h2 className="mb-0">Year</h2>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="chart">
+                  <Line
+                    data={countMonthYear["data2"]}
+                    options={chartExample1_options}
+                    getDatasetAtEvent={(e) => console.log(e)}
+                  />
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col xl="3">
+            <Card className="shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h2 className="mb-0">Types of Accounts</h2>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="chart">
+                  <Bar
+                    data={countTypeAccount}
+                    options={chartExample2.options}
+                  />
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          {/* <Col xl="5">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row className="align-items-center">
@@ -408,38 +427,12 @@ const Index = (props) => {
                     //        age={data.Age}
                     />
                   ))}
-                  {/* <tr>
-                    <th scope="row">No. of Posts</th>
-                    <td>{totalPost}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">No. of Accounts</th>
-                    <td>{totalAccount}</td>
-                  </tr> */}
                 </tbody>
               </Table>
             </Card>
-          </Col>
+          </Col> */}
 
-          <Col xl="3">
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <Row className="align-items-center">
-                  <div className="col">
-                    <h2 className="mb-0">Types of Accounts</h2>
-                  </div>
-                </Row>
-              </CardHeader>
-              <CardBody>
-                <div className="chart">
-                  <Bar
-                    data={countTypeAccount}
-                    options={chartExample2.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
+          
 
           {/* <Col xl="8">
             <Card className="shadow">

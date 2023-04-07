@@ -23,22 +23,22 @@ const Contact = () => {
 
 	},[]);
 
-  useEffect(() => {
-    // when the auth status is changed
-    onAuthStateChanged(auth, (user) => {
-      // if user object exists means loggedIn
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-      }
-      // user is not logged in
-      else {
-        // redirect to login page
-        navigate("/join");
-      }
-    });
-  }, [auth, navigate]);
+  // useEffect(() => {
+  //   // when the auth status is changed
+  //   onAuthStateChanged(auth, (user) => {
+  //     // if user object exists means loggedIn
+  //     if (user) {
+  //       // User is signed in, see docs for a list of available properties
+  //       // https://firebase.google.com/docs/reference/js/firebase.User
+  //       const uid = user.uid;
+  //     }
+  //     // user is not logged in
+  //     else {
+  //       // redirect to login page
+  //       navigate("/join");
+  //     }
+  //   });
+  // }, [auth, navigate]);
 
   return (
     <div>

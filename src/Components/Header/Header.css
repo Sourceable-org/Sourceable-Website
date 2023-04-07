@@ -12,12 +12,12 @@
 .navOnHover{
     padding: 10px;
     color: black;
-    text-decoration: solid;
+    /* text-decoration: solid; */
     
     
 }
 .navOnHover:hover{
-    border: 1px solid white;
+    /* border: 1px solid white; */
     color: black;
     background-color: #2a67e3;
     border-radius: 10px;
