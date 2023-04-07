@@ -77,7 +77,7 @@ const Banner = () => {
 					</div>
 					
 				</div>
-				<div style={{ display: 'flex', flexWrap: 'wrap', paddingTop:"100px" , paddingLeft:"300px"}}>
+				<div style={{ display: 'flex', flexWrap: 'wrap', paddingTop:"100px" , paddingLeft:"200px"}}>
 					<div style={{ display: 'flex', flexDirection: 'row'}}>
 						<div style={{display: 'flex', flexDirection: 'column'}}>
 							<img src={image2} alt="Image 3" style={{ width: '200px', height: '200px', margin: '10px' }} />

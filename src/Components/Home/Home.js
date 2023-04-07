@@ -4,6 +4,7 @@ import AboutUs from "../AboutUs/AboutUs.js";
 import Banner from "../Banner/Banner";
 import Features from "../Features/Features";
 import Testimonial from "../Testimonial/Testimonial";
+import GetInTouch from "../GetInTouch/GetInTouch";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 
@@ -30,8 +31,9 @@ const Home = () => {
       </Helmet>
       <Banner />
       <Features />
-      <Testimonial />
-      <AboutUs />
+      <GetInTouch />
+      {/* <Testimonial /> */}
+      {/* <AboutUs /> */}
     </Fragment>
   );
 };
