@@ -120,10 +120,10 @@ const Features = () => {
                     <path d="M112.9 160v-45.9c0-40.9 14.8-65 47.1-74.1v25.1c-15.4 6.6-21.5 20.4-21 45.4h21V160h-47.1z" fill="#2a67e3" data-color="1"></path>
                   </g></svg>
                 <br></br><br></br>
-                <p style={{ flex: 1, fontSize: "20px", textAlign: "center", fontWeight: "400", color: "black", textAlign: "center", paddingLeft:"5%" }}> The app was super easy to use.
+                <p style={{ flex: 1, fontSize: "18px", textAlign: "center", fontWeight: "400", color: "black", paddingLeft:"5%" }}> The app was super easy to use.
                   This will help our lives!
                   <br></br><br></br>
-                  &nbsp;- <b>Citizen Journalist in Syria</b>
+                  &nbsp;- <b style={{flex: 1, fontSize: "12px",textAlign:"left"}}>Citizen Journalist in Syria</b>
                 </p>
               </div>
 
@@ -139,10 +139,12 @@ const Features = () => {
                     <path d="M112.9 160v-45.9c0-40.9 14.8-65 47.1-74.1v25.1c-15.4 6.6-21.5 20.4-21 45.4h21V160h-47.1z" fill="#2a67e3" data-color="1"></path>
                   </g></svg>
                 <br></br><br></br>
-                <p style={{ flex: 1, fontSize: "20px", textAlign: "center", fontWeight: "400", color: "black", textAlign: "center" }}> I enjoyed looking through
+                <p style={{ flex: 1, fontSize: "18px", textAlign: "center", fontWeight: "400", color: "black", width:"280px"}}> I can see this type of platform
+                  being very useful and saving a ton of time, especially for journalists who do not have 
+                  access the resources to conduct open source investigations.I enjoyed looking through
                   the website and purchasing a few photos to use in my future articles!
                   <br></br><br></br>
-                  &nbsp;- <b>CEO - Accuracy Press Institute</b>
+                  &nbsp;- <b style={{flex: 1, fontSize: "12px",width:"500px", textAlign:"left"}}>Investigate Journalists</b>
                 </p>
               </div>
 
@@ -158,11 +160,10 @@ const Features = () => {
                     <path d="M112.9 160v-45.9c0-40.9 14.8-65 47.1-74.1v25.1c-15.4 6.6-21.5 20.4-21 45.4h21V160h-47.1z" fill="#2a67e3" data-color="1"></path>
                   </g></svg>
                 <br></br><br></br>
-                <p style={{ flex: 1, fontSize: "20px", textAlign: "center", fontWeight: "400", color: "black", textAlign: "center", paddingRight:"5%" }}> I can see this type of platform
-                  being very useful and saving a ton of time, especially for journalists who do not have 
-                  access the resources to conduct open source investigations.
-                  <br></br><br></br>
-                  &nbsp;- <b>Investigate Journalists</b>
+                <p style={{ flex: 1, fontSize: "18px", textAlign: "center", fontWeight: "400", color: "black",paddingRight:"5%" }}> I enjoyed looking through
+                  the website and purchasing a few photos to use in my future articles!
+                  <br></br>
+                  &nbsp;- <b style={{flex: 1, fontSize: "12px",textAlign:"left"}}>CEO - Accuracy Press Institute</b>
                 </p>
               </div>
 

@@ -190,7 +190,7 @@ const Header = () => {
                 color: "black",
               }}
             >
-              Support US
+              Support us
             </Nav.Link>
             {loggedIn ? (
               <Nav.Link

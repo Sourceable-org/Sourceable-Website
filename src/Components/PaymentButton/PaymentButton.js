@@ -40,7 +40,7 @@ const PaymentButton = () => {
   return (
     <div style={{ width: "30%", marginTop: "20px" }}>
       <Helmet>
-        <title>Sourceable | Support US</title>
+        <title>Sourceable | Support us</title>
       </Helmet>
       
       {/* <PayPalScriptProvider options={{ 'client-id': CLIENT_ID }}>
