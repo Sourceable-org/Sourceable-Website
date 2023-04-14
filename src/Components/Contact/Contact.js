@@ -30,7 +30,7 @@ const Contact = () => {
             <div
               style={{
                 width: "500px",
-                height: "200%",
+                height: "100%",
                 backgroundColor: "#2a67e3",
                 marginleft: "-100px",
                 padding: "15%",

@@ -39,11 +39,11 @@ const NewsList = ({
 
 	return (
 		<div className='news-List'>
-			<ListSubheader component='div'>
+			{/* <ListSubheader component='div'>
 				<IconButton onClick={closeList}>
 					<CancelIcon />
 				</IconButton>
-			</ListSubheader>
+			</ListSubheader> */}
 			{newsListData.length > 0
 				? newsListData.map((newsData, index) => {
 						return (

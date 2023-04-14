@@ -120,7 +120,7 @@ const Explore = () => {
         .setData(getIncidentsByMonthAndYear(month, year, type, category));
     }
     // set newsListData to empty array when slider input is changed
-    setNewsListData([]);
+    // setNewsListData([]);
   };
 
   // function to get incidents data filtered by year and month
@@ -222,10 +222,12 @@ const Explore = () => {
 
         return incident;
       });
-      // console.log("finalIncidentsListData",finalIncidentsListData);
+      
+      // console.log("finalIncidentsListData :::::::::::::::",finalIncidentsListData);
 
       // update the incidents set with the incidents data
       setIncidentsData(finalIncidentsListData);
+      setNewsListData(finalIncidentsListData.slice(0,50));
     };
 
     // call the function to fetch incidents data
@@ -649,6 +651,9 @@ ${total.toLocaleString()}
   // it shows data of all the points present in the given cluster
   const displayList = () => {
     // if newsListData is not empty
+    console.log("----NewsListData---",newsListData);
+
+
     if (newsListData.length > 0) {
       return (
         // render the newsListData component
@@ -718,74 +723,91 @@ ${total.toLocaleString()}
       <Helmet>
         <title>Sourceable | Explore</title>
       </Helmet>
-      <div ref={mapContainer} className="map-container" />
-      {incidents.length === 0 ? <LoadingSpinner /> : null}
-      <div className="map-overlay top">
-        <div className="map-overlay-inner">
-          <h2>Incidents</h2>
-          <label id="month"></label>
-          <input
-            ref={monthSliderRef}
-            id="slider"
-            type="range"
-            min="0"
-            max="11"
-            step="1"
-            defaultValue={DEFAULT_MONTH}
-            onChange={handleMonthSliderChange}
-          ></input>
-          <h5>
-            Selected Month:
-            {monthSliderChanged
-              ? months[monthSliderRef.current.value]
-              : months[DEFAULT_MONTH]}
-          </h5>
-          <h6 style={{ float: "left" }}>
-            Select Year:
-            <select
-              style={{ marginLeft: "5px" }}
-              ref={yearSelectorRef}
-              defaultValue={DEFAULT_YEAR}
-              onChange={handleYearSelectorChange}
-            >
-              {year_choices.map((year_choice) => {
-                return <option value={year_choice}>{year_choice}</option>;
-              })}
-            </select>
-          </h6>
 
-          <h6 style={{ float: "left" }}>
-            Select Incident Type:
-            <select
-              style={{ marginLeft: "5px" }}
-              ref={typeSelectorRef}
-              defaultValue={DEFAULT_TYPE}
-              onChange={handleTypeSelectorChange}
-            >
-              {incidentType.map((incidet_Type) => {
-                return <option value={incidet_Type}>{incidet_Type}</option>;
-              })}
-            </select>
-          </h6>
+      <div>
+        <div style={{ display: "flex", flexDirection: "row"}}>
+          <div style={{ flex: 2.4 }}>
+            <div ref={mapContainer} className="map-container" />
+            {incidents.length === 0 ? <LoadingSpinner /> : null}
+            <div className="map-overlay top">
+              <div className="map-overlay-inner">
+                <h2>Incidents</h2>
+                <label id="month"></label>
+                <input
+                  ref={monthSliderRef}
+                  id="slider"
+                  type="range"
+                  min="0"
+                  max="11"
+                  step="1"
+                  defaultValue={DEFAULT_MONTH}
+                  onChange={handleMonthSliderChange}
+                  style={
+                    {
+                      width:"50%"
+                    }
+                  }
+                ></input>
+                <h5>
+                  Selected Month:
+                  {monthSliderChanged
+                    ? months[monthSliderRef.current.value]
+                    : months[DEFAULT_MONTH]}
+                </h5>
+                <h6 style={{ float: "left" }}>
+                  Year:
+                  <select
+                    style={{ marginLeft: "5px" }}
+                    ref={yearSelectorRef}
+                    defaultValue={DEFAULT_YEAR}
+                    onChange={handleYearSelectorChange}
+                  >
+                    {year_choices.map((year_choice) => {
+                      return <option value={year_choice}>{year_choice}</option>;
+                    })}
+                  </select>
+                </h6>
+              
+                <h6 style={{ float: "left" }}>
+                  Category:
+                  <select
+                    style={{ marginLeft: "5px" }}
+                    ref={categorySelectorRef}
+                    defaultValue={DEFAULT_CATEGORY}
+                    onChange={handleCategorySelectorChange}
+                  >
+                    {incidentCategory.map((incidet_Category) => {
+                      return (
+                        <option value={incidet_Category}>{incidet_Category}</option>
+                      );
+                    })}
+                  </select>
+                </h6>
 
-          <h6 style={{ float: "left" }}>
-            Select Incident Category:
-            <select
-              style={{ marginLeft: "5px" }}
-              ref={categorySelectorRef}
-              defaultValue={DEFAULT_CATEGORY}
-              onChange={handleCategorySelectorChange}
-            >
-              {incidentCategory.map((incidet_Category) => {
-                return (
-                  <option value={incidet_Category}>{incidet_Category}</option>
-                );
-              })}
-            </select>
-          </h6>
+                <h6 style={{ float: "left" }}>
+                  Type:
+                  <select
+                    style={{ marginLeft: "5px" }}
+                    ref={typeSelectorRef}
+                    defaultValue={DEFAULT_TYPE}
+                    onChange={handleTypeSelectorChange}
+                  >
+                    {incidentType.map((incidet_Type) => {
+                      return <option value={incidet_Type}>{incidet_Type}</option>;
+                    })}
+                  </select>
+                </h6>
+
+              </div>
+            </div>
+          </div>
+          <div style={{ flex: 1 }}>
+          {displayList()}
+          </div>
         </div>
       </div>
-      {displayList()}
+      
+      
     </div>
   );
 };
