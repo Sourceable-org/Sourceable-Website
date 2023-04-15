@@ -599,7 +599,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 
 	return (
 		<>
-			<Card variant='outlined' sx={{ maxWidth: 345 }}>
+			<Card variant='outlined' sx={{ maxWidth: 345 }} >
 				{displayCard(fileType, fileURL)}
 
 				<CardContent>
@@ -612,6 +612,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 							{verifiedOrNot ? (
 								<VerifiedIcon style={{ color: '#3446eb' }} />
 							) : (
+								<VerifiedIcon style={{ color: '#e8c217' }} />
 								<VerifiedIcon style={{ color: '#e8c217' }} />
 							)}
 							&nbsp; &nbsp;

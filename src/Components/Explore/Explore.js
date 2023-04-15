@@ -227,7 +227,7 @@ const Explore = () => {
 
       // update the incidents set with the incidents data
       setIncidentsData(finalIncidentsListData);
-      setNewsListData(finalIncidentsListData.slice(0,50));
+      setNewsListData(finalIncidentsListData.slice(0,25));
     };
 
     // call the function to fetch incidents data
@@ -801,7 +801,7 @@ ${total.toLocaleString()}
               </div>
             </div>
           </div>
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1}}>
           {displayList()}
           </div>
         </div>
