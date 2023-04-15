@@ -613,7 +613,6 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
 								<VerifiedIcon style={{ color: '#3446eb' }} />
 							) : (
 								<VerifiedIcon style={{ color: '#e8c217' }} />
-								<VerifiedIcon style={{ color: '#e8c217' }} />
 							)}
 							&nbsp; &nbsp;
 							{bookmarkStatus ? (
