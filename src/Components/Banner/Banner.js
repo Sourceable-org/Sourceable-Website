@@ -23,8 +23,8 @@ import "react-multi-carousel/lib/styles.css";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    slidesToSlide: 3, // optional, default to 1.
+    items: 6,
+    // slidesToSlide: 3, // optional, default to 1.
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -158,6 +158,16 @@ const Banner = () => {
             <br />
             WITH TRUSTED SOURCES
           </p>
+
+          <p
+            style={{
+              // fontWeight: 400,
+              fontSize: "20px",
+              color: "black",
+            }}
+          >
+            Real stories, from real people, in real time
+          </p>
         </div>
 
         <div
@@ -183,89 +193,84 @@ const Banner = () => {
             itemClass="carousel-item-padding-40-px"
             focusOnSelect={true}
           >
-            <div style={{}}>
+            <div style={{paddingTop:"15%"}}>
               <img
                 src={img1}
                 alt="Image 1"
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: "150%",
                   borderRadius: "15px",
                 }}
               />
             </div>
 
-            <div style={{}}>
+            <div style={{paddingLeft:"55%",paddingTop:"25%"}}>
               <img
                 src={img2}
                 alt="Image 2"
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: "150%",
                   borderRadius: "15px",
                 }}
               />
             </div>
 
-            <div style={{}}>
+            <div style={{paddingLeft:"25%",paddingTop:"45%"}}>
               <img
                 src={img3}
                 alt="Image 3"
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: "200%",
                   borderRadius: "15px",
                 }}
               />
             </div>
-
-            <div style={{}}>
+          
+            <div style={{paddingLeft:"80%",}}>
               <img
                 src={img4}
                 alt="Image 4"
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: "700%",
                   borderRadius: "15px",
                 }}
               />
             </div>
-
-            <div style={{}}>
+          
+            <div style={{paddingLeft:"10%",marginTop:"85%"}}>
               <img
                 src={img5}
                 alt="Image 5"
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: "120%",
                   borderRadius: "15px",
                 }}
               />
             </div>
 
-            <div style={{}}>
+            <div style={{paddingLeft:"25%",paddingTop:"45%"}}>
               <img
                 src={img6}
                 alt="Image 6"
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: "95%",
                   borderRadius: "15px",
                 }}
               />
             </div>
 
-            <div style={{}}>
+            <div style={{paddingRight:"10%",}}>
               <img
                 src={img7}
                 alt="Image 7"
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: "100%",
                   borderRadius: "15px",
                 }}
               />
             </div>
+       
+
           </Carousel>
         </div>
       </div>
