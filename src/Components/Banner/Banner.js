@@ -209,13 +209,13 @@ const Banner = () => {
                 src={img2}
                 alt="Image 2"
                 style={{
-                  width: "150%",
+                  width: "250%",
                   borderRadius: "15px",
                 }}
               />
             </div>
 
-            <div style={{paddingLeft:"25%",paddingTop:"45%"}}>
+            {/* <div style={{paddingLeft:"25%",paddingTop:"45%"}}>
               <img
                 src={img3}
                 alt="Image 3"
@@ -224,9 +224,9 @@ const Banner = () => {
                   borderRadius: "15px",
                 }}
               />
-            </div>
+            </div> */}
           
-            <div style={{paddingLeft:"80%",}}>
+            <div style={{paddingLeft:"80%"}}>
               <img
                 src={img4}
                 alt="Image 4"
