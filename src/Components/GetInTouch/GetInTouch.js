@@ -5,10 +5,20 @@ import "../GetInTouch/GetInTouch.css";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin} from 'react-icons/fa';
+import { collection, getDocs } from "firebase/firestore";
+import { encrypt, decrypt, compare } from 'n-krypta'; //For es6
+import {
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 const Contact = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+  
   useEffect(()=>{
 		// ReactGA.pageview("window.location.pathname + window.location.search")
 		// ReactGA.send({ hitType: "pageview", page: "/explore" });
@@ -23,25 +33,91 @@ const Contact = () => {
 
 	},[]);
 
-  // useEffect(() => {
-  //   // when the auth status is changed
-  //   onAuthStateChanged(auth, (user) => {
-  //     // if user object exists means loggedIn
-  //     if (user) {
-  //       // User is signed in, see docs for a list of available properties
-  //       // https://firebase.google.com/docs/reference/js/firebase.User
-  //       const uid = user.uid;
-  //     }
-  //     // user is not logged in
-  //     else {
-  //       // redirect to login page
-  //       navigate("/join");
-  //     }
-  //   });
-  // }, [auth, navigate]);
+  function ConvertStringToHex(str) {
+    var arr = [];
+    for (var i = 0; i < str.length; i++) {
+      arr[i] = ('00' + str.charCodeAt(i).toString(16)).slice(-4);
+    }
+    return '\\u' + arr.join('\\u');
+  }
 
+  function encryptedData(str){
+    const key = ConvertStringToHex('Sourceable');
+    const CryptoJS = require('crypto-js');
+    const encryptedAudio = CryptoJS.AES.encrypt(str, key);
+
+    return encryptedAudio;
+  }
+
+  function encryptID(message){
+    const key = ConvertStringToHex('Sourceable');
+
+    const encryptedString = encrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+
+    return encryptedString;
+ 
+  };
+  
+  // Decryption function
+  const decrypt = (ciphertext, key) => {
+    const CryptoJS = require('crypto-js');
+    const bytes = CryptoJS.AES.decrypt(ciphertext, key);
+    const originalMessage = bytes.toString(CryptoJS.enc.Utf8);
+    return originalMessage;
+  };
+
+
+  const [querySnapshot, setquerySnapshot] = useState({});
+
+  
+
+  const getIncidentsDataFromFireStore = async () => {
+    // get all documents under the Explore Collection
+    const db = getFirestore();
+
+    let accounData = [];
+
+    const querySnapshot = await getDocs(collection(db, "Account"));
+
+    querySnapshot.forEach( async (doc_new) => {
+      // doc.data() is never undefined for query doc snapshots
+
+      const id = encryptID(doc_new.id);
+      const account_type = encryptedData(doc_new.data().account_type).toString();
+      const email = encryptedData(doc_new.data().email).toString();
+      const name = encryptedData(doc_new.data().name).toString();
+      const status = encryptedData(doc_new.data().status).toString();
+
+      accounData.push({
+        "id" : id,
+        "data" : {
+          "account_type": account_type, 
+          "email": email, 
+          "name": name,
+          "status": status
+        }
+      })
+    console.log(id, " => ", email);
+    });
+
+    const accountRef = collection(db, "Accounts");
+
+    accounData.map(async(item)=>{
+
+      await setDoc(doc(accountRef, item["id"]), item["data"]);
+
+    })
+
+    console.log("length",accounData.length);
+  }
+
+
+  
   return (
     <div>
+      <div>
+        <button onClick={()=>getIncidentsDataFromFireStore()}>Download</button>
+      </div>
       <div style={{ display: 'flex', flexDirection: 'row'}}>
           <div style={{ flex: 1}}>
                 <div style={{ width: '500px', height: '500px', backgroundColor: "#2a67e3", marginleft: "-100px", padding:"15%" }}>
