@@ -20,6 +20,7 @@ import CHATLAUNCH from '../../images/chat_first.png';
 import { db } from '../Firebase/Firebase';
 import './Chatbox.css';
 import ReactGA from "react-ga4";
+import { decrypt } from 'n-krypta';
 
 // const FieldValue = require('firebase-admin').firestore.FieldValue;
 const ChatRoom = ({
@@ -323,12 +324,53 @@ const Chatbox = () => {
 		);
 	}, [currentReceiverChatID]);
 
+	function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+		  arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + arr.join("\\u");
+	}
+
+	function decryptData(str) {
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+	
+		console.log(
+		  "-----------------------------------------------------------------------"
+		);
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	}
+
+	function encryptedData(str){
+		const key = ConvertStringToHex('Sourceable');
+		const CryptoJS = require('crypto-js');
+		const encryptedAudio = CryptoJS.AES.encrypt(str, key);
+	
+		return encryptedAudio;
+	}
+
+	function decryptID(message){
+		const key = ConvertStringToHex('Sourceable');
+	
+		const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+	
+		return encryptedString;
+	 
+	};
+
 	useEffect(() => {
 		// if senderEmail is not yet fetched then do not make API CALL
 		if (senderEmail === '') return;
 
 		// make a query to fetch all the users from the FireBase Backend
-		const accountsQuery = query(collection(db, 'Account'));
+		const accountsQuery = query(collection(db, 'Accounts'));
 
 		// function to fetch realtime data about accounts
 		const realTimeAccountListener = onSnapshot(
@@ -341,7 +383,7 @@ const Chatbox = () => {
 
 					// if the status is string then set the value to online
 					if (typeof singleChatUserData.status === 'string') {
-						singleChatUserData.status = 'online';
+						singleChatUserData.status = encryptedData("online");
 					}
 					// if the status is timestamp type then get the DateObject
 					// indicates the user is offline currently and we will display the last seen

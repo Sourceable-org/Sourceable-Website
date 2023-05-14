@@ -227,6 +227,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Message from "@mui/icons-material/Message";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { encrypt, decrypt, compare } from 'n-krypta'; //For es6
 import {
   arrayRemove,
   arrayUnion,
@@ -271,6 +272,14 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
       arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
     }
     return "\\u" + arr.join("\\u");
+  }
+
+  function ConvertStringToHex(str) {
+    var arr = [];
+    for (var i = 0; i < str.length; i++) {
+      arr[i] = ('00' + str.charCodeAt(i).toString(16)).slice(-4);
+    }
+    return '\\u' + arr.join('\\u');
   }
 
   function decryptData(str) {

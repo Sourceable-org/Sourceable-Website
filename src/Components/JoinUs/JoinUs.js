@@ -26,6 +26,7 @@ import Popup from "reactjs-popup";
 import "./popup.css";
 import "reactjs-popup/dist/index.css";
 import { Alert, Button, Snackbar } from "@mui/material";
+import { encrypt, decrypt, compare } from 'n-krypta'; //For es6
 
 const JoinUs = () => {
   const loginTab = useRef(null);
@@ -42,8 +43,58 @@ const JoinUs = () => {
   const navigate = useNavigate();
 
   //   const { setAlert } = useAlert();
+  function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+		  arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + arr.join("\\u");
+	}
 
-  const JOURNALIST_ACCOUNT_TYPE = "web";
+	function decryptData(str) {
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+	
+		console.log(
+		  "-----------------------------------------------------------------------"
+		);
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	}
+
+function encryptedData(str){
+    const key = ConvertStringToHex('Sourceable');
+    const CryptoJS = require('crypto-js');
+    const encryptedAudio = CryptoJS.AES.encrypt(str, key);
+
+    return encryptedAudio;
+  }
+
+  function encryptID(message){
+    const key = ConvertStringToHex('Sourceable');
+
+    const encryptedString = encrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+
+    return encryptedString;
+ 
+  };
+
+	function decryptID(message){
+		const key = ConvertStringToHex('Sourceable');
+	
+		const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+	
+		return encryptedString;
+	 
+	};
+
+
+  const JOURNALIST_ACCOUNT_TYPE = encryptedData("web");
 
   const createAccount = async (e) => {
     e.preventDefault();
@@ -73,12 +124,12 @@ const JoinUs = () => {
   // function to check if the loggedIn User account type is web only
   const checkAccountValidity = async (userEmail) => {
     // get account document
-    const accountSnap = await getDoc(doc(db, "Account", userEmail));
+    const accountSnap = await getDoc(doc(db, "Accounts", encryptID(userEmail)));
 
     // if account exists
     if (accountSnap.exists()) {
       // account_type matches JOURNALIST_ACCOUNT_TYPE then return true
-      if (accountSnap.data()["account_type"] === JOURNALIST_ACCOUNT_TYPE) {
+      if (accountSnap.data()["account_type"] === encryptedData(JOURNALIST_ACCOUNT_TYPE)) {
         return true;
       }
     }
@@ -90,11 +141,11 @@ const JoinUs = () => {
     userEmail,
     userName
   ) => {
-    await setDoc(doc(db, "Account", userEmail), {
-      name: userName,
-      email: userEmail,
-      account_type: JOURNALIST_ACCOUNT_TYPE,
-      status: "online",
+    await setDoc(doc(db, "Accounts", encryptID(userEmail)), {
+      name: encryptedData(userName),
+      email: encryptedData(userEmail),
+      account_type: encryptedData(JOURNALIST_ACCOUNT_TYPE),
+      status: encryptedData("online"),
     });
   };
 
@@ -102,8 +153,8 @@ const JoinUs = () => {
   const handleLoginSuccess = (userEmail) => {
     // function to update the status of the user to online post successful Login
     const updateUserStatus = async (userEmail) => {
-      await updateDoc(doc(db, "Account", userEmail), {
-        status: "online",
+      await updateDoc(doc(db, "Accounts", encryptID(userEmail)), {
+        status: encryptedData("online"),
       });
     };
 

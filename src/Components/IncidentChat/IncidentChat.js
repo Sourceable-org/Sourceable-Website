@@ -14,6 +14,7 @@ import {
 	where,
 } from 'firebase/firestore';
 import moment from 'moment';
+import { encrypt, decrypt, compare } from 'n-krypta'; //For es6
 import React, { useCallback, useEffect, useState } from 'react';
 import CHATLAUNCH from '../../images/chat_first.png';
 import { db } from '../Firebase/Firebase';
@@ -291,6 +292,56 @@ const IncidentChat = () => {
 		);
 	}, [currentReceiverChatID]);
 
+	function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+		  arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + arr.join("\\u");
+	}
+
+	function decryptData(str) {
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+	
+		console.log(
+		  "-----------------------------------------------------------------------"
+		);
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	}
+
+function encryptedData(str){
+    const key = ConvertStringToHex('Sourceable');
+    const CryptoJS = require('crypto-js');
+    const encryptedAudio = CryptoJS.AES.encrypt(str, key);
+
+    return encryptedAudio;
+  }
+
+  function encryptID(message){
+    const key = ConvertStringToHex('Sourceable');
+
+    const encryptedString = encrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+
+    return encryptedString;
+ 
+  };
+
+	function decryptID(message){
+		const key = ConvertStringToHex('Sourceable');
+	
+		const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+	
+		return encryptedString;
+	 
+	};
+
 	useEffect(() => {
 		const { incidentEmail } = location.state;
 
@@ -298,7 +349,7 @@ const IncidentChat = () => {
 		if (senderEmail === '') return;
 
 		// make a query to fetch all the users from the FireBase Backend
-		const accountsQuery = query(collection(db, 'Account'));
+		const accountsQuery = query(collection(db, 'Accounts'));
 
 		// function to fetch realtime data about accounts
 		const realTimeAccountListener = onSnapshot(
@@ -311,7 +362,7 @@ const IncidentChat = () => {
 
 					// if the status is string then set the value to online
 					if (typeof singleChatUserData.status === 'string') {
-						singleChatUserData.status = 'online';
+						singleChatUserData.status = encryptedData("online");
 					}
 					// if the status is timestamp type then get the DateObject
 					// indicates the user is offline currently and we will display the last seen

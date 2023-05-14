@@ -115,9 +115,9 @@ const Contact = () => {
   
   return (
     <div>
-      <div>
+      {/* <div>
         <button onClick={()=>getIncidentsDataFromFireStore()}>Download</button>
-      </div>
+      </div> */}
       <div style={{ display: 'flex', flexDirection: 'row'}}>
           <div style={{ flex: 1}}>
                 <div style={{ width: '500px', height: '500px', backgroundColor: "#2a67e3", marginleft: "-100px", padding:"15%" }}>
