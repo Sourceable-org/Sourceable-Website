@@ -319,7 +319,7 @@ let chartExample1 = {
           ticks: {
             callback: function (value) {
               if (!(value % 10)) {
-                return "$" + value + "k";
+                return  value ;
               }
             }
           }
@@ -337,22 +337,22 @@ let chartExample1 = {
             content += label;
           }
 
-          content += "$" + yLabel + "k";
+          content += yLabel;
           return content;
         }
       }
     }
   },
-  data1: (canvas) => {
-    return {
-      labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  data1:{
+    
+      labels: ["Jan","Feb","Mar","Apr","May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       datasets: [
         {
           label: "Performance",
-          data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
+          data: [10,0,0,0, 20, 10, 30, 15, 40, 20, 60, 100]
         }
       ]
-    };
+    
   },
   data2: (canvas) => {
     return {
@@ -400,12 +400,12 @@ let chartExample2 = {
     }
   },
   data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ["Jul", "Aug", "Sep", "Oct"],
     datasets: [
       {
         label: "Sales",
-        data: [25, 20, 30, 22, 17, 29],
-        maxBarThickness: 10
+        data: [25, 20, 30, 22],
+        maxBarThickness: 15
       }
     ]
   }

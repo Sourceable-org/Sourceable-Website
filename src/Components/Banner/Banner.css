@@ -1,6 +1,6 @@
 .homePage {
 	/* background: url('../images/home_back.jpg'); */
-	background: url('../../images/banner_bg.jpg');
+	/* background: url('../../images/banner_bg.jpg'); */
 	max-width: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -16,7 +16,7 @@
 	/* border: 1px solid red; */
 	width: 60%;
 	height: 100vh;
-	color: white;
+	color: black;
 	padding: 10%;
 }
 .first > .part1-left > h1 {
@@ -26,12 +26,10 @@
 
 
 .first > .part1-left > p {
-	font-size: xx-large;
+	font-size: x-large;
 	font-family: 'Roboto';
 	margin-bottom: 3vmax;
 	color: black;
-	font-weight: bold;
-	color: white;
 }
 .first > .part1-left > b {
 	letter-spacing: 2px;

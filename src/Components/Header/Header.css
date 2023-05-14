@@ -1,26 +1,35 @@
-.navstyle a{
-    color: grey;
+/* .navstyle a{
+    color: black;
     font-weight: bold;
     text-decoration: none;
+} */
+
+.styleHeader{
+    background-color: white;
 }
+
 
 .navOnHover{
     padding: 10px;
-    color: grey;
+    color: black;
+    /* text-decoration: solid; */
+    
+    
 }
 .navOnHover:hover{
-    border: 1px solid gray;
-    color: white;
-    border-radius: 3px;
+    /* border: 1px solid white; */
+    color: black;
+    background-color: #2a67e3;
+    border-radius: 10px;
+
 }
 
 .navstyle a:link, a:visited {
-    color: grey;
+    color: black;
     text-decoration: none;
 }
 
 .icon-message:hover{
     transform: scale(1.05);
-    color: white;
-   
+    color: black;
    }

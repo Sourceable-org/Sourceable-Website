@@ -1,6 +1,4 @@
 .news-List{
-    height: 500px;
-    background-color: aqua;
+    height: 800px;
     overflow-y: auto;
-    width: 100%;
 }

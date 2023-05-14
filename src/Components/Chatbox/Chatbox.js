@@ -14,10 +14,13 @@ import {
 	where,
 } from 'firebase/firestore';
 import moment from 'moment';
+import { Helmet } from 'react-helmet';
 import React, { useCallback, useEffect, useState } from 'react';
 import CHATLAUNCH from '../../images/chat_first.png';
 import { db } from '../Firebase/Firebase';
 import './Chatbox.css';
+import ReactGA from "react-ga4";
+import { decrypt } from 'n-krypta';
 
 // const FieldValue = require('firebase-admin').firestore.FieldValue;
 const ChatRoom = ({
@@ -28,15 +31,19 @@ const ChatRoom = ({
 }) => {
 	// state to store messages of the chatRoom
 	const [messages, setMessages] = useState([]);
+	//current message
+	const [currentMessage, setCurrentMesssage] = useState('');
+	const [currentTime, setCurrentTime] = useState('');
+
 	const location = useLocation();
+	// console.log("LOCCC",location.state);
+	// const { from } = location.state;
 
-	const { from } = location.state;
-
-	console.log("from routes2 --- ", from);
+	console.log("from routes2 --- ");
 	// function to get the chatRoom ID on the basis of sender and receiver user id
 	const getChatRoomID = () => {
+		console.log("aaaa");
 		const usersID = [];
-
 		// push the IDS of the sender and receiver
 		usersID.push(currentReceiverChatID);
 		usersID.push(senderEmail);
@@ -51,14 +58,12 @@ const ChatRoom = ({
 		return chatRoomID;
 	};
 
-	//current message
-	const [currentMessage, setCurrentMesssage] = useState('');
-	const [currentTime, setCurrentTime] = useState('');
-
+	
 	// get the chatRoomID for the sender and the receiver
-	const chatRoomID = getChatRoomID;
-
+	// const chatRoomID = getChatRoomID;
+	const chatRoomID = currentReceiverChatID+"-"+senderEmail;
 	useEffect(() => {
+		
 		console.log("from routes",chatRoomID);
 		// make the ChatRoom Query
 		console.log("chatbox here");
@@ -161,7 +166,7 @@ const ChatRoom = ({
 				<div className='row'>
 					<div className='col-lg-6'>
 						<a
-							href='javascript:void(0);'
+							href='#'
 							data-toggle='modal'
 							data-target='#view_info'>
 							{/* <img
@@ -286,6 +291,20 @@ const Chatbox = () => {
 		});
 	}, []);
 
+	useEffect(()=>{
+		// ReactGA.pageview("window.location.pathname + window.location.search")
+		// ReactGA.send({ hitType: "pageview", page: "/explore" });
+		ReactGA.event({
+			category: "Sourceable | Chat",
+			action: "Sourceable | Chat",
+			// label: "your label", // optional
+			// value: 99, // optional, must be a number
+			nonInteraction: true, // optional, true/false
+			// transport: "xhr", // optional, beacon/xhr/image
+		  });
+
+	},[]);
+
 	useEffect(() => {
 		// if the current receiver is empty then do nothing
 		if (currentReceiverChatID === '') return;
@@ -305,12 +324,53 @@ const Chatbox = () => {
 		);
 	}, [currentReceiverChatID]);
 
+	function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+		  arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + arr.join("\\u");
+	}
+
+	function decryptData(str) {
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+	
+		console.log(
+		  "-----------------------------------------------------------------------"
+		);
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	}
+
+	function encryptedData(str){
+		const key = ConvertStringToHex('Sourceable');
+		const CryptoJS = require('crypto-js');
+		const encryptedAudio = CryptoJS.AES.encrypt(str, key);
+	
+		return encryptedAudio;
+	}
+
+	function decryptID(message){
+		const key = ConvertStringToHex('Sourceable');
+	
+		const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+	
+		return encryptedString;
+	 
+	};
+
 	useEffect(() => {
 		// if senderEmail is not yet fetched then do not make API CALL
 		if (senderEmail === '') return;
 
 		// make a query to fetch all the users from the FireBase Backend
-		const accountsQuery = query(collection(db, 'Account'));
+		const accountsQuery = query(collection(db, 'Accounts'));
 
 		// function to fetch realtime data about accounts
 		const realTimeAccountListener = onSnapshot(
@@ -323,7 +383,7 @@ const Chatbox = () => {
 
 					// if the status is string then set the value to online
 					if (typeof singleChatUserData.status === 'string') {
-						singleChatUserData.status = 'online';
+						singleChatUserData.status = encryptedData("online");
 					}
 					// if the status is timestamp type then get the DateObject
 					// indicates the user is offline currently and we will display the last seen
@@ -452,6 +512,9 @@ const Chatbox = () => {
 		if (currentReceiverChatID !== '') {
 			return (
 				<>
+				<Helmet>
+        <title>Sourceable | Chat</title>
+      </Helmet>
 					{/* iterate all chatUsers and display the ChatRoom for the
  selected receiver email */}
 					{chatUsers.map(({ name, status, email }) => {
@@ -511,9 +574,13 @@ const Chatbox = () => {
 
 	return (
 		<div className='container-chat-box'>
+			
 			{/* <div className="row clearfix"> */}
 			{/* <div className="col-lg-12"> */}
 			<div className='card chat-app'>
+			<Helmet>
+        <title>Sourceable | Chat</title>
+      </Helmet>
 				<div id='plist' className='people-list'>
 					<div className='input-group mb-0'></div>
 					<ul className='list-unstyled chat-list mt-2 mb-0'>

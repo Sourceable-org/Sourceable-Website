@@ -1,21 +1,66 @@
-import React from 'react'
-import './AboutUs.css'
+import React from "react";
+import "./AboutUs.css";
 const AboutUs = () => {
-    return (
-        <div className='aboutuspage'>
-            <div>
-                <h1>Trusted by citizen journalists, used by the world.</h1>
-                <div id='forBorder'></div>
-                <div>
-                   <p> Sourceable, an online platform and mobile application, empowers, connects, and supports citizen journalists in areas of conflict and crisis. Through strategic partnerships, Sourceable serves journalists, human rights professionals, and legal advocates by providing verified documentation in the forms of photos, videos, texts, and audio recordings. Leveraging cutting-edge verification technology, Sourceable will address the challenge of documenting, verifying, storing, and sharing newsworthy stories, focused on human rights violations, humanitarian crises, and human-interest stories, all in real-time to paid subscribers.</p>
-                </div>
-                <div>
-                    <h3> Empowering. Supporting. Connecting.</h3>
-                    <p>The Sourceable team consists of a diverse group of students from Columbia’s School of International and Public Affairs (SIPA), the Institute for the Study of Human Rights (ISHR), and the School of Engineering and Applied Science (SEAS). The cross-disciplinary team is committed to developing and launching the Sourceable platform to protect citizens in Syria and beyond.</p>
-                </div>
-            </div>
+  return (
+    <div className="aboutuspage">
+      <div>
+        <h1>Trusted by citizen journalists, used by the world.</h1>
+        <div id="forBorder"></div>
+        <div>
+          <p>
+            Sourceable empowers citizen journalists to&nbsp;
+            <b style={{
+                    fontWeight: "bold",
+                  }}>   
+             document, verify,
+            archive, and share</b>newsworthy data directly to paid subscribers.
+            Leveraging innovative verification technology, Sourceable
+            revolutionizes the media, journalism, and technology industries by
+            providing verified data directly to media and human rights
+            professionals in real-time from places of conflict and crisis.
+            <br />
+            <br />
+            The visual, audio, and written data collected through Sourceable’s
+            mobile application is automatically verified and achieved through an
+            encryption process, as well as Provenance, a Blockchain solution,
+            which permanently stamps the geolocation, time, and date to the
+            data. Once processed, the data is published on Sourceable’s trusted
+            platform where members can access the data in real-time.
+          </p>
         </div>
-    )
-}
+        <div>
+          <h3> Empowering. Supporting. Connecting.</h3>
+          <p>
+            Sourceable is the proud recipient of the <b style={{
+                    fontWeight: "bold",
+                  }}> 2022 Global Public Policy
+            Network - Henrik Enderlin Award.</b> In March 2022, Sourceable was
+            awarded the first-prize title. For more information,{" "}
+            <a
+              target={"_blank"}
+              href="https://www.gppnetwork.org/single-post/winners-of-gppn-annual-conference-2022"
+            >
+              click here.
+            </a>
+            <br />
+            <br />
+            Sourceable was awarded the <b style={{
+                    fontWeight: "bold",
+                  }}> first-prize in the Brown Institute’s
+            Media, Journalism, and Technology competition,</b> put on by Columbia
+            University’s 2022 Venture Challenge Competitions. The competition
+            granted the Sourceable team to participate in a 10-week summer
+            incubator with the Brown Institute. For more information, <a
+              target={"_blank"}
+              href="https://brown.columbia.edu/the-brown-institute-announces-its-2022-venture-challenge-competition-winners/"
+            >
+              click here.
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default AboutUs
+export default AboutUs;

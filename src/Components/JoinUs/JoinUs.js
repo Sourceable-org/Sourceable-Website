@@ -1,294 +1,385 @@
-import FaceIcon from '@mui/icons-material/Face';
-import LockOpenSharpIcon from '@mui/icons-material/LockOpenSharp';
-import MailOutlineSharpIcon from '@mui/icons-material/MailOutlineSharp';
+import FaceIcon from "@mui/icons-material/Face";
+import LockOpenSharpIcon from "@mui/icons-material/LockOpenSharp";
+import MailOutlineSharpIcon from "@mui/icons-material/MailOutlineSharp";
 import {
-	createUserWithEmailAndPassword,
-	getAdditionalUserInfo,
-	getAuth,
-	signInWithEmailAndPassword,
-	signInWithPopup,
-	signOut,
-} from 'firebase/auth';
+  createUserWithEmailAndPassword,
+  getAdditionalUserInfo,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import {
-	doc,
-	getDoc,
-	getFirestore,
-	setDoc,
-	updateDoc,
-} from 'firebase/firestore';
-import React, { useRef, useState } from 'react';
-import GoogleIcon from '@mui/icons-material/Google';
-import { useNavigate } from 'react-router-dom';
-import '../Firebase/Firebase';
-import googleSignInProvider from '../Firebase/GoogleProvider';
-import './Joinus.css';
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import React, { useRef, useState } from "react";
+import GoogleIcon from "@mui/icons-material/Google";
+import { useNavigate } from "react-router-dom";
+import "../Firebase/Firebase";
+import googleSignInProvider from "../Firebase/GoogleProvider";
+import "./Joinus.css";
+import Popup from "reactjs-popup";
+import "./popup.css";
+import "reactjs-popup/dist/index.css";
+import { Alert, Button, Snackbar } from "@mui/material";
+import { encrypt, decrypt, compare } from 'n-krypta'; //For es6
 
 const JoinUs = () => {
-	const loginTab = useRef(null);
-	const registerTab = useRef(null);
-	const switcherTab = useRef(null);
-	const [email, setEmail] = useState();
-	const [name, setName] = useState();
-	const [password, setPassword] = useState();
+  const loginTab = useRef(null);
+  const registerTab = useRef(null);
+  const switcherTab = useRef(null);
+  const [email, setEmail] = useState();
+  const [name, setName] = useState();
+  const [password, setPassword] = useState();
+  const [popuplogin, setPopuplogin] = useState(false);
+  const [popupsignup, setPopupsignup] = useState(false);
 
-	const auth = getAuth();
-	const db = getFirestore();
-	const navigate = useNavigate();
+  const auth = getAuth();
+  const db = getFirestore();
+  const navigate = useNavigate();
 
-	const JOURNALIST_ACCOUNT_TYPE = 'web';
-
-	const createAccount = async (e) => {
-		e.preventDefault();
-
-		createUserWithEmailAndPassword(auth, email, password)
-			.then(async (userCredential) => {
-				// Signed in
-				const user = userCredential.user;
-				console.log(user);
-
-				// add their email, account type, status and name to the database
-				createWebAccountDetailsOnAccountCreation(email, name);
-			})
-			.catch((error) => {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				console.log(error, errorCode, errorMessage);
-				// ..
-			});
-
-		setEmail('');
-		setPassword('');
-		setName('');
-	};
-
-	// function to check if the loggedIn User account type is web only
-	const checkAccountValidity = async (userEmail) => {
-		// get account document
-		const accountSnap = await getDoc(doc(db, 'Account', userEmail));
-
-		// if account exists
-		if (accountSnap.exists()) {
-			// account_type matches JOURNALIST_ACCOUNT_TYPE then return true
-			if (
-				accountSnap.data()['account_type'] === JOURNALIST_ACCOUNT_TYPE
-			) {
-				return true;
-			}
+  //   const { setAlert } = useAlert();
+  function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+		  arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
 		}
+		return "\\u" + arr.join("\\u");
+	}
 
-		return false;
+	function decryptData(str) {
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+	
+		console.log(
+		  "-----------------------------------------------------------------------"
+		);
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	}
+
+function encryptedData(str){
+    const key = ConvertStringToHex('Sourceable');
+    const CryptoJS = require('crypto-js');
+    const encryptedAudio = CryptoJS.AES.encrypt(str, key);
+
+    return encryptedAudio;
+  }
+
+  function encryptID(message){
+    const key = ConvertStringToHex('Sourceable');
+
+    const encryptedString = encrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+
+    return encryptedString;
+ 
+  };
+
+	function decryptID(message){
+		const key = ConvertStringToHex('Sourceable');
+	
+		const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+	
+		return encryptedString;
+	 
 	};
 
-	const createWebAccountDetailsOnAccountCreation = async (
-		userEmail,
-		userName
-	) => {
-		await setDoc(doc(db, 'Account', userEmail), {
-			name: userName,
-			email: userEmail,
-			account_type: JOURNALIST_ACCOUNT_TYPE,
-			status: 'online',
-		});
-	};
 
-	// function to be executed after login of the user is successful
-	const handleLoginSuccess = (userEmail) => {
-		// function to update the status of the user to online post successful Login
-		const updateUserStatus = async (userEmail) => {
-			await updateDoc(doc(db, 'Account', userEmail), {
-				status: 'online',
-			});
-		};
+  const JOURNALIST_ACCOUNT_TYPE = encryptedData("web");
 
-		// update the status of the user to online
-		updateUserStatus(userEmail);
+  const createAccount = async (e) => {
+    e.preventDefault();
 
-		// navigate to the home page after success login
-		navigate('/');
-	};
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+		alert("You have successfully signed up!")
 
-	// function to handle login process
-	const Login = async (e) => {
-		e.preventDefault();
-		signInWithEmailAndPassword(auth, email, password)
-			.then(async (userCredential) => {
-				// Signed in
-				const user = userCredential.user;
+        // add their email, account type, status and name to the database
+        createWebAccountDetailsOnAccountCreation(email, name);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error, errorCode, errorMessage);
+        // ..
+      });
 
-				if ((await checkAccountValidity(user.email)) === false) {
-					const auth = getAuth();
+    setEmail("");
+    setPassword("");
+    setName("");
+  };
 
-					signOut(auth).then(() => {
-						console.log('Mobile Users Not Allowed');
-					});
-				} else {
-					// call the post login success function
-					handleLoginSuccess(user.email);
-				}
+  // function to check if the loggedIn User account type is web only
+  const checkAccountValidity = async (userEmail) => {
+    // get account document
+    const accountSnap = await getDoc(doc(db, "Accounts", encryptID(userEmail)));
 
-				// ...
-			})
-			.catch((error) => {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-			});
+    // if account exists
+    if (accountSnap.exists()) {
+      // account_type matches JOURNALIST_ACCOUNT_TYPE then return true
+      if (accountSnap.data()["account_type"] === encryptedData(JOURNALIST_ACCOUNT_TYPE)) {
+        return true;
+      }
+    }
 
-		setEmail('');
-		setPassword('');
-	};
+    return false;
+  };
 
-	// switch tabs
-	const switchTabs = (e, tab) => {
-		if (tab === 'login') {
-			switcherTab.current.classList.add('shiftToNeutral');
-			switcherTab.current.classList.remove('shiftToRight');
+  const createWebAccountDetailsOnAccountCreation = async (
+    userEmail,
+    userName
+  ) => {
+    await setDoc(doc(db, "Accounts", encryptID(userEmail)), {
+      name: encryptedData(userName),
+      email: encryptedData(userEmail),
+      account_type: encryptedData(JOURNALIST_ACCOUNT_TYPE),
+      status: encryptedData("online"),
+    });
+  };
 
-			registerTab.current.classList.remove('shiftToNeutralForm');
-			loginTab.current.classList.remove('shiftToLeft');
-		} else {
-			switcherTab.current.classList.add('shiftToRight');
-			switcherTab.current.classList.remove('shiftToNeutral');
+  // function to be executed after login of the user is successful
+  const handleLoginSuccess = (userEmail) => {
+    // function to update the status of the user to online post successful Login
+    const updateUserStatus = async (userEmail) => {
+      await updateDoc(doc(db, "Accounts", encryptID(userEmail)), {
+        status: encryptedData("online"),
+      });
+    };
 
-			registerTab.current.classList.add('shiftToNeutralForm');
-			loginTab.current.classList.add('shiftToLeft');
-		}
-	};
+    // update the status of the user to online
+    updateUserStatus(userEmail);
 
-	// function to handle login process using google accounts
-	const handleGoogleLogin = (event) => {
-		event.preventDefault();
+    // navigate to the home page after success login
 
-		// pass the auth and google provider object to the signInWithPopup
-		signInWithPopup(auth, googleSignInProvider)
-			.then(async (result) => {
-				// fetch the current loggedIn user details
-				const googleLoggedInUser = result.user;
+    navigate("/");
+  };
 
-				// check if the user is new or not
-				const newUser = getAdditionalUserInfo(result).isNewUser;
+  // function to handle login process
+  const Login = async (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+		alert("You have successfully logged in!")
 
-				// if the user has loggedIn for the first time then create a doc for the new user
-				if (newUser) {
-					// add their email, account type, status and name to the database
-					createWebAccountDetailsOnAccountCreation(
-						googleLoggedInUser.email,
-						googleLoggedInUser.displayName
-					);
-				}
+        if ((await checkAccountValidity(user.email)) === false) {
+          // const auth = getAuth();
 
-				// validate the account type of the loggedIn user
-				if (
-					(await checkAccountValidity(googleLoggedInUser.email)) ===
-					false
-				) {
-					const auth = getAuth();
+          // signOut(auth).then(() => {
+          // 	console.log('Mobile Users Not Allowed');
+          // });
 
-					// sign out the invalid user
-					signOut(auth).then(() => {
-						console.log('Mobile Users Not Allowed');
-					});
-				}
+          handleLoginSuccess(user.email);
+        } else {
+          // call the post login success function
+          handleLoginSuccess(user.email);
+        }
 
-				// call the post login success function
-				handleLoginSuccess(googleLoggedInUser.email);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	};
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
 
-	return (
-		<div className='loginSignUpContainer'>
-			<div className='loginSignUpBox'>
-				<div>
-					<div className='login_signup_toggler'>
-						{/* We need to pass the arguments thats why we are using onclick along with function */}
-						<p onClick={(e) => switchTabs(e, 'login')}>LOGIN</p>
-						<p onClick={(e) => switchTabs(e, 'register')}>
-							REGISTER
-						</p>
-					</div>
-					{/* Using the below button tag as a boorder-bottom of the login and register and when user clicks on this we switch from login to register and vice versa */}
-					<button ref={switcherTab}></button>
-				</div>
-				{/* Login form */}
-				<form className='logInForm' ref={loginTab} onSubmit={Login}>
-					<div className='loginEmail'>
-						<MailOutlineSharpIcon />
-						<input
-							type='email'
-							placeholder='Email'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							required
-						/>
-					</div>
-					<div className='loginPassword'>
-						<LockOpenSharpIcon />
-						<input
-							type='password'
-							placeholder='Password'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							required
-						/>
-					</div>
-					<input
-						type='submit'
-						value='Login'
-						className='loginBtn'
-						//
-					/>
-					<GoogleIcon onClick={handleGoogleLogin}> </GoogleIcon>
-				</form>
-				{/* Register form */}
-				<form
-					className='signUpForm'
-					ref={registerTab}
-					onSubmit={createAccount}>
-					<div className='registerName'>
-						<FaceIcon />
-						<input
-							type='text'
-							placeholder='Name'
-							name='name'
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-							required
-						/>
-					</div>
-					<div className='registerEmail'>
-						<MailOutlineSharpIcon />
-						<input
-							type='email'
-							placeholder='Email'
-							name='email'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							required
-						/>
-					</div>
-					<div className='registerPassword'>
-						<LockOpenSharpIcon />
-						<input
-							type='password'
-							placeholder='Password'
-							name='password'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							required
-						/>
-					</div>
-					<input
-						type='submit'
-						value='Register'
-						className='signUpBtn'
-					/>
-					<GoogleIcon onClick={handleGoogleLogin}> </GoogleIcon>
-				</form>{' '}
-			</div>
-		</div>
-	);
+    setEmail("");
+    setPassword("");
+  };
+
+  // switch tabs
+  const switchTabs = (e, tab) => {
+    if (tab === "login") {
+      switcherTab.current.classList.add("shiftToNeutral");
+      switcherTab.current.classList.remove("shiftToRight");
+
+      registerTab.current.classList.remove("shiftToNeutralForm");
+      loginTab.current.classList.remove("shiftToLeft");
+    } else {
+      switcherTab.current.classList.add("shiftToRight");
+      switcherTab.current.classList.remove("shiftToNeutral");
+
+      registerTab.current.classList.add("shiftToNeutralForm");
+      loginTab.current.classList.add("shiftToLeft");
+    }
+  };
+
+  // function to handle login process using google accounts
+  const handleGoogleLogin = (event) => {
+    event.preventDefault();
+
+    // pass the auth and google provider object to the signInWithPopup
+    signInWithPopup(auth, googleSignInProvider)
+      .then(async (result) => {
+		// fetch the current loggedIn user details
+		alert("You have successfully logged in!")
+
+        const googleLoggedInUser = result.user;
+
+        // check if the user is new or not
+        const newUser = getAdditionalUserInfo(result).isNewUser;
+
+        // if the user has loggedIn for the first time then create a doc for the new user
+        if (newUser) {
+          // add their email, account type, status and name to the database
+          createWebAccountDetailsOnAccountCreation(
+            googleLoggedInUser.email,
+            googleLoggedInUser.displayName
+          );
+        }
+
+        // validate the account type of the loggedIn user
+        if ((await checkAccountValidity(googleLoggedInUser.email)) === false) {
+          // const auth = getAuth();
+
+          // // sign out the invalid user
+          // signOut(auth).then(() => {
+          // 	console.log('Mobile Users Not Allowed');
+          // });
+          handleLoginSuccess(googleLoggedInUser.email);
+        }
+
+        // call the post login success function
+        handleLoginSuccess(googleLoggedInUser.email);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  return (
+    <div className="loginSignUpContainer">
+      <div className="loginSignUpBox">
+        <div>
+          <div className="login_signup_toggler">
+            {/* We need to pass the arguments thats why we are using onclick along with function */}
+            <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
+            <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
+          </div>
+          {/* Using the below button tag as a boorder-bottom of the login and register and when user clicks on this we switch from login to register and vice versa */}
+          <button ref={switcherTab}></button>
+        </div>
+        {/* Login form */}
+        <form className="logInForm" ref={loginTab} onSubmit={Login}>
+          <div className="loginEmail">
+            {/* <MailOutlineSharpIcon /> */}
+            <input
+              style={{ color: "black" }}
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="loginPassword">
+            {/* <LockOpenSharpIcon /> */}
+            <input
+              style={{ color: "black" }}
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <input
+            type="submit"
+            value="Login"
+            className="loginBtn"
+            //
+          />
+          <GoogleIcon onClick={handleGoogleLogin}> </GoogleIcon>
+        </form>
+        {/* Register form */}
+        <form className="signUpForm" ref={registerTab} onSubmit={createAccount}>
+          <div className="registerName">
+            {/* <FaceIcon /> */}
+            <input
+              style={{ color: "black" }}
+              type="text"
+              placeholder="Name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="registerEmail">
+            {/* <MailOutlineSharpIcon /> */}
+            <input
+              style={{ color: "black" }}
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="registerPassword">
+            {/* <LockOpenSharpIcon /> */}
+            <input
+              style={{ color: "black" }}
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <input type="submit" value="Register" className="signUpBtn" />
+          <GoogleIcon onClick={handleGoogleLogin}> </GoogleIcon>
+        </form>{" "}
+      </div>
+      {/* <Button
+        variant="outlined"
+        onClick={() => {
+          setPopuplogin(!popuplogin);
+        }}
+      >
+        Toggle
+      </Button>
+      <Snackbar autoHideDuration={1} open={popuplogin}>
+        <Alert
+          sx={{
+            position: "absolute",
+            zIndex: 30,
+            top: -650,
+            width: "400px",
+            left: 1150,
+          }}
+          severity="success"
+          action={
+            <Button
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setPopuplogin(!popuplogin);
+              }}
+            >
+              X
+            </Button>
+          }
+        >
+          You have successfully logged in!{" "}
+        </Alert>
+      </Snackbar> */}
+    </div>
+  );
 };
 
 export default JoinUs;
