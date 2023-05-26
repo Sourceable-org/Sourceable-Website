@@ -379,16 +379,23 @@ const Chatbox = () => {
 				const newChatUsers = [...chatUsers];
 
 				snapshot.docs.forEach((change) => {
-					const singleChatUserData = change.data();
+					const singleChatUserData = {
+						"email" : decryptData(change.data().email).toString(),
+						"account_type" : decryptData(change.data().account_type).toString(),
+						"status" : decryptData(change.data().status).toString(),
+						"name" : decryptData(change.data().name).toString()
+					}
 
+					console.log("+++++++++++++++++++++++++++++++++++++++++",singleChatUserData);
+					
 					// if the status is string then set the value to online
-					if (typeof singleChatUserData.status === 'string') {
-						singleChatUserData.status = encryptedData("online");
+					if (typeof decryptData(singleChatUserData.status).toString() === 'string') {
+						singleChatUserData.status = "online";
 					}
 					// if the status is timestamp type then get the DateObject
 					// indicates the user is offline currently and we will display the last seen
 					else {
-						singleChatUserData.status = singleChatUserData.status
+						singleChatUserData.status = decryptData(singleChatUserData.status).toString()
 							.toDate()
 							.toLocaleString();
 					}
@@ -525,7 +532,7 @@ const Chatbox = () => {
 								<ChatRoom
 									currentReceiverName={name}
 									currentReceiverStatus={status}
-									currentReceiverChatID={email}
+									currentReceiverChatID={decryptData(email).toString()}
 									senderEmail={senderEmail}
 								/>
 							);
