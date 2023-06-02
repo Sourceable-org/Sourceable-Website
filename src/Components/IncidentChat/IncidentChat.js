@@ -361,9 +361,9 @@ function encryptedData(str){
 					const singleChatUserData = change.data();
 					// console.log(singleChatUserData);
 
-					singleChatUserData.name = decryptData(singleChatUserData.name).toString();
-					singleChatUserData.email = decryptData(singleChatUserData.email).toString();
-					singleChatUserData.account_type = decryptData(singleChatUserData.account_type).toString();
+					singleChatUserData.name = decryptID(singleChatUserData.name);
+					singleChatUserData.email = decryptID(singleChatUserData.email);
+					singleChatUserData.account_type = decryptID(singleChatUserData.account_type);
 
 					// if(singleChatUserData.email == senderEmail){
 					// 	console.log("singleChatUserData:::::::::::::::::",singleChatUserData)
