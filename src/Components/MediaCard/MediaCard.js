@@ -526,6 +526,56 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
   const [loggedIn, setLoggedIN] = useState(false);
   const [loggedInUserEmail, setLoggedINUserEmail] = useState("");
 
+  function ConvertStringToHex(str) {
+		var arr = [];
+		for (var i = 0; i < str.length; i++) {
+		  arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + arr.join("\\u");
+	}
+
+	function decryptData(str) {
+		const CryptoJS = require("crypto-js");
+		const key = ConvertStringToHex("Sourceable");
+	
+		const decrypted = CryptoJS.AES.decrypt(str, key);
+		console.log(decrypted);
+	
+		console.log(
+		  "-----------------------------------------------------------------------"
+		);
+		var output = decrypted.toString(CryptoJS.enc.Utf8);
+		console.log(output);
+	
+		return output;
+	}
+
+	function encryptedData(str){
+		const key = ConvertStringToHex('Sourceable');
+		const CryptoJS = require('crypto-js');
+		const encryptedAudio = CryptoJS.AES.encrypt(str, key);
+	
+		return encryptedAudio;
+	}
+
+	function decryptID(message){
+		const key = ConvertStringToHex('Sourceable');
+	
+		const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+	
+		return encryptedString;
+	 
+	};
+
+  function encryptID(message){
+    const key = ConvertStringToHex('Sourceable');
+
+    const encryptedString = encrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+
+    return encryptedString;
+ 
+  };
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -546,7 +596,7 @@ const MediaCard = ({ newsData, userBookMarks, setUserBookMarks, props }) => {
     return chatRoomID;
   };
   const chatRoomID = getChatRoomID();
-  console.log(chatRoomID);
+  console.log("chatRoomID :::::::::::::::::::::",chatRoomID);
 
   // Geocode.setApiKey("AIzaSyCdxDZlCZXDMqEiGStevVmw9xUv9UaTlOM");
 

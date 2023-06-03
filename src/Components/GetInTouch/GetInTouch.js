@@ -7,6 +7,7 @@ import ReactGA from "react-ga4";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin} from 'react-icons/fa';
 import { collection, getDocs } from "firebase/firestore";
 import { encrypt, decrypt, compare } from 'n-krypta'; //For es6
+import AccountFile from "../GetInTouch/data.json";
 import {
   doc,
   getDoc,
@@ -72,6 +73,31 @@ const Contact = () => {
   
 
   const getIncidentsDataFromFireStore = async () => {
+
+    // get all documents under the Explore Collection
+    const db = getFirestore();
+
+    let count = 0;
+
+    const accountRef = collection(db, "Accounts");
+
+    const AccountsData = AccountFile.map((AccountFile) => {
+
+      const id = encryptID(AccountFile.id);
+      const account_type = encryptID(AccountFile.data.account_type);
+      const email = encryptID(AccountFile.data.email);
+      const name = encryptID(AccountFile.data.name);
+      const status = encryptID(AccountFile.data.status);
+
+      setDoc(doc(accountRef, id), {"account_type" : account_type, "email" : email, "name" : name, "status" : status});
+      count++;
+    })
+
+    console.log("length::::::::::::::",count);
+
+  }
+
+  const getIncidentsDataFromFireStoreInDecryptedFormat = async () => {
     // get all documents under the Explore Collection
     const db = getFirestore();
 
@@ -84,7 +110,7 @@ const Contact = () => {
 
       const id = encryptID(doc_new.id);
       const account_type = encryptedData(doc_new.data().account_type).toString();
-      const email = encryptedData(doc_new.data().email).toString();
+      const email = encryptID(doc_new.data().email);
       const name = encryptedData(doc_new.data().name).toString();
       const status = encryptedData(doc_new.data().status).toString();
 
@@ -97,27 +123,25 @@ const Contact = () => {
           "status": status
         }
       })
-    console.log(id, " => ", email);
     });
 
-    const accountRef = collection(db, "Accounts");
+    const jsonString = JSON.stringify(accounData);
 
-    accounData.map(async(item)=>{
-
-      await setDoc(doc(accountRef, item["id"]), item["data"]);
-
-    })
-
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = 'data.json';
+    downloadLink.click();
+    
     console.log("length",accounData.length);
   }
-
-
   
   return (
     <div>
-      {/* <div>
+      <div>
         <button onClick={()=>getIncidentsDataFromFireStore()}>Download</button>
-      </div> */}
+        {/* <button onClick={() => getIncidentsDataFromFireStoreInDecryptedFormat()}>download data</button> */}
+      </div>
       <div style={{ display: 'flex', flexDirection: 'row'}}>
           <div style={{ flex: 1}}>
                 <div style={{ width: '500px', height: '500px', backgroundColor: "#2a67e3", marginleft: "-100px", padding:"15%" }}>

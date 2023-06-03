@@ -301,7 +301,7 @@ const Index = (props) => {
       const querySnapshot = await getDocs(collection(db, "Accounts"));
       querySnapshot.docs.map((doc) => {
         const data = doc.data();
-        account_type_data[decryptData(data.account_type)] += 1;
+        account_type_data[decryptID(data.account_type)] += 1;
       });
 
       account_type_charts = Object.values(account_type_data);

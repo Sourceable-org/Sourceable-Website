@@ -359,10 +359,19 @@ function encryptedData(str){
 
 				snapshot.docs.forEach((change) => {
 					const singleChatUserData = change.data();
+					// console.log(singleChatUserData);
+
+					singleChatUserData.name = decryptID(singleChatUserData.name);
+					singleChatUserData.email = decryptID(singleChatUserData.email);
+					singleChatUserData.account_type = decryptID(singleChatUserData.account_type);
+
+					// if(singleChatUserData.email == senderEmail){
+					// 	console.log("singleChatUserData:::::::::::::::::",singleChatUserData)
+					// }
 
 					// if the status is string then set the value to online
 					if (typeof singleChatUserData.status === 'string') {
-						singleChatUserData.status = encryptedData("online");
+						singleChatUserData.status = "online";
 					}
 					// if the status is timestamp type then get the DateObject
 					// indicates the user is offline currently and we will display the last seen
@@ -372,21 +381,34 @@ function encryptedData(str){
 							.toLocaleString();
 					}
 
-					// append the data of the new chat user
-					newChatUsers.push(singleChatUserData);
+					console.log("incidentEmail",incidentEmail, ":::::", singleChatUserData.email)
+					if(singleChatUserData.email == incidentEmail){
+						// append the data of the new chat user
+						newChatUsers.push(singleChatUserData);
+
+					}
+					
+					
 				});
 
+				console.log(senderEmail, incidentEmail);
+
 				// keep all the chat users except the loggedInUser
-				const chatUsersFromFireBaseWithoutLoggedInUser =
-					newChatUsers.filter(
-						(element) => element.email !== senderEmail
-					);
+				// const chatUsersFromFireBaseWithoutLoggedInUser =
+				// 	newChatUsers.filter(
+				// 		(element) => element.email !== senderEmail
+				// 	);
 
 				// chat users are set to true
 				setChatUsersLoaded(true);
 				// update the chatUsers state variable
-				setChatUsers(chatUsersFromFireBaseWithoutLoggedInUser.filter(x => x.email == incidentEmail));
-				console.log(chatUsersFromFireBaseWithoutLoggedInUser.filter(x => x.email == incidentEmail));
+				// setChatUsers(chatUsersFromFireBaseWithoutLoggedInUser.filter(x => x.email == incidentEmail));
+				// console.log(chatUsersFromFireBaseWithoutLoggedInUser.filter(x => x.email == incidentEmail));
+
+
+				setChatUsers(newChatUsers);
+
+				console.log(newChatUsers);
 			}
 		);
 

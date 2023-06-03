@@ -94,7 +94,7 @@ function encryptedData(str){
 	};
 
 
-  const JOURNALIST_ACCOUNT_TYPE = encryptedData("web");
+  const JOURNALIST_ACCOUNT_TYPE = encryptID("web");
 
   const createAccount = async (e) => {
     e.preventDefault();
@@ -129,7 +129,7 @@ function encryptedData(str){
     // if account exists
     if (accountSnap.exists()) {
       // account_type matches JOURNALIST_ACCOUNT_TYPE then return true
-      if (accountSnap.data()["account_type"] === encryptedData(JOURNALIST_ACCOUNT_TYPE)) {
+      if (accountSnap.data()["account_type"] === encryptID(JOURNALIST_ACCOUNT_TYPE)) {
         return true;
       }
     }
@@ -142,10 +142,10 @@ function encryptedData(str){
     userName
   ) => {
     await setDoc(doc(db, "Accounts", encryptID(userEmail)), {
-      name: encryptedData(userName),
-      email: encryptedData(userEmail),
-      account_type: encryptedData(JOURNALIST_ACCOUNT_TYPE),
-      status: encryptedData("online"),
+      name: encryptID(userName),
+      email: encryptID(userEmail),
+      account_type: encryptID(JOURNALIST_ACCOUNT_TYPE),
+      status: encryptID("online"),
     });
   };
 
@@ -154,7 +154,7 @@ function encryptedData(str){
     // function to update the status of the user to online post successful Login
     const updateUserStatus = async (userEmail) => {
       await updateDoc(doc(db, "Accounts", encryptID(userEmail)), {
-        status: encryptedData("online"),
+        status: encryptID("online"),
       });
     };
 
