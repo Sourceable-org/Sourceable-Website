@@ -15,7 +15,7 @@ import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 import PaymentButton from './Components/PaymentButton/PaymentButton';
 import IncidentChat from './Components/IncidentChat/IncidentChat';
 import Dashboard from './Components/Dashboard/Dashboard.js';
-import PaymentButton from './Components/PaymentButton/PaymentButton';
+//import PaymentButton from './Components/PaymentButton/PaymentButton';
 // import ReactGa4 from "react-ga";
 import ReactGA from "react-ga4";
 
