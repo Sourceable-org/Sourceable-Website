@@ -358,12 +358,12 @@ const Chatbox = () => {
 
 	function decryptID(message){
 		const key = ConvertStringToHex('Sourceable');
-	
+	  
 		const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
-	
+	  
 		return encryptedString;
-	 
-	};
+	   
+	  };
 
 	useEffect(() => {
 		// if senderEmail is not yet fetched then do not make API CALL
@@ -382,20 +382,20 @@ const Chatbox = () => {
 					const singleChatUserData = {
 						"email" : decryptID(change.data().email),
 						"account_type" : decryptID(change.data().account_type),
-						"status" : decryptID(change.data().status),
+						"status" : change.data().status,
 						"name" : decryptID(change.data().name)
 					}
 
 					console.log("+++++++++++++++++++++++++++++++++++++++++",singleChatUserData);
 					
 					// if the status is string then set the value to online
-					if (typeof decryptID(singleChatUserData.status) === 'string') {
+					if (typeof singleChatUserData.status === 'string') {
 						singleChatUserData.status = "online";
 					}
 					// if the status is timestamp type then get the DateObject
 					// indicates the user is offline currently and we will display the last seen
 					else {
-						singleChatUserData.status = decryptID(singleChatUserData.status)
+						singleChatUserData.status = singleChatUserData.status
 							.toDate()
 							.toLocaleString();
 					}
@@ -403,6 +403,8 @@ const Chatbox = () => {
 					// append the data of the new chat user
 					newChatUsers.push(singleChatUserData);
 				});
+
+				console.log(newChatUsers, "::::::::::::::::::::::::::", senderEmail)
 
 				// keep all the chat users except the loggedInUser
 				const chatUsersFromFireBaseWithoutLoggedInUser =
@@ -532,7 +534,7 @@ const Chatbox = () => {
 								<ChatRoom
 									currentReceiverName={name}
 									currentReceiverStatus={status}
-									currentReceiverChatID={decryptID(email)}
+									currentReceiverChatID={email}
 									senderEmail={senderEmail}
 								/>
 							);
