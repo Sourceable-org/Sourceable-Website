@@ -1,69 +1,209 @@
-.footerPage{
-    width: 100%;
-    height: 35vh;
-    /* background-color: rgba(0, 0, 0, 0.603); */
-    /* background:linear-gradient(to right, #a7a7a8, black); */
-    display: flex;
-    flex-direction: column;
+.footerPage {
+  /* Layout Properties */
+  /* width: 1920px; */
+  height: 942px;
+  /* UI Properties */
+  background: transparent url("../../assets/img/revamp/footer_bg.png") no-repeat center center fixed;
+  opacity: 1;
 }
 
-.footerPage .footer1{
-    height: 20vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.footerText {
+  background: var(--unnamed-color-000000) 0% 0% no-repeat padding-box;
+  background: #000000 0% 0% no-repeat padding-box;
+  opacity: 1;
+  justify-content: center;
+  align-items: center;
 }
 
-.content{
-    /* background-color: hotpink; */
-    height: 100%;
-    width: 50%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: white;
-   
+.footerInnerDiv {
+  /* Layout Properties */
+  top: 318%;
+  left: 8%;
+  width: 70%;
+  height: 80%;
+  position: absolute;
+  /* UI Properties */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 0.2;
+  border-radius: 2%;
 }
-.content h5{
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
+.footerInnerPhone {
+  /* Layout Properties */
+  top: 320%;
+  left: 126px;
+  width: 343px;
+  height: 710px;
+  position: absolute;
+  background: url("../../assets/img/revamp/phone.png");
+  /* UI Properties */
+  opacity: 1;
+  border-radius: 6%;
 }
-.content b{
-    letter-spacing: 2px;
-    margin-top: 1vmax;
-   color: black;
-   font-family: 'Poppins', sans-serif;
+.footerTitle {
+  /* Layout Properties */
+  top: 2605px;
+  left: 504px;
+  width: 477px;
+  height: 155px;
+  position: absolute;
+
+  /* UI Properties */
+  font-size: 45px;
+  text-align: left;
+  font: bold bold medium 85px/75px FuturaBT-BoldCondensed;
+  letter-spacing: 0px;
+  color: #3a76f0;
+  opacity: 1;
 }
-.content>div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.footerSub {
+  /* Layout Properties */
+  top: 2775px;
+  left: 504px;
+  width: 477px;
+  height: 128px;
+  position: absolute;
+  /* UI Properties */
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-300)
+    var(--unnamed-font-size-26) / var(--unnamed-line-spacing-32)
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--unnamed-color-ffffff);
+  text-align: left;
+  font: normal normal 300 26px/32px Roboto;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+.footerSub2 {
+  /* Layout Properties */
+  top: 3075px;
+  left: 504px;
+  width: 477px;
+  height: 128px;
+  position: absolute;
+  /* UI Properties */
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-300)
+    var(--unnamed-font-size-26) / var(--unnamed-line-spacing-32)
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--unnamed-color-ffffff);
+  text-align: left;
+  font: normal normal 300 26px/32px Roboto;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
 }
 
-.content >div>img{
-    width: 15%;
-    cursor: pointer;
-    margin: 1vmax 1vmax;
+.googlePlay {
+  /* Layout Properties */
+  top: 3115px;
+  left: 474px;
+  width: 238px;
+  height: 73px;
+  position: absolute;
+  /* UI Properties */
+  border: 3px solid #000000;
+  border-radius: 10px;
+  opacity: 1;
+}
+.appStore {
+    /* Layout Properties */
+    top: 3115px;
+    left: 714px;
+    width: 238px;
+    height: 73px;
+    position: absolute;
+    /* UI Properties */
+    border: 3px solid #000000;
+    border-radius: 10px;
+    opacity: 1;
+  }
+
+  .footerSub3 {
+    /* Layout Properties */
+    top: 3205px;
+    left: 480px;
+    width: 477px;
+    height: 128px;
+    position: absolute;
+    /* UI Properties */
+    color: var(--unnamed-color-ffffff);
+    text-align: left;
+    font: normal normal 300 16px/30px Roboto;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+  }
+
+.footerTextInner {
+  justify-content: center;
+  align-items: center;
+  /* UI Properties */
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-300)
+    var(--unnamed-font-size-40) / 63.81px var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--unnamed-color-ffffff);
+  text-align: center;
+  font: normal normal 300 25px/64px Roboto;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
 }
 
+.footerPage .footer1 {
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-.footerPage .footer2{
-    height: 5vh;
-    border-top: 1px solid grey;
-    text-align: center;
-    color: black;
-    font-family: 'Raleway', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+.content {
+  /* background-color: hotpink; */
+  height: 100%;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+.content h5 {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+.content b {
+  letter-spacing: 2px;
+  margin-top: 1vmax;
+  color: black;
+  font-family: "Poppins", sans-serif;
+}
+.content > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content > div > img {
+  width: 15%;
+  cursor: pointer;
+  margin: 1vmax 1vmax;
+}
+
+.footerPage .footer2 {
+  height: 5vh;
+  border-top: 1px solid grey;
+  text-align: center;
+  color: black;
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }
 
 @media screen and (max-width: 600px) {
-    .content{
-        width: 80%;
-       
-    }
+  .content {
+    width: 80%;
   }
+}

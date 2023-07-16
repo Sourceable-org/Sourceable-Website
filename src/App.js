@@ -12,9 +12,10 @@ import Header from './Components/Header/Header.js';
 import Home from './Components/Home/Home.js';
 import JoinUs from './Components/JoinUs/JoinUs.js';
 import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
+import PaymentButton from './Components/PaymentButton/PaymentButton';
 import IncidentChat from './Components/IncidentChat/IncidentChat';
 import Dashboard from './Components/Dashboard/Dashboard.js';
-import PaymentButton from './Components/PaymentButton/PaymentButton';
+//import PaymentButton from './Components/PaymentButton/PaymentButton';
 // import ReactGa4 from "react-ga";
 import ReactGA from "react-ga4";
 
