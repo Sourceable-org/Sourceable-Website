@@ -9,6 +9,7 @@ import Helpus from "../HelpUS/helpus.js"
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 import VerifiedContent from '../VerifiedContent/Verified';
+import OurServices from '../OurServices/Services.js';
 import  Media from "../medeia/media.js"
 import TestiCards from "../testCards/testCards.js"
 const Home = () => {
@@ -34,9 +35,11 @@ const Home = () => {
       </Helmet>
       <Banner />
       <VerifiedContent />
+      <OurServices/>
       <TestiCards/>
       <Media/>
       <Helpus />
+
       {/* <GetInTouch /> */}
       {/* <Testimonial /> */}
       {/* <AboutUs /> */}

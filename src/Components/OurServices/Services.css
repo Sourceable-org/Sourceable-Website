@@ -1,0 +1,77 @@
+.services {
+     left: 0px;
+      height: 100%;
+      max-width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background: black url('../../assets/img/revamp/Group 210.png') 0% 0% no-repeat padding-box;
+      font-size: 20px;
+    }
+    .container {
+        display: flex;
+        justify-content: space-around;
+      }
+      
+      .transparent-rectangle {
+        width: 25%;
+        height: 380px;
+        background-color: rgba(255, 255, 255, 0.2);
+        display: flex;
+        /* align-items: center; */
+        justify-content: center;
+        border-radius: "20px";
+        flex-direction: column;
+      }
+      
+      .text {
+        color: white;
+        font-size: 22px;
+        margin-left: 2vh;  
+        text-align: left;
+        padding-bottom: 5%;
+        font-family: Roboto Condensed;
+
+      }
+
+      .h1 {
+        font-size: 20px;
+        text-align: left;
+        margin-left: 2vh;  
+      }
+      .container2 {
+        display: flex;
+        align-items: flex-start;
+      }
+      .header-image {
+        width: 50px;
+        height: auto;
+        margin-left: 2vh;  
+        padding-bottom: 6%;
+      }
+      .paragraph {
+        font-size: 16px;
+        text-align: left;
+        margin-left: 2vh;  
+      }
+      .LearnMore {
+        font-size: 18px;
+        text-align: left;
+        margin-left: 2vh;  
+        padding-bottom: 5%;
+        text-decoration: underline;
+      }
+      .LearnMore2 {
+        font-size: 18px;
+        text-align: left;
+        margin-left: 2vh;  
+        text-decoration: underline;
+        /* padding-top: "20px"; */
+      }
+      .header-image2{
+        width: 50px;
+        height: auto;
+        margin-left: 2vh;  
+        top:0;
+      }
+      
