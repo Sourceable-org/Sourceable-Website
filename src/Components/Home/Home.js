@@ -8,6 +8,8 @@ import GetInTouch from "../GetInTouch/GetInTouch";
 import Helpus from "../HelpUS/helpus.js"
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
+import VerifiedContent from '../VerifiedContent/Verified';
+
 
 const Home = () => {
 
@@ -31,7 +33,7 @@ const Home = () => {
         <title>Sourceable | Home</title>
       </Helmet>
       <Banner />
-      <Features />
+      <VerifiedContent />
       <Helpus />
       {/* <GetInTouch /> */}
       {/* <Testimonial /> */}
