@@ -1,0 +1,37 @@
+.Ourpartners {
+    padding-top: 6%;
+    left: 0px;
+    height: 100%;
+    max-width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 5%;
+  }
+  
+  .image-column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  
+  .image {
+    margin: 10px;
+    width: 150px;
+    height: auto;
+  }
+  .headerOne{
+    font-size: 60px;
+    text-align: center;
+  color: black;
+  font-family: roboto;
+  font-weight: bold;
+  }
+  
