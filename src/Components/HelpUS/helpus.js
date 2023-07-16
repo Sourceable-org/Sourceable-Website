@@ -44,12 +44,11 @@ const Features = () => {
   const gaEventTracker = useAnalyticsEventTracker("Supporrt Us");
 
   return (
-    <div className="containerFeature">
+    <div style={{ backgroundColor: "#F4F4F4" }} >
       <div className="above">
         <div>
           <div className="extra">
             <div className="extra_1">
-         
               <div
                 style={{
                   backgroundImage: `url(${bg})`,
