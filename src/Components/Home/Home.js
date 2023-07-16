@@ -7,6 +7,8 @@ import Testimonial from "../Testimonial/Testimonial";
 import GetInTouch from "../GetInTouch/GetInTouch";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
+import VerifiedContent from '../VerifiedContent/Verified';
+
 
 const Home = () => {
 
@@ -30,8 +32,9 @@ const Home = () => {
         <title>Sourceable | Home</title>
       </Helmet>
       <Banner />
-      <Features />
-      <GetInTouch />
+      <VerifiedContent />
+      {/* <Features /> */}
+      {/* <GetInTouch /> */}
       {/* <Testimonial /> */}
       {/* <AboutUs /> */}
     </Fragment>

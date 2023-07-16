@@ -1,0 +1,10 @@
+.verifiedPage {
+  top: 0px;
+	left: 0px;
+  height: 100%;
+	max-width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+  margin-top: 8%;
+}

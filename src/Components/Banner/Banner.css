@@ -1,11 +1,19 @@
 .homePage {
 	/* background: url('../images/home_back.jpg'); */
 	/* background: url('../../images/banner_bg.jpg'); */
+	top: 0px;
+	left: 0px;
+	/* width: 1920px; */
+	height: 100%;
 	max-width: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 100vh;
+	/* height: 100vh; */
+	/* background: url('../../assets/img/revamp/bg.png'); */
+	background: black url('../../assets/img/revamp/Mask Group 16.png') 0% 0% no-repeat padding-box;
+	/* background-image: url('../../assets/img/revamp/Mask Group 15.png'); */
+	opacity: 1;
 }
 
 .first {
@@ -76,3 +84,18 @@
 		height: auto;
 	}
 }
+
+.newpage {
+
+	padding-top: 10%;
+	/* padding-right: 30%; */
+	background: black url('../../assets/img/revamp/Mask Group 15.png') 0% 0% no-repeat padding-box;
+	/* background-image: url('../../assets/img/revamp/Mask Group 15.png'); */
+	opacity: 1;
+	/* width: 1920px; */
+	height: 900px;
+
+}
+  
+
+  
