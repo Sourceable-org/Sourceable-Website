@@ -68,11 +68,11 @@ const Features = () => {
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  // justifyContent: "flex-end",
+                  justifyContent: "flex-end",
+                  paddingLeft: "70px"
                 }}
               >
-                <div style={{ paddingLeft: "10%" ,paddingTop: "2%"}}>
+                <div style={{}}>
                   <div style={{ display: "flex" }}>
                     <div
                       style={{
@@ -103,7 +103,7 @@ const Features = () => {
                       <p></p>
                     </div>
                   </div>
-                  <div style={{ display: "flex", paddingTop: "5%" }}>
+                   <div style={{ display: "flex", paddingTop: "5%" }}>
                     <div
                       style={{
                         backgroundImage: `url(${bgS2})`,
@@ -218,15 +218,15 @@ const Features = () => {
                         restoring trust and transparency in media.
                       </p>
                     </div>
-                  </div>
+                  </div> 
                 </div>
 
                 <div
                   style={{
+                    flex:2,
                     paddingTop: "2%",
                     // marginLeft: "25%",
                     marginBottom: "-25%",
-                    justifyContent: "end",
                   }}
                 >
                   <img
