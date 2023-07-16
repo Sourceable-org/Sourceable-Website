@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 import VerifiedContent from '../VerifiedContent/Verified';
 import  Media from "../medeia/media.js"
-
+import TestiCards from "../testCards/testCards.js"
 const Home = () => {
 
   useEffect(()=>{
@@ -34,6 +34,7 @@ const Home = () => {
       </Helmet>
       <Banner />
       <VerifiedContent />
+      <TestiCards/>
       <Media/>
       <Helpus />
       {/* <GetInTouch /> */}
