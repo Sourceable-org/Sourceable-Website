@@ -12,7 +12,7 @@ import VerifiedContent from '../VerifiedContent/Verified';
 import OurServices from '../OurServices/Services.js';
 import  Media from "../medeia/media.js"
 import Hire from "../Hire/Hire.js"
-
+import TestiCards from "../testCards/testCards.js"
 const Home = () => {
 
   useEffect(()=>{
@@ -37,6 +37,7 @@ const Home = () => {
       <Banner />
       <VerifiedContent />
       <OurServices/>
+      <TestiCards/>
       <Hire/>
       <Media/>
       <Helpus />
