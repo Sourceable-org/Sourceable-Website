@@ -12,7 +12,7 @@ const Footer = () => {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     width: "100%",
-    height: "400px",
+    height: "500px",
     display: "flex", // Apply these styles in a flex container
   };
   return (
