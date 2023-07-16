@@ -1,12 +1,9 @@
 .footerPage {
   /* Layout Properties */
-  top: 8608px;
-  left: 0px;
-  width: 1920px;
+  /* width: 1920px; */
   height: 942px;
   /* UI Properties */
-  background: transparent url("../../assets/img/revamp/footer_bg.png") 0% 0%
-    no-repeat padding-box;
+  background: transparent url("../../assets/img/revamp/footer_bg.png") no-repeat center center fixed;
   opacity: 1;
 }
 
@@ -20,20 +17,19 @@
 
 .footerInnerDiv {
   /* Layout Properties */
-  top: 2525px;
-  left: 96px;
-  width: 865px;
-  height: 813px;
+  top: 318%;
+  left: 8%;
+  width: 70%;
+  height: 80%;
   position: absolute;
   /* UI Properties */
-  background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
   background: #ffffff 0% 0% no-repeat padding-box;
   opacity: 0.2;
   border-radius: 2%;
 }
 .footerInnerPhone {
   /* Layout Properties */
-  top: 2545px;
+  top: 320%;
   left: 126px;
   width: 343px;
   height: 710px;
