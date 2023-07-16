@@ -8,6 +8,7 @@ import GetInTouch from "../GetInTouch/GetInTouch";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 import VerifiedContent from '../VerifiedContent/Verified';
+import OurServices from '../OurServices/Services.js';
 
 
 const Home = () => {
@@ -33,6 +34,7 @@ const Home = () => {
       </Helmet>
       <Banner />
       <VerifiedContent />
+      <OurServices/>
       {/* <Features /> */}
       {/* <GetInTouch /> */}
       {/* <Testimonial /> */}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="75" height="75" viewBox="0 0 75 75">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_181" data-name="Rectangle 181" width="75" height="75" transform="translate(1212 5787)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_22" data-name="Mask Group 22" transform="translate(-1212 -5787)" clip-path="url(#clip-path)">
+    <g id="camera_1_" data-name="camera (1)" transform="translate(1212 5787)">
+      <path id="Path_219" data-name="Path 219" d="M68.391,28.434,56.4,32.068V24.78H53.012a11.665,11.665,0,0,0-17.392-15.5,14.585,14.585,0,1,0-24.013,15.5h-5V59.786H24.172L13.569,75h5.357L29.308,60.1V75H33.7V60.1L44.086,75h5.357l-10.6-15.214H56.4V52.5l11.989,3.634ZM64,50.208l-7.594-2.3V36.66L64,34.358ZM11,55.391V29.175h41V55.391Zm.834-40.8A10.193,10.193,0,1,1,22.031,24.78,10.2,10.2,0,0,1,11.838,14.587ZM43.9,10.225A7.277,7.277,0,1,1,36.618,17.5,7.286,7.286,0,0,1,43.9,10.225Z" fill="#fff"/>
+      <path id="Path_220" data-name="Path 220" d="M22.386,40.086H40.625V44.48H22.386Z" fill="#fff"/>
+    </g>
+  </g>
+</svg>
