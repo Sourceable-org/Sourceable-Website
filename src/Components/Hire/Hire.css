@@ -1,0 +1,56 @@
+
+.Hire {
+      padding-top: 6%;
+      left: 0px;
+      height: 100%;
+      max-width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background: black url('../../assets/img/revamp/Group 207.png') 0% 0% no-repeat padding-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 5%;
+  }
+  
+  .round-image {
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    margin-left: 1%;
+    margin-top: 3%;
+  }
+  
+
+  
+  .button {
+    margin-top: 2%;
+    color: #3a76f0;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: "Futura BdCn BT";
+    align-content: center;
+    height: 35px;
+    background-color: white;
+    border-radius: 15px;
+    width: 8%;
+  }
+  .image-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header{
+    font-size: 50px;
+  text-align: center;
+  color: white;
+  font-family: roboto;
+  font-weight: bold;
+  }
+  .paragraph {
+    color: white;
+    font-size: 22px;
+  }
+  
