@@ -9,7 +9,7 @@ import Helpus from "../HelpUS/helpus.js"
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 import VerifiedContent from '../VerifiedContent/Verified';
-
+import  Media from "../medeia/media.js"
 
 const Home = () => {
 
@@ -34,6 +34,7 @@ const Home = () => {
       </Helmet>
       <Banner />
       <VerifiedContent />
+      <Media/>
       <Helpus />
       {/* <GetInTouch /> */}
       {/* <Testimonial /> */}
