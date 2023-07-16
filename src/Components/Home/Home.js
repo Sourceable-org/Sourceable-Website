@@ -5,11 +5,12 @@ import Banner from "../Banner/Banner";
 import Features from "../Features/Features";
 import Testimonial from "../Testimonial/Testimonial";
 import GetInTouch from "../GetInTouch/GetInTouch";
+import Helpus from "../HelpUS/helpus.js"
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 import VerifiedContent from '../VerifiedContent/Verified';
 import OurServices from '../OurServices/Services.js';
-
+import  Media from "../medeia/media.js"
 
 const Home = () => {
 
@@ -35,7 +36,9 @@ const Home = () => {
       <Banner />
       <VerifiedContent />
       <OurServices/>
-      {/* <Features /> */}
+      <Media/>
+      <Helpus />
+
       {/* <GetInTouch /> */}
       {/* <Testimonial /> */}
       {/* <AboutUs /> */}
