@@ -5,7 +5,7 @@ import Banner from "../Banner/Banner";
 import Features from "../Features/Features";
 import Testimonial from "../Testimonial/Testimonial";
 import GetInTouch from "../GetInTouch/GetInTouch";
-import Helpus from "../HelpUS/Features.js"
+import Helpus from "../HelpUS/helpus.js"
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga4";
 
