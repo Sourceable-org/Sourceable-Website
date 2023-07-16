@@ -31,6 +31,7 @@ const Home = () => {
       </Helmet>
       <Banner />
       <Features />
+      <Features />
       {/* <GetInTouch /> */}
       {/* <Testimonial /> */}
       {/* <AboutUs /> */}

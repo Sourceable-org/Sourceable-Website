@@ -16,34 +16,6 @@ const Footer = () => {
     display: "flex", // Apply these styles in a flex container
   };
   return (
-    // <div className="footerPage" >
-    //   <div className="footerPage" >
-    //     <div>
-    //       <div>
-    //         <h1 className="footerTitle">Embark on your <br/>reporting journey</h1>
-    //       </div>
-    //       <div>
-    //         <p className="footerSub">
-    //           Consider applying to join Sourceable’s trusted and trained
-    //           journalists. Once accepted, you’ll receive an exclusive invitation
-    //           to download our app and commence your reporting journey.{" "}
-    //         </p>
-    //       </div>
-    //       <div>
-    //         <p className="footerSub2">Download Sourceable App*</p>
-    //       </div>
-
-    // 		<img className="googlePlay" src={PLAYSTORE}></img>
-
-    // 		<img className="appStore" src={APPSTORE}></img>
-    // 		<div>
-    //         <p className="footerSub3">*The App isn’t public at the moment and allows citizen journalists upon verification only .Please keep your documents handy.</p>
-    //       </div>
-    //       <hr className="footerSub"></hr>
-    //     </div>
-    //   </div>
-
-    // </div>
     <div>
       <div style={containerStyle}>
         <div
@@ -52,83 +24,74 @@ const Footer = () => {
             height: "87%",
             marginTop: "2%",
             marginLeft: "2%",
-            background: "#ffffff",
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "0% 0%",
-            opacity: 0.2,
             borderRadius: "2%",
-          }}
-        ></div>
-        <div
-          style={{
-            top: "290%",
-            left: "4%",
-            width: "30%",
-            height: "40%",
-            position: "absolute",
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundImage: `url(${phone})`,
-            opacity: "1",
-            borderRadius: "6%",
-          }}
-        ></div>
-        <div
-          style={{
-            top: "290%",
-            left: "18%",
-            position: "absolute",
+            display: "flex",
           }}
         >
-          <div style={{}}>
-            <h1
-              style={{
-                fontWeight: "bolder",
-                color: "#3a76f0",
-                fontFamily: "FuturaBT-BoldCondensed",
-              }}
-            >
-              Embark on your <br />
-              reporting journey
-            </h1>
-          </div>
+            <img style={{ width: "25%", height: "100%" ,padding: "2%"}} src={phone}></img>
+
           <div>
-            <p
-              style={{
-                color: "#ffffff",
-                fontFamily: "Roboto",
-				lineHeight: "18px"
-              }}
-            >
-              Consider applying to join Sourceable’s trusted and trained
-              journalists.<br/> Once accepted, you’ll receive an exclusive invitation
-              to download our app and <br/>commence your reporting journey.{" "}
-            </p>
-          </div>{" "}
-		  <div>
-            <p
-              style={{
-                color: "#ffffff",
-                fontFamily: "Roboto",
-              }}
-            >
-              Download Sourceable App*
-            </p>
-          </div>{" "}
-		  <div>
-			<hr />
-          </div>{" "}
-		  <div>
-		  <img style={{
-			width: "238px",
-			height: "73px"
-		  }} src={PLAYSTORE}></img>
-		  <img style={{
-			width: "238px",
-			height: "73px",
-			paddingLeft: "10px"
-		  }} src={APPSTORE}></img>
-		  </div>
+            <div style={{}}>
+              <h1
+                style={{
+                  fontWeight: "bolder",
+                  color: "#3a76f0",
+                  fontFamily: "FuturaBT-BoldCondensed",
+                }}
+              >
+                Embark on your <br />
+                reporting journey
+              </h1>
+            </div>
+            <div>
+              <p
+                style={{
+                  color: "#ffffff",
+                  fontFamily: "Roboto",
+                  lineHeight: "18px",
+                }}
+              >
+                Consider applying to join Sourceable’s trusted and trained
+                journalists.
+                <br /> Once accepted, you’ll receive an exclusive invitation to
+                download our app and <br />
+                commence your reporting journey.{" "}
+              </p>
+            </div>{" "}
+            <div>
+              <p
+                style={{
+                  color: "#ffffff",
+                  fontFamily: "Roboto",
+                }}
+              >
+                Download Sourceable App*
+              </p>
+            </div>{" "}
+            <div>
+              <hr />
+            </div>{" "}
+            <div>
+              <img
+                style={{
+                  width: "238px",
+                  height: "73px",
+                }}
+                src={PLAYSTORE}
+              ></img>
+              <img
+                style={{
+                  width: "238px",
+                  height: "73px",
+                  paddingLeft: "10px",
+                }}
+                src={APPSTORE}
+              ></img>
+            </div>
+          </div>
         </div>
       </div>
       <div
