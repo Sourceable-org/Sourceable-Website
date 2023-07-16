@@ -11,6 +11,7 @@ import ReactGA from "react-ga4";
 import VerifiedContent from '../VerifiedContent/Verified';
 import OurServices from '../OurServices/Services.js';
 import  Media from "../medeia/media.js"
+import Hire from "../Hire/Hire.js"
 
 const Home = () => {
 
@@ -36,6 +37,7 @@ const Home = () => {
       <Banner />
       <VerifiedContent />
       <OurServices/>
+      <Hire/>
       <Media/>
       <Helpus />
 

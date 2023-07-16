@@ -14,13 +14,14 @@
       }
       
       .transparent-rectangle {
-        width: 25%;
-        height: 380px;
+        width: 35%;
+        margin-left: 2%;
+        height: 550px;
         background-color: rgba(255, 255, 255, 0.2);
         display: flex;
         /* align-items: center; */
         justify-content: center;
-        border-radius: "20px";
+        /* border-radius: "50%"; */
         flex-direction: column;
       }
       
