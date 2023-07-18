@@ -13,15 +13,21 @@ const Services = () => {
       <div style={{ textAlign: "center",
                     color:"white",
                     paddingTop:"2%",
-                    paddingBottom: "5%"
+                    paddingBottom: "3%",
                      }}>
-        <p>Our services</p>
+        <p style={{
+            fontSize: "20px",
+            textAlign: "center",
+            color: "blue",
+            fontFamily: "sans-serif",
+            color:"white",
+          }}>Our services</p>
         <p
           style={{
             fontSize: "50px",
             textAlign: "center",
             color: "blue",
-            fontFamily: "roboto",
+            fontFamily: "sans-serif",
             fontWeight: "bold",
             color: "#3a76f0",
           }}

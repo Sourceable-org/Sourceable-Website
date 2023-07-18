@@ -56,7 +56,7 @@ const Features = () => {
                 <h1
                   style={{
                     textAlign: "center",
-                    fontFamily: "roboto",
+                    fontFamily: "sans-serif",
                     fontWeight: "bolder",
                     fontSize: "220%",
                   }}
@@ -73,7 +73,7 @@ const Features = () => {
                 }}
               >
                 <div style={{}}>
-                  <div style={{ display: "flex" }}>
+                  <div style={{ display: "flex", marginLeft:"12%" }}>
                     <div
                       style={{
                         backgroundImage: `url(${bgS1})`,
@@ -103,7 +103,7 @@ const Features = () => {
                       <p></p>
                     </div>
                   </div>
-                   <div style={{ display: "flex", paddingTop: "5%" }}>
+                   <div style={{ display: "flex", paddingTop: "5%" ,marginLeft:"12%"}}>
                     <div
                       style={{
                         backgroundImage: `url(${bgS2})`,
@@ -141,7 +141,7 @@ const Features = () => {
                       </p>
                     </div>
                   </div>
-                  <div style={{ display: "flex", paddingTop: "5%" }}>
+                  <div style={{ display: "flex", paddingTop: "5%" , marginLeft:"12%"}}>
                     <div
                       style={{
                         backgroundImage: `url(${bgS3})`,
@@ -180,7 +180,7 @@ const Features = () => {
                       </p>
                     </div>
                   </div>
-                  <div style={{ display: "flex", paddingTop: "5%" }}>
+                  <div style={{ display: "flex", paddingTop: "5%",marginLeft:"12%" }}>
                     <div
                       style={{
                         backgroundImage: `url(${bgS4})`,
@@ -227,6 +227,7 @@ const Features = () => {
                     paddingTop: "2%",
                     // marginLeft: "25%",
                     marginBottom: "-25%",
+                    // marginLeft:"100px"
                   }}
                 >
                   <img

@@ -10,14 +10,20 @@ import "./Verified.css";
 const VerifiedContent = () => {
   return (
     <div className="verifiedPage">
-      <div style={{ textAlign: "center" }}>
-        <p>Tending Now</p>
+      <div style={{ textAlign: "center",}}>
+        <p style={{
+            fontSize: "20px",
+            textAlign: "center",
+            color: "blue",
+            fontFamily: "sans-serif",
+            color: "black",
+          }}>Tending Now</p>
         <p
           style={{
             fontSize: "50px",
             textAlign: "center",
             color: "blue",
-            fontFamily: "roboto",
+            fontFamily: "sans-serif",
             fontWeight: "bold",
             color: "black",
           }}

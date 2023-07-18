@@ -59,7 +59,7 @@ const Banner = () => {
               fontSize: "20px",
               textAlign:"center",
               color: "white",
-              fontFamily: "roboto",
+              fontFamily: "sans-serif",
             }}
           >
             Real stories, from real people, in real time
@@ -67,7 +67,7 @@ const Banner = () => {
           <p
             style={{
               fontWeight: "bold",
-              fontFamily: "FuturaBT-BoldCondensed",
+              fontFamily: "sans-serif",
               fontSize: "40px",
               color: "white",
             }}
@@ -194,9 +194,9 @@ const Banner = () => {
               fontSize: "50px",
               textAlign:"center",
               color: "blue",
-              fontFamily: "roboto",
+              fontFamily: "sans-serif",
               fontWeight: "bold",
-              color: "blue",
+              color: "#0f68d2",
           
             }}
           >
@@ -204,7 +204,7 @@ const Banner = () => {
             </p>
           <p
             style={{
-              fontFamily: "roboto",
+              fontFamily: "sans-serif",
               fontSize: "20px",
               color: "white",
             }}
