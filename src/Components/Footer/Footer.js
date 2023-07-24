@@ -39,10 +39,11 @@ const Footer = () => {
                 style={{
                   fontWeight: "bolder",
                   color: "#3a76f0",
-                  fontFamily: "FuturaBT-BoldCondensed",
+                  fontFamily: "sans-serif",
+                  paddingTop:"7%"
                 }}
               >
-                Embark on your <br />
+                Embark on your 
                 reporting journey
               </h1>
             </div>
@@ -50,7 +51,7 @@ const Footer = () => {
               <p
                 style={{
                   color: "#ffffff",
-                  fontFamily: "Roboto",
+                  fontFamily: "sans-serif",
                   lineHeight: "18px",
                 }}
               >
@@ -65,7 +66,7 @@ const Footer = () => {
               <p
                 style={{
                   color: "#ffffff",
-                  fontFamily: "Roboto",
+                  fontFamily: "sans-serif",
                 }}
               >
                 Download Sourceable App*
@@ -108,10 +109,11 @@ const Footer = () => {
           style={{
             justifyContent: "center", // Justify content
             alignItems: "center", // Align items
-            font: "normal 300 20px/64px Roboto", // Font styles
+            fontFamily: "sans-serif", // Font styles
             color: "#ffffff", // Text color
             textAlign: "center", // Text align
             opacity: 1, // Opacity
+            fontSize:"18px"
           }}
         >
           EMPOWERING, SUPPORTING, AND CONNECTING CITIZEN JOURNALISTS TO SHARE

@@ -60,7 +60,7 @@ const Features = () => {
                     <h1
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fofontFamily: "sans-serif",
                         color: "#3A76F0",
                         fontSize: "30px",
                         fontWeight: "normal",
@@ -73,7 +73,7 @@ const Features = () => {
                     <h1
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fontFamily: "sans-serif",
                         color: "black",
                         fontSize: "50px",
                         fontWeight: "bolder",
@@ -88,7 +88,7 @@ const Features = () => {
                     <p
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fontFamily: "sans-serif",
                         color: "black",
                         paddingLeft: "5%",
                         paddingTop: "5%",
@@ -171,7 +171,7 @@ const Features = () => {
                     <h1
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fontFamily: "sans-serif",
                         color: "#3A76F0",
                         fontSize: "30px",
                         fontWeight: "normal",
@@ -184,7 +184,7 @@ const Features = () => {
                     <h1
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fontFamily: "sans-serif",
                         color: "black",
                         fontSize: "50px",
                         fontWeight: "bolder",
@@ -200,7 +200,7 @@ const Features = () => {
                     <p
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fontFamily: "sans-serif",
                         color: "black",
                         paddingLeft: "5%",
                         paddingTop: "5%",
@@ -218,7 +218,7 @@ const Features = () => {
                     <p
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fontFamily: "sans-serif",
                         color: "#3A76F0",
                         paddingLeft: "5%",
                         fontWeight: "bolder",

@@ -51,7 +51,7 @@ const Banner = () => {
     <div className="homePage">
       {}
       <div>
-        <div style={{ textAlign: "center", paddingTop: "4%" }}>
+        <div style={{ textAlign: "center", paddingTop: "5%" }}>
           <br></br>
           <p
             style={{
@@ -59,7 +59,9 @@ const Banner = () => {
               fontSize: "20px",
               textAlign:"center",
               color: "white",
-              fontFamily: "roboto",
+              fontFamily: "sans-serif",
+              // paddingBottom:"-100%"
+              marginBottom:"-10px"
             }}
           >
             Real stories, from real people, in real time
@@ -67,15 +69,24 @@ const Banner = () => {
           <p
             style={{
               fontWeight: "bold",
-              fontFamily: "FuturaBT-BoldCondensed",
-              fontSize: "40px",
+              fontFamily: "sans-serif",
+              fontSize: "50px",
               color: "white",
+              marginBottom:"-20px"
             }}
           >
             Bringing truth to the forefront
-            <br />
-            with trusted sources
-          </p>
+            </p>
+            <p
+            style={{
+              fontWeight: "bold",
+              fontFamily: "sans-serif",
+              fontSize: "50px",
+              color: "white",
+            }}
+          >with trusted sources</p> 
+            
+          
 
           
         </div>
@@ -194,9 +205,9 @@ const Banner = () => {
               fontSize: "50px",
               textAlign:"center",
               color: "blue",
-              fontFamily: "roboto",
+              fontFamily: "sans-serif",
               fontWeight: "bold",
-              color: "blue",
+              color: "#0f68d2",
           
             }}
           >
@@ -204,7 +215,7 @@ const Banner = () => {
             </p>
           <p
             style={{
-              fontFamily: "roboto",
+              fontFamily: "sans-serif",
               fontSize: "20px",
               color: "white",
             }}

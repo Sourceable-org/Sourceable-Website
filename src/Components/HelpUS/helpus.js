@@ -64,7 +64,7 @@ const Features = () => {
                     <h1
                       style={{
                         textAlign: "left",
-                        fontFamily: "FuturaBT-BoldCondensed",
+                        fontFamily: "sans-serif",
                         color: "black",
                         fontSize: "40px",
                         fontWeight: "bolder",
@@ -77,7 +77,7 @@ const Features = () => {
                     <p
                       style={{
                         textAlign: "left",
-                        fontFamily: "Roboto",
+                        fontFamily: "sans-serif",
                         color: "black",
                         paddingLeft: "5%",
                         fontSize: "17px",
@@ -138,6 +138,7 @@ const Features = () => {
                     src={helpus_imp}
                     style={{
                       height: "65%",
+                      marginLeft:"30%",
                     }}
                   />
                 </div>

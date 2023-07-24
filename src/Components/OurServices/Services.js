@@ -13,15 +13,21 @@ const Services = () => {
       <div style={{ textAlign: "center",
                     color:"white",
                     paddingTop:"2%",
-                    paddingBottom: "5%"
+                    paddingBottom: "3%",
                      }}>
-        <p>Our services</p>
+        <p style={{
+            fontSize: "20px",
+            textAlign: "center",
+            color: "blue",
+            fontFamily: "sans-serif",
+            color:"white",
+          }}>Our services</p>
         <p
           style={{
             fontSize: "50px",
             textAlign: "center",
             color: "blue",
-            fontFamily: "roboto",
+            fontFamily: "sans-serif",
             fontWeight: "bold",
             color: "#3a76f0",
           }}
@@ -35,7 +41,7 @@ const Services = () => {
             <p className="paragraph">
             Sourceable's subscription model provides exclusive real-time access to verified stories with multiple package options tailored to specific factors such as time, region, and conflict/crisis.
       </p>
-      <p className="LearnMore">Learn More</p>
+      {/* <p className="LearnMore">Learn More</p> */}
       </div>
       <div className="transparent-rectangle">
             <img src={Exclusive} alt="Subscription" className="header-image"/>  
@@ -43,7 +49,7 @@ const Services = () => {
             <p className="paragraph">
             Exclusivity and Usage Rights- Sourceable offers its members with the efficient and streamlined options to license content, ensuring exclusivity and comprehensive usage rights.      
             </p>
-            <p className="LearnMore">Learn More</p>
+            {/* <p className="LearnMore">Learn More</p> */}
       </div>
       <div className="transparent-rectangle">
             <img src={Request} alt="Subscription" className="header-image"/>  
@@ -54,7 +60,7 @@ const Services = () => {
             </p>
             <br></br>
             <br></br>
-            <p className="LearnMore">Learn More</p>
+            {/* <p className="LearnMore">Learn More</p> */}
       </div>
 
     

@@ -10,14 +10,20 @@ import "./Verified.css";
 const VerifiedContent = () => {
   return (
     <div className="verifiedPage">
-      <div style={{ textAlign: "center" }}>
-        <p>Tending Now</p>
+      <div style={{ textAlign: "center",}}>
+        <p style={{
+            fontSize: "20px",
+            textAlign: "center",
+            color: "blue",
+            fontFamily: "sans-serif",
+            color: "black",
+          }}>Tending Now</p>
         <p
           style={{
             fontSize: "50px",
             textAlign: "center",
             color: "blue",
-            fontFamily: "roboto",
+            fontFamily: "sans-serif",
             fontWeight: "bold",
             color: "black",
           }}
@@ -35,7 +41,7 @@ const VerifiedContent = () => {
 
           />
           <br/>
-          <p style={{ fontWeight: "bold", paddingTop:"2%" }}>
+          <p style={{ fontWeight: "bold", paddingTop:"2%", textAlign:"center" }}>
             Syria-Turkey Earthquake
           </p>
         </div>
@@ -45,7 +51,7 @@ const VerifiedContent = () => {
             alt="Image 2"
             style={{width: "90%",height:"85%" }}
           />
-               <p style={{ fontWeight: "bold", paddingTop:"2%"}}>
+               <p style={{ fontWeight: "bold", paddingTop:"2%",textAlign:"center"}}>
                Refugee Camps          
                </p>
         </div>
@@ -56,7 +62,7 @@ const VerifiedContent = () => {
             style={{width: "90%" ,height:"85%"}}
 
           />
-               <p style={{ fontWeight: "bold", paddingTop:"2%"}}>
+               <p style={{ fontWeight: "bold", paddingTop:"2%",textAlign:"center"}}>
                Top picks from Syria          
                </p>
         </div>
