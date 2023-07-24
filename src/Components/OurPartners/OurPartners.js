@@ -1,28 +1,46 @@
 import React from 'react';
 import './OurPartners.css';
 import Newyork from "../../images/New-York-Times-logo.webp";
-import Magnum from "../../assets/img/revamp/Rectangle 107.png";
-import OpenSociety from "../../assets/img/revamp/Rectangle 110.png";
-import BBC from "../../assets/img/revamp/Rectangle 79.png";
-import Witness from "../../assets/img/revamp/Rectangle 96.png";
-import ICFJ from "../../assets/img/revamp/Rectangle 100.png";
-import Irex from "../../assets/img/revamp/Rectangle 105.png";
+import abcnews from "../../assets/img/revamp/abcnews.webp";
+import businessinsider from "../../assets/img/revamp/buisness.webp";
+import gurdian from "../../assets/img/revamp//guardian.webp";
+import telegraph from "../../assets/img/revamp//thetelegraph.webp";
+
+
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 6,
+    // slidesToSlide: 3, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 2, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+};
 
 
 
 const ImageColumn = () => {
   return (
     <div className="Ourpartners">
-    <p className='headerOne'>Our Partners</p>
-
+    <p className='headerOne'>Appeared In</p>
       <div className="image-column">
         <img src={Newyork} alt="Image 1" className="image" />
-        <img src={BBC} alt="Image 2" className="image" />
-        <img src={Magnum} alt="Image 3" className="image" />
-        <img src={OpenSociety} alt="Image 4" className="image" />
-        <img src={Witness} alt="Image 5" className="image" />
-        <img src={ICFJ} alt="Image 6" className="image" />
-        <img src={Irex} alt="Image 7" className="image" />
+        <img src={abcnews} alt="Image 1" className="image" />
+        <img src={businessinsider} alt="Image 1" className="image" />
+        <img src={gurdian} alt="Image 2" className="image" />
+        <img src={telegraph} alt="Image 3" className="image" />
+       
       </div>
     </div>
   );

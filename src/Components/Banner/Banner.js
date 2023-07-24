@@ -51,7 +51,7 @@ const Banner = () => {
     <div className="homePage">
       {}
       <div>
-        <div style={{ textAlign: "center", paddingTop: "4%" }}>
+        <div style={{ textAlign: "center", paddingTop: "5%" }}>
           <br></br>
           <p
             style={{
@@ -60,6 +60,8 @@ const Banner = () => {
               textAlign:"center",
               color: "white",
               fontFamily: "sans-serif",
+              // paddingBottom:"-100%"
+              marginBottom:"-10px"
             }}
           >
             Real stories, from real people, in real time
@@ -68,14 +70,23 @@ const Banner = () => {
             style={{
               fontWeight: "bold",
               fontFamily: "sans-serif",
-              fontSize: "40px",
+              fontSize: "50px",
               color: "white",
+              marginBottom:"-20px"
             }}
           >
             Bringing truth to the forefront
-            <br />
-            with trusted sources
-          </p>
+            </p>
+            <p
+            style={{
+              fontWeight: "bold",
+              fontFamily: "sans-serif",
+              fontSize: "50px",
+              color: "white",
+            }}
+          >with trusted sources</p> 
+            
+          
 
           
         </div>

@@ -96,6 +96,7 @@ const Features = () => {
                           color: "#3A76F0",
                           fontSize: "100%",
                           marginLeft: "4%",
+                          fontFamily: "sans-serif",
                         }}
                       >
                         Revolutionizing Media Landscape
@@ -126,6 +127,7 @@ const Features = () => {
                           color: "#3A76F0",
                           fontSize: "100%",
                           marginLeft: "4%",
+                          fontFamily: "sans-serif",
                         }}
                       >
                         Verified Content
@@ -135,6 +137,7 @@ const Features = () => {
                           color: "black",
                           fontSize: "100%",
                           marginLeft: "4%",
+                          fontFamily: "sans-serif",
                         }}
                       >
                         Local journalists document and verify newsworthy events.
@@ -151,6 +154,7 @@ const Features = () => {
                         borderRadius: "15px",
                         height: "70px",
                         width: "100px",
+                        fontFamily: "sans-serif",
                       }}
                     ></div>
                     <div
@@ -164,6 +168,7 @@ const Features = () => {
                           color: "#3A76F0",
                           fontSize: "100%",
                           marginLeft: "4%",
+                          fontFamily: "sans-serif",
                         }}
                       >
                         We're Global
@@ -173,6 +178,7 @@ const Features = () => {
                           color: "black",
                           fontSize: "100%",
                           marginLeft: "4%",
+                          fontFamily: "sans-serif",
                         }}
                       >
                         Global media coverage and exposure for local issues and
@@ -203,6 +209,7 @@ const Features = () => {
                           color: "#3A76F0",
                           fontSize: "100%",
                           marginLeft: "4%",
+                          fontFamily: "sans-serif",
                         }}
                       >
                         Restoring Trust in Media
@@ -212,6 +219,7 @@ const Features = () => {
                           color: "black",
                           fontSize: "100%",
                           marginLeft: "4%",
+                          fontFamily: "sans-serif",
                         }}
                       >
                         More accountability, justice, and equity globally, while
@@ -224,8 +232,8 @@ const Features = () => {
                 <div
                   style={{
                     flex:2,
-                    paddingTop: "2%",
-                    // marginLeft: "25%",
+                    // paddingTop: "2%",
+                    marginRight: "-33%",
                     marginBottom: "-25%",
                     // marginLeft:"100px"
                   }}
@@ -233,7 +241,9 @@ const Features = () => {
                   <img
                     src={media_imp}
                     style={{
-                      height: "55%",
+                      height: "50%",
+                      // marginRight: "-30%",
+                      // marginLeft:"100px"
                     }}
                   />
                 </div>

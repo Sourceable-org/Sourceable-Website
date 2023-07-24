@@ -3,6 +3,7 @@
     left: 0px;
     height: 100%;
     max-width: 100%;
+    font-family: sans-serif;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -31,7 +32,8 @@
     font-size: 60px;
     text-align: center;
   color: black;
-  font-family: roboto;
+  font-family: sans-serif;
   font-weight: bold;
   }
+
   

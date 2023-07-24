@@ -41,7 +41,7 @@ const Services = () => {
             <p className="paragraph">
             Sourceable's subscription model provides exclusive real-time access to verified stories with multiple package options tailored to specific factors such as time, region, and conflict/crisis.
       </p>
-      <p className="LearnMore">Learn More</p>
+      {/* <p className="LearnMore">Learn More</p> */}
       </div>
       <div className="transparent-rectangle">
             <img src={Exclusive} alt="Subscription" className="header-image"/>  
@@ -49,7 +49,7 @@ const Services = () => {
             <p className="paragraph">
             Exclusivity and Usage Rights- Sourceable offers its members with the efficient and streamlined options to license content, ensuring exclusivity and comprehensive usage rights.      
             </p>
-            <p className="LearnMore">Learn More</p>
+            {/* <p className="LearnMore">Learn More</p> */}
       </div>
       <div className="transparent-rectangle">
             <img src={Request} alt="Subscription" className="header-image"/>  
@@ -60,7 +60,7 @@ const Services = () => {
             </p>
             <br></br>
             <br></br>
-            <p className="LearnMore">Learn More</p>
+            {/* <p className="LearnMore">Learn More</p> */}
       </div>
 
     

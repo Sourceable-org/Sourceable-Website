@@ -31,7 +31,7 @@
         margin-left: 2vh;  
         text-align: left;
         padding-bottom: 5%;
-        font-family: Roboto Condensed;
+        font-family: sans-serif;
 
       }
 
@@ -54,6 +54,7 @@
         font-size: 22px;
         text-align: left;
         margin-left: 2vh;  
+        font-family: sans-serif;
       }
       .LearnMore {
         font-size: 18px;

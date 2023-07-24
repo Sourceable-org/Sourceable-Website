@@ -41,7 +41,7 @@ const VerifiedContent = () => {
 
           />
           <br/>
-          <p style={{ fontWeight: "bold", paddingTop:"2%" }}>
+          <p style={{ fontWeight: "bold", paddingTop:"2%", textAlign:"center" }}>
             Syria-Turkey Earthquake
           </p>
         </div>
@@ -51,7 +51,7 @@ const VerifiedContent = () => {
             alt="Image 2"
             style={{width: "90%",height:"85%" }}
           />
-               <p style={{ fontWeight: "bold", paddingTop:"2%"}}>
+               <p style={{ fontWeight: "bold", paddingTop:"2%",textAlign:"center"}}>
                Refugee Camps          
                </p>
         </div>
@@ -62,7 +62,7 @@ const VerifiedContent = () => {
             style={{width: "90%" ,height:"85%"}}
 
           />
-               <p style={{ fontWeight: "bold", paddingTop:"2%"}}>
+               <p style={{ fontWeight: "bold", paddingTop:"2%",textAlign:"center"}}>
                Top picks from Syria          
                </p>
         </div>
