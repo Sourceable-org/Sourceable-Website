@@ -131,6 +131,7 @@ const Banner = () => {
             itemClass="carousel-item-padding-40-px"
             focusOnSelect={true}
           >
+            
             <div style={{paddingTop:"15%"}}>
               <img
                 src={img1}
