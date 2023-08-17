@@ -18,7 +18,7 @@ const Hire = () => {
         <img src={Journalist3} alt="Image 4" className="round-image" />
         {/* <img src={Journalist} alt="Image 5" className="round-image" /> */}
       </div>
-      <button className="button">VIEW ALL</button>
+      {/* <button className="button">VIEW ALL</button> */}
     </div>
   );
 };

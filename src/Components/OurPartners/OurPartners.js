@@ -5,6 +5,7 @@ import abcnews from "../../assets/img/revamp/abcnews.webp";
 import businessinsider from "../../assets/img/revamp/buisness.webp";
 import gurdian from "../../assets/img/revamp//guardian.webp";
 import telegraph from "../../assets/img/revamp//thetelegraph.webp";
+import InfiniteImageLooper from './InfiniteImageLooper';
 
 
 import Carousel from "react-multi-carousel";
@@ -31,18 +32,26 @@ const responsive = {
 
 
 const ImageColumn = () => {
+
+  const images = [Newyork, abcnews, businessinsider, gurdian, telegraph, ];
+
   return (
     <div className="Ourpartners">
-    <p className='headerOne'>Appeared In</p>
-      <div className="image-column">
-        <img src={Newyork} alt="Image 1" className="image" />
-        <img src={abcnews} alt="Image 1" className="image" />
-        <img src={businessinsider} alt="Image 1" className="image" />
-        <img src={gurdian} alt="Image 2" className="image" />
-        <img src={telegraph} alt="Image 3" className="image" />
-       
-      </div>
+      <p className='headerOne'>Appeared In</p>
+      <InfiniteImageLooper images={images} />
     </div>
+
+    // <div className="Ourpartners">
+    // <p className='headerOne'>Appeared In</p>
+    //   <div className="image-column">
+    //     <img src={Newyork} alt="Image 1" className="image" />
+    //     <img src={abcnews} alt="Image 1" className="image" />
+    //     <img src={businessinsider} alt="Image 1" className="image" />
+    //     <img src={gurdian} alt="Image 2" className="image" />
+    //     <img src={telegraph} alt="Image 3" className="image" />
+       
+    //   </div>
+    // </div>
   );
 };
 

@@ -1,6 +1,10 @@
 import React from "react";
 import "./Banner.css";
 
+
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import APPSTORE from "../../images/app store.png";
 import PLAYSTORE from "../../images/play store.png";
 import Vid from "../../video/sourceable-video_final.mp4";
@@ -24,12 +28,12 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 6,
-    // slidesToSlide: 3, // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 2,
-    slidesToSlide: 2, // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -46,7 +50,23 @@ function Rectangle() {
   );
 }
 
+
+
+
+  // const images = [
+  //   'img1',
+  //   'img2',
+  //   'img3',
+  //   'img4',
+  //   'img5',
+  //   'img6',
+  //   'img7'
+  //   // Add more image URLs here
+  // ];
+
+  
 const Banner = () => {
+
   return (
     <div className="homePage">
       {}
@@ -84,11 +104,7 @@ const Banner = () => {
               fontSize: "50px",
               color: "white",
             }}
-          >with trusted sources</p> 
-            
-          
-
-          
+          >with trusted sources</p>             
         </div>
 
         <div
@@ -105,16 +121,17 @@ const Banner = () => {
             ssr={true} // means to render carousel on server-side.
             infinite={true}
             autoPlay={true}
-            autoPlaySpeed={1000}
+            autoPlaySpeed={250}
             keyBoardControl={true}
-            customTransition="all .5"
-            transitionDuration={500}
+            // customTransition="all.3"
+            transitionDuration={250}
             arrows={false}
             containerClass="carousel-container"
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
             focusOnSelect={true}
           >
+            
             <div style={{paddingTop:"15%"}}>
               <img
                 src={img1}

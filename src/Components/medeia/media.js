@@ -52,7 +52,7 @@ const Features = () => {
         <div>
           <div className="extra">
             <div className="extra_1">
-              <div style={{ paddingTop: "3%" }}>
+              <div style={{ paddingTop: "3%",paddingBottom: "2%" }}>
                 <h1
                   style={{
                     textAlign: "center",
@@ -69,11 +69,11 @@ const Features = () => {
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
-                  paddingLeft: "70px"
+                  paddingLeft: "7px",
                 }}
               >
-                <div style={{}}>
-                  <div style={{ display: "flex", marginLeft:"12%" }}>
+                <div style={{ paddingBottom: "-10%" }}>
+                  <div style={{ display: "flex", marginLeft: "2%" }}>
                     <div
                       style={{
                         backgroundImage: `url(${bgS1})`,
@@ -101,10 +101,26 @@ const Features = () => {
                       >
                         Revolutionizing Media Landscape
                       </h1>
-                      <p></p>
+                      <p
+                        style={{
+                          color: "black",
+                          fontSize: "100%",
+                          marginLeft: "4%",
+                          fontFamily: "sans-serif",
+                        }}
+                      >
+                        leveraging cutting-edge technologies and innovations to<br/>
+                        improve the way news and information are presented and consumed
+                      </p>
                     </div>
                   </div>
-                   <div style={{ display: "flex", paddingTop: "5%" ,marginLeft:"12%"}}>
+                  <div
+                    style={{
+                      display: "flex",
+                      paddingTop: "3%",
+                      marginLeft: "2%",
+                    }}
+                  >
                     <div
                       style={{
                         backgroundImage: `url(${bgS2})`,
@@ -144,7 +160,13 @@ const Features = () => {
                       </p>
                     </div>
                   </div>
-                  <div style={{ display: "flex", paddingTop: "5%" , marginLeft:"12%"}}>
+                  <div
+                    style={{
+                      display: "flex",
+                      paddingTop: "5%",
+                      marginLeft: "2%",
+                    }}
+                  >
                     <div
                       style={{
                         backgroundImage: `url(${bgS3})`,
@@ -186,7 +208,13 @@ const Features = () => {
                       </p>
                     </div>
                   </div>
-                  <div style={{ display: "flex", paddingTop: "5%",marginLeft:"12%" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      paddingTop: "5%",
+                      marginLeft: "2%",
+                    }}
+                  >
                     <div
                       style={{
                         backgroundImage: `url(${bgS4})`,
@@ -226,27 +254,17 @@ const Features = () => {
                         restoring trust and transparency in media.
                       </p>
                     </div>
-                  </div> 
+                  </div>
                 </div>
 
-                <div
+                <img src={media_imp} style={{}} />
+
+                {/* <div
                   style={{
-                    flex:2,
-                    // paddingTop: "2%",
-                    marginRight: "-33%",
-                    marginBottom: "-25%",
-                    // marginLeft:"100px"
+                    paddingRight: "100px",
                   }}
-                >
-                  <img
-                    src={media_imp}
-                    style={{
-                      height: "50%",
-                      // marginRight: "-30%",
-                      // marginLeft:"100px"
-                    }}
-                  />
-                </div>
+                ></div> */}
+                
               </div>
             </div>
           </div>
