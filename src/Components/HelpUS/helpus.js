@@ -90,7 +90,7 @@ const Features = () => {
                     </p>
                   </div>
                   <div style={{ paddingLeft: "5%", display: "flex" }}>
-                    <div
+                    {/* <div
                       style={{
                         backgroundColor: "white",
                         borderRadius: "15px",
@@ -108,7 +108,7 @@ const Features = () => {
                       >
                         DONATE NOW
                       </h1>
-                    </div>
+                    </div> */}
 
                     <div
                       style={{

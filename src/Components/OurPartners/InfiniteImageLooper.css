@@ -1,0 +1,24 @@
+/* InfiniteImageLooper.css */
+.infinite-image-looper {
+  display: flex;
+  overflow: hidden;
+  animation: slide infinite linear 30s; /* Customize the animation duration */
+}
+
+.image-container {
+  flex: 10 10 10%; /* Display all images side by side */
+}
+
+.image-container img {
+  width: 50%;
+  height: 70%;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

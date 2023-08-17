@@ -17,6 +17,7 @@ import abc from "../../images/abcnews.webp";
 import tele from "../../images/thetelegraph.webp";
 import guardian from "../../images/guardian.webp";
 import "./testCards.css";
+import { BrowserRouter as Router, Route, Link, useHistory } from 'react-router-dom';
 
 import bg from "../../assets/img/revamp/bg_help.png";
 import tesi1 from "../../assets/img/revamp/Group 173.png";
@@ -113,7 +114,8 @@ const Features = () => {
                         fontSize: "17px",
                       }}
                     >
-                      Sign-in
+                      <Link to="/join">Sign-in</Link>
+                      
                     </p>
                   </div>
                 </div>

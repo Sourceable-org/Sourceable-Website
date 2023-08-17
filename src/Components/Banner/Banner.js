@@ -1,6 +1,10 @@
 import React from "react";
 import "./Banner.css";
 
+
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import APPSTORE from "../../images/app store.png";
 import PLAYSTORE from "../../images/play store.png";
 import Vid from "../../video/sourceable-video_final.mp4";
@@ -46,7 +50,23 @@ function Rectangle() {
   );
 }
 
+
+
+
+  // const images = [
+  //   'img1',
+  //   'img2',
+  //   'img3',
+  //   'img4',
+  //   'img5',
+  //   'img6',
+  //   'img7'
+  //   // Add more image URLs here
+  // ];
+
+  
 const Banner = () => {
+
   return (
     <div className="homePage">
       {}
@@ -84,11 +104,7 @@ const Banner = () => {
               fontSize: "50px",
               color: "white",
             }}
-          >with trusted sources</p> 
-            
-          
-
-          
+          >with trusted sources</p>             
         </div>
 
         <div
@@ -105,7 +121,7 @@ const Banner = () => {
             ssr={true} // means to render carousel on server-side.
             infinite={true}
             autoPlay={true}
-            autoPlaySpeed={1000}
+            autoPlaySpeed={500}
             keyBoardControl={true}
             customTransition="all .5"
             transitionDuration={500}

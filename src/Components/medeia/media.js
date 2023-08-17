@@ -101,7 +101,18 @@ const Features = () => {
                       >
                         Revolutionizing Media Landscape
                       </h1>
-                      <p></p>
+                      <p
+                        style={{
+                          color: "black",
+                          fontSize: "100%",
+                          marginLeft: "4%",
+                          fontFamily: "sans-serif",
+                        }}
+                      >
+                        leveraging cutting-edge technologies and innovations to improve the way news 
+                        <br></br>
+                        and information are presented and consumed
+                      </p>
                     </div>
                   </div>
                    <div style={{ display: "flex", paddingTop: "5%" ,marginLeft:"12%"}}>
