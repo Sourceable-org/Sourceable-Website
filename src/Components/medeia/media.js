@@ -259,11 +259,11 @@ const Features = () => {
 
                 <img src={media_imp} style={{}} />
 
-                <div
+                {/* <div
                   style={{
                     paddingRight: "100px",
                   }}
-                ></div>
+                ></div> */}
                 
               </div>
             </div>
