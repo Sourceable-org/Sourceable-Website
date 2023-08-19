@@ -94,6 +94,15 @@
   opacity: 1;
 }
 
+.custom-link {
+  color: white; /* Change this to the new color you want */
+}
+
+.custom-link:hover {
+  color: blue; /* This retains the original color on hover */
+  /* Other styles you might want to add on hover */
+}
+
 .googlePlay {
   /* Layout Properties */
   top: 3115px;

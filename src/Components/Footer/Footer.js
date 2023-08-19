@@ -58,19 +58,23 @@ const Footer = () => {
                 Consider applying to join Sourceable’s trusted and trained
                 journalists.
                 <br /> Once accepted, you’ll receive an exclusive invitation to
-                download our app and <br />
-                commence your reporting journey.{" "}
+                download  <br />
+                our app and commence your reporting journey.{" "}
               </p>
             </div>{" "}
             <div>
-              <p
+              <button
                 style={{
                   color: "#ffffff",
                   fontFamily: "sans-serif",
+                  width:"180px",
+                  borderRadius:"50px"
+                  
                 }}
               >
-                Download Sourceable App*
-              </p>
+                <a href="https://forms.gle/h424Y5nHwZrr1mCg8" target="_blank" rel="noopener noreferrer">Get Sourceable App</a>
+                
+              </button>
             </div>{" "}
             <div>
               <hr />

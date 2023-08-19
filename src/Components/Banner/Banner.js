@@ -1,7 +1,8 @@
 import React from "react";
 import "./Banner.css";
 
-
+import { useState, useEffect, useRef } from "react";
+import { encrypt, decrypt, compare } from 'n-krypta'; //For es6
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -20,9 +21,12 @@ import img4 from "../../images/homepage_slider/img4.jpg";
 import img5 from "../../images/homepage_slider/img5.jpg";
 import img6 from "../../images/homepage_slider/img6.jpg";
 import img7 from "../../images/homepage_slider/img7.jpg";
-
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../Firebase/Firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
 
 const responsive = {
   desktop: {
@@ -42,6 +46,7 @@ const responsive = {
   },
 };
 
+
 function Rectangle() {
   return (
     <svg width="200" height="200">
@@ -50,6 +55,24 @@ function Rectangle() {
   );
 }
 
+
+function ConvertStringToHex(str) {
+  var arr = [];
+  for (var i = 0; i < str.length; i++) {
+    arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+  }
+  return "\\u" + arr.join("\\u");
+}
+
+
+function decryptID(message){
+  const key = ConvertStringToHex('Sourceable');
+
+  const encryptedString = decrypt(message, key); // #Iblankartan!not!svreblankartwhfreblankartzpublankartase!gettiogblankartypvrblankartiofprmatipn,blankartcvtblankartgpoeblankarttopid.blankartI!oeedtblankartuoblankartspeodblankartspneblankarttjmfblankartlearoing!nore!osblankartundesstaoeing!mpre.blankartTiankt!for!eycelleotblankartiogoblankartI!wbsblankartlooling!gorblankartuhjsblankartinfpblankartfos!myblankartnitsion.#
+
+  return encryptedString;
+ 
+};
 
 
 
@@ -66,6 +89,59 @@ function Rectangle() {
 
   
 const Banner = () => {
+  const [userCount, setUserCount] = useState(0);
+  const[mediaCount, setMediaCount] = useState(0);
+
+  useEffect(() => {
+    const fetchUserCount = async () => {
+      try {
+        let count = 0
+        const querySnapshot = await getDocs(collection(db, "Accounts"));
+        querySnapshot.docs.map((doc) => {
+          count += 1
+        });
+
+        setUserCount(count)
+        
+      } catch (error) {
+        console.error('Error fetching user count:', error);
+      }
+    };
+
+    fetchUserCount();
+  }, []);
+
+  useEffect(() => {
+    const fetchMediaCount = async () => {
+      try {
+        let count = 0
+        const querySnapshot = await getDocs(collection(db, "Explore"));
+        querySnapshot.docs.map((doc) => {
+          count += 1
+        });
+
+        setMediaCount(count)
+        
+      } catch (error) {
+        console.error('Error fetching user count:', error);
+      }
+    };
+
+    fetchMediaCount();
+  }, []);
+
+
+
+  const getuserCount = async (db) => {
+
+    const querySnapshot = await getDocs(collection(db, "Accounts"));
+    querySnapshot.docs.map((doc) => {
+      const data = doc.data().length;
+      console.log(data)
+    });
+  
+  };
+
 
   return (
     <div className="homePage">
@@ -121,7 +197,7 @@ const Banner = () => {
             ssr={true} // means to render carousel on server-side.
             infinite={true}
             autoPlay={true}
-            autoPlaySpeed={250}
+            autoPlaySpeed={850}
             keyBoardControl={true}
             // customTransition="all.3"
             transitionDuration={250}
@@ -297,7 +373,7 @@ const Banner = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    68.3M+
+                    {mediaCount}+
                   </h2>
                   <h5
                     style={{
@@ -367,7 +443,7 @@ const Banner = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    500+
+                    {userCount}+
                   </h2>
                   <h5
                     style={{
