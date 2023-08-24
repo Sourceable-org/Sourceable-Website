@@ -208,7 +208,7 @@ function encryptedData(str){
                   color: "black",
                 }}
               >
-                Join Us
+                Get Started
               </Nav.Link>
             )}
 

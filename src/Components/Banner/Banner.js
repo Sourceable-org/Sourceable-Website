@@ -384,7 +384,7 @@ const Banner = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    Media Impressions
+                    Media Files
                   </h5>
                 </div>
                 <div style={{ flex: 1 }}>
