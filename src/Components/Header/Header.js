@@ -109,8 +109,7 @@ function encryptedData(str){
             <>
               {" "}
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp;
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
             </>
           ) : (
             <>
@@ -119,7 +118,7 @@ function encryptedData(str){
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              
             </>
           )}
 
@@ -130,6 +129,7 @@ function encryptedData(str){
               className="navOnHover"
               style={{
                 color: "black",
+                width: "70%"
               }}
             >
               Home
@@ -138,6 +138,7 @@ function encryptedData(str){
             <Nav.Link
               style={{
                 color: "black",
+                width: "100%"
               }}
               as={Link}
               to="/dashboard"
@@ -153,6 +154,7 @@ function encryptedData(str){
                 className="navOnHover"
                 style={{
                   color: "black",
+                  width: "70%"
                 }}
               >
                 Explore
@@ -167,6 +169,7 @@ function encryptedData(str){
               className="navOnHover"
               style={{
                 color: "black",
+                width: "100%"
               }}
             >
               Contact Us
@@ -177,6 +180,7 @@ function encryptedData(str){
                 className="navOnHover"
                 style={{
                   color: "black",
+                  width: "80%"
                 }}
                 onClick={() => {
                   // e.preventDefault();
@@ -206,6 +210,7 @@ function encryptedData(str){
                 className="navOnHover"
                 style={{
                   color: "black",
+                  width: "100%"
                 }}
               >
                 Get Started
@@ -219,6 +224,7 @@ function encryptedData(str){
                 className="navOnHover"
                 style={{
                   color: "black",
+                  width: "100%"
                 }}
               >
                 My Gallery
@@ -239,6 +245,7 @@ function encryptedData(str){
               className="navOnHover"
               style={{
                 color: "black",
+                width: "100%"
               }}
             >
               Support us
@@ -250,6 +257,7 @@ function encryptedData(str){
                 className="navOnHover"
                 style={{
                   color: "black",
+                  width: "100%"
                 }}
               >
                 Messaging
