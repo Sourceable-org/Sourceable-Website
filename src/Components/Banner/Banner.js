@@ -373,7 +373,8 @@ const Banner = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    {mediaCount}+
+                    {/* {mediaCount} */}
+                    3000+
                   </h2>
                   <h5
                     style={{
@@ -397,7 +398,7 @@ const Banner = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    20+
+                    25+
                   </h2>
                   <h5
                     style={{
@@ -420,7 +421,7 @@ const Banner = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    4+
+                    52+
                   </h2>
                   <h5
                     style={{
@@ -443,7 +444,8 @@ const Banner = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    {userCount}+
+                    {/* {userCount} */}
+                    1500+
                   </h2>
                   <h5
                     style={{
